@@ -52,12 +52,24 @@ CI_ENVIRONMENT = production
 
 #--------------------------------------------------------------------
 
-database.default.hostname = localhost
+database.default.hostname = osgweb-db.mysql.database.azure.com
 database.default.database = osg_cpms_db
-database.default.username = root
-database.default.password = root
+database.default.username = osgwebdbadmin@osgweb-db
+database.default.password = #0SGw3bDB!
 database.default.DBDriver = MySQLi
 database.default.port = 3306
+
+# database.default.hostname = localhost
+
+# database.default.database = osg_cpms_db
+
+# database.default.username = root
+
+# database.default.password = root
+
+# database.default.DBDriver = MySQLi
+
+# database.default.port = 3306
 
 # database.default.hostname = localhost
 

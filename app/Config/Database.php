@@ -26,9 +26,9 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        'hostname'     => 'localhost',
-        'username'     => 'root',
-        'password'     => '',
+        'hostname'     => 'osgweb-db.mysql.database.azure.com',
+        'username'     => 'osgwebdbadmin@osgweb-db',
+        'password'     => '#0SGw3bDB!',
         'database'     => 'osg_cpms_db',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
