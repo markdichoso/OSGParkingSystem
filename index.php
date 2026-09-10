@@ -3,7 +3,7 @@
 use CodeIgniter\Boot;
 use Config\Paths;
 
-// $_SERVER['CI_    ENVIRONMENT'] = 'development';
+$_SERVER['CI_ENVIRONMENT'] = 'development';
 
 
 /*
