@@ -302,7 +302,7 @@
 
                     // Submit the form natively to your CI4 backend Controller
                     form.method = 'POST';
-                    form.action = '<?= base_url("authenticate") ?>'; // Update with your actual CI4 Route
+                    form.action = '<?= "authenticate" ?>'; // Update with your actual CI4 Route
                     form.submit();
                 }
                 // --------------------------------------------------------------------------------------------------------
