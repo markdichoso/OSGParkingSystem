@@ -105,7 +105,7 @@
         <header class="pt-12 pb-8 px-6">
             <div class="font-['Pacifico'] text-3xl text-primary text-center drop-shadow-sm">
                 <div class="flex flex-1 items-center justify-center">
-                    <img src=" http://localhost/osgparkingsystem/public/img/logo/OSG CAR PARK.png" style="height: 100px;">
+                    <img src="/public/img/logo/OSG CAR PARK.png" style="height: 100px;">
                 </div>
             </div>
         </header>
