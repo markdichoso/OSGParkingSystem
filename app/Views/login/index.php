@@ -177,12 +177,16 @@
                             <i class="ri-arrow-right-line text-lg"></i>
                         </button>
                     </form>
-                    <!-- <div class="mt-6 flex items-center">
+
+
+                    <div class="mt-6 flex items-center">
                         <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
-                        <span class="px-4 text-xs font-medium text-gray-400">OR</span>
+                        <span class="px-4 text-xs font-medium text-gray-400">
+                            <a href="#" class="text-sm font-semibold text-primary hover:text-blue-700 hover:underline transition-all">SIGN UP</a>
+                        </span>
                         <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
                     </div>
-                    <div class="mt-6 grid grid-cols-2 gap-3">
+                    <!-- <div class="mt-6 grid grid-cols-2 gap-3">
                         <button type="button" class="h-12 border-2 border-gray-200 rounded-xl hover:border-gray-300 hover:bg-gray-50 transition-all flex items-center justify-center gap-2 whitespace-nowrap">
                             <i class="ri-google-fill text-xl text-red-500"></i>
                             <span class="text-sm font-medium text-gray-700">Google</span>
