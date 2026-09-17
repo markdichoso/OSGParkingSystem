@@ -18,4 +18,8 @@ class Home extends BaseController
     {
         return view('main/register');
     }
+    public function authenticate(): string
+    {
+        return view('login/auth');
+    }
 }
