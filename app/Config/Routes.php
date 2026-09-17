@@ -20,4 +20,4 @@ $routes->get('/profile', 'Dashboard::userProfile');
 
 $routes->get('/update-profile', 'Dashboard::updateProfile');
 
-$routes->post('/authenticate', 'LoginController::authenticate');
+$routes->post('/authenticate', 'Home::authenticate');
