@@ -51,16 +51,12 @@ class Home extends BaseController
         $userRow = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($userRow) {
-            // IMPORTANT: Use password_verify() if passwords in the DB are hashed (recommended).
-            // If your passwords are saved as plain text (not recommended), use: if ($password === $userRow['password'])
-            // echo "User found: " . $userRow['u_email'] . " - - Password: " . $password . "<br><br>";
 
-            // echo "Password1 : " . hash('sha256', $password) . "<br>";
-            // echo "Password2 : " . hash('sha256', $password) . "<br><br>";
 
-            if ($password === $userRow['u_password']) {
+            if (hash('sha256', $password) === hash('sha256', $userRow['u_password'])) {
                 // echo "Password match!<br>";
                 // echo json_encode(['success' => true]);
+                $session->set('user_id', $userRow['u_empno']);
                 return redirect()->to(base_url('osgparkingsystem/main'));
             } else {
                 // echo "Password does not match!<br>";
