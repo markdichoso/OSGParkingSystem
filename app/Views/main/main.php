@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+$session = session();
+
+// Define the data you want to encode
+$data = $session->get('user_id'); // Replace with the actual data you want to encode
+
+?>
+
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Car Park Dashboard</title>
+    <title>ODG Car Parking Management System - Dashboard</title>
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+
+    <script type="text/javascript" src="public/js/jquery.min.js"></script>
+    <script type="text/javascript" src="public/js/qrcode.js"></script>
+
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" />
@@ -91,6 +104,9 @@
         }
     </style>
 </head>
+
+
+
 
 <body class="bg-gray-50">
     <div class="w-full max-w-[1080px] mx-auto bg-white min-h-screen relative">
@@ -186,7 +202,7 @@
                     <div class="flex flex-col items-center">
                         <div class="relative mb-4">
                             <img
-                                src="http://localhost/osgparkingsystem/public/img/photo/2003-03002.jpg"
+                                src="http://localhost/osgparkingsystem/public/img/photo/<?php echo $session->get('user_id'); ?>.jpg"
                                 alt="Profile"
                                 class="w-32 h-32 rounded-full object-cover ring-4 ring-primary ring-opacity-20" />
                             <div
@@ -195,17 +211,19 @@
                             </div>
                         </div>
                         <h1 class="text-2xl font-bold text-gray-900 mb-1">
-                            <p style="text-align: center;">Jayvie Neil Malick S. Malicdem</p>
+                            <p style="text-align: center;"><?php echo $session->get('user_fullname'); ?></p>
                         </h1>
-                        <p class="text-base text-gray-600 mb-2">Case Management Service</p>
+                        <p class="text-base text-gray-600 mb-2"><?php echo $session->get('user_division'); ?></p>
                         <div class="items-center">
-                            <img
+                            <input id="text" type="text" value="<?php echo $session->get('user_id'); ?>" style="width:80%" hidden />
+                            <div id="qrcode" style="width:200px; height:200px; margin-top:15px; margin-bottom:15px;"></div>
+                            <!-- <img
                                 src="https://docs.lightburnsoftware.com/legacy/img/QRCode/ExampleCode.png"
                                 alt="QR Code"
-                                class="w-48 h-48 object-contain" />
+                                class="w-48 h-48 object-contain" /> -->
                         </div>
                         <div class="bg-gray-100 px-4 py-2 rounded-full">
-                            <p class="text-sm font-mono text-gray-700">Employee No. 2003-03002</p>
+                            <p class="text-sm font-mono text-gray-700">Employee No. <?php echo $session->get('user_id'); ?></p>
                         </div>
                     </div>
                 </div>
@@ -549,6 +567,41 @@
             </div>
         </main>
     </div>
+
+
+
+    <script type="text/javascript">
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            // var qrcode = new QRCode("2008-11092", {
+            // width: 100 % ,
+            // height: 100 %
+        });
+
+        function makeCode() {
+            var elText = document.getElementById("text");
+
+            if (!elText.value) {
+                alert("Input a text");
+                elText.focus();
+                return;
+            }
+
+            qrcode.makeCode(elText.value);
+        }
+
+        makeCode();
+
+        $("#text").
+        on("blur", function() {
+            makeCode();
+        }).
+        on("keydown", function(e) {
+            if (e.keyCode == 13) {
+                makeCode();
+            }
+        });
+    </script>
+
     <script id="tab-navigation">
         document.addEventListener("DOMContentLoaded", function() {
             const tabButtons = document.querySelectorAll(".tab-btn");
@@ -597,6 +650,7 @@
             });
         });
     </script>
+
 
 
 

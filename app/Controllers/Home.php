@@ -57,6 +57,24 @@ class Home extends BaseController
                 // echo "Password match!<br>";
                 // echo json_encode(['success' => true]);
                 $session->set('user_id', $userRow['u_empno']);
+                // $session->set('user_name', $userRow['u_name']);
+
+
+
+                $stmt_profile = $pdo->prepare("SELECT * FROM userprofile_tbl WHERE up_empno = :empno LIMIT 1");
+                $stmt_profile->execute(['empno' => $userRow['u_empno']]);
+                $userProfileRow = $stmt_profile->fetch(PDO::FETCH_ASSOC);
+
+                if ($userProfileRow) {
+                    $session->set('user_fullname', $userProfileRow['up_fullname']);
+                    $session->set('user_email', $userProfileRow['up_email']);
+                    $session->set('user_contact', $userProfileRow['up_mobileno']);
+                    $session->set('user_division', $userProfileRow['up_division']);
+                    $session->set('user_image', $userProfileRow['up_image']);
+                } else {
+                    $session->set('user_fullname', ''); // Set to empty if not found
+                }
+
                 return redirect()->to(base_url('osgparkingsystem/main'));
             } else {
                 // echo "Password does not match!<br>";

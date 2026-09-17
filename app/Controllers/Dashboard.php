@@ -6,6 +6,7 @@ class Dashboard extends BaseController
 {
     public function main()
     {
+        session(); // Start the session
         return view('main/main');
     }
 
