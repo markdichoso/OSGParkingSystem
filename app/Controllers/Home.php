@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
+// use App\Models\UserModel;
 use PDO;
 use PDOException;
 
@@ -31,10 +31,10 @@ class Home extends BaseController
 
 
         // Database configuration
-        $host = 'localhost';
+        $host = 'osgweb-db.mysql.database.azure.com';
         $db   = 'osg_cpms_db';
-        $u = 'root'; // Update if you have a specific database user
-        $p = '';     // Update with your database password
+        $u = 'osgwebdbadmin@osgweb-db'; // Update if you have a specific database user
+        $p = '#0SGW3bDB!';     // Update with your database password
 
 
         try {
