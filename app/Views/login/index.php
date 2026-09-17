@@ -137,7 +137,7 @@
                                 <div class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400 group-focus-within:text-primary transition-colors">
                                     <i class="ri-user-line text-lg"></i>
                                 </div>
-                                <input type="text" id="username" name="username" placeholder="Enter your username or email" class="w-full h-14 pl-12 pr-4 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-0 focus:bg-white focus:border-primary transition-all placeholder:text-gray-400">
+                                <input type="text" id="username" name="username" placeholder="Enter your username or email" class="w-full h-14 pl-12 pr-4 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-0 focus:bg-white focus:border-primary transition-all placeholder:text-gray-400" value="markdichoso@osg.gov.ph">
                             </div>
                             <p id="username-error" class="error-message text-xs text-red-600 mt-2 gap-1.5 items-center">
                                 <i class="ri-error-warning-fill"></i>
@@ -150,7 +150,7 @@
                                 <div class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400 group-focus-within:text-primary transition-colors">
                                     <i class="ri-lock-line text-lg"></i>
                                 </div>
-                                <input type="password" id="password" name="password" placeholder="Enter your password" class="w-full h-14 pl-12 pr-14 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-0 focus:bg-white focus:border-primary transition-all placeholder:text-gray-400">
+                                <input type="password" id="password" name="password" placeholder="Enter your password" class="w-full h-14 pl-12 pr-14 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-0 focus:bg-white focus:border-primary transition-all placeholder:text-gray-400" value="Mark4321">
                                 <button type="button" id="toggle-password" class="absolute right-4 top-1/2 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary hover:bg-gray-100 rounded-lg transition-all cursor-pointer">
                                     <i class="ri-eye-line text-lg"></i>
                                 </button>
