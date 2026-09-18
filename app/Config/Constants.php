@@ -77,3 +77,16 @@ defined('EXIT_USER_INPUT')     || define('EXIT_USER_INPUT', 7);     // invalid u
 defined('EXIT_DATABASE')       || define('EXIT_DATABASE', 8);       // database error
 defined('EXIT__AUTO_MIN')      || define('EXIT__AUTO_MIN', 9);      // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125);    // highest automatically-assigned error code
+
+
+
+define('LOC_HOST', 'localhost');
+define('LOC_DB', 'osg_cpms_db');
+define('LOC_USER', 'root');
+define('LOC_PASS', '');
+
+
+define('SRV_HOST', 'osgweb-db.mysql.database.azure.com');
+define('SRV_DB', 'osg_cpms_db');
+define('SRV_USER', 'osgwebdbadmin@osgweb-db');
+define('SRV_PASS', '#0SGW3bDB!');
