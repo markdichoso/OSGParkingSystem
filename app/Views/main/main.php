@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+
+$session = session();
+
+
+if ($session->get('user_role') === 0) {
+    $session->setFlashdata('success', 'Welcome Admin! You have successfully logged in.');
+    echo "<script>
+            window.location.href = './attendant';
+          </script>";
+} elseif ($session->get('user_role') === 1) {
+    $session->setFlashdata('success', 'Welcome! You have successfully logged in.');
+    echo "<script>
+            window.location.href = './attendant';
+          </script>";
+}
+?>
 
 <head>
     <meta charset="UTF-8" />
@@ -135,7 +152,7 @@
                     </button>
                     <div class="border-t border-gray-100"></div>
                     <button
-                        class="w-full px-4 py-3 flex items-center gap-3 hover:bg-red-50 transition-colors cursor-pointer">
+                        class="w-full px-4 py-3 flex items-center gap-3 hover:bg-red-50 transition-colors cursor-pointer" onclick="window.location.href = '<?php echo base_url('osgparkingsystem/signout'); ?>';">
                         <div
                             class="w-8 h-8 flex items-center justify-center bg-red-50 rounded-lg">
                             <i class="ri-logout-box-r-line text-lg text-red-600"></i>

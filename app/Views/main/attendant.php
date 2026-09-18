@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+<?php
+$session = session();
+?>
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -39,6 +44,11 @@
             },
         };
     </script>
+
+    <script>
+        alert(" \n\nYou have successfully logged in.\n\nWelcome <?php echo $session->get('user_fullname'); ?>!");
+    </script>
+
     <style>
         :where([class^="ri-"])::before {
             content: "\f3c2";
@@ -220,6 +230,8 @@
                     Manage vehicle entry and exit operations
                 </p>
             </div>
+
+
             <div
                 class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-4 mb-6">
                 <div class="grid grid-cols-3 gap-3">
@@ -228,7 +240,7 @@
                             class="w-10 h-10 flex items-center justify-center bg-secondary bg-opacity-10 rounded-lg mx-auto mb-2">
                             <i class="ri-car-line text-xl text-secondary"></i>
                         </div>
-                        <p class="text-2xl font-bold text-gray-900">24</p>
+                        <p class="text-2xl font-bold text-gray-900"><?= \App\Controllers\Dashboard::getParkedCarCount(); ?></p>
                         <p class="text-xs text-gray-600 mt-1">Currently Parked Car/s</p>
                     </div>
                     <div class="bg-white rounded-xl p-3 text-center">
@@ -236,7 +248,7 @@
                             class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mx-auto mb-2">
                             <i class="ri-parking-line text-xl text-primary"></i>
                         </div>
-                        <p class="text-2xl font-bold text-gray-900">30</p>
+                        <p class="text-2xl font-bold text-gray-900"><?= \App\Controllers\Dashboard::getAvailableFreeParkingCount(); ?></p>
                         <p class="text-xs text-gray-600 mt-1">Parking Slot Available (Free)</p>
                     </div>
                     <div class="bg-white rounded-xl p-3 text-center">
@@ -244,7 +256,7 @@
                             class="w-10 h-10 flex items-center justify-center bg-orange-500 bg-opacity-10 rounded-lg mx-auto mb-2">
                             <i class="ri-arrow-left-right-line text-xl text-orange-600"></i>
                         </div>
-                        <p class="text-2xl font-bold text-gray-900">47</p>
+                        <p class="text-2xl font-bold text-gray-900"><?= \App\Controllers\Dashboard::getAvailableFreeParkingCount(); ?></p>
                         <p class="text-xs text-gray-600 mt-1">Parking Slot Available (Paid)</p>
                     </div>
                 </div>
