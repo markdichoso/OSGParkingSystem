@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php
-$session = session();
-
-// Define the data you want to encode
-$data = $session->get('user_id'); // Replace with the actual data you want to encode
-
-?>
-
 
 <head>
     <meta charset="UTF-8" />

@@ -71,6 +71,7 @@ class Home extends BaseController
                 $userProfileRow = $stmt_profile->fetch(PDO::FETCH_ASSOC);
 
                 if ($userProfileRow) {
+                    // $session->set('user_id', $userProfileRow['up_empno']);
                     $session->set('user_fullname', $userProfileRow['up_fullname']);
                     $session->set('user_email', $userProfileRow['up_email']);
                     $session->set('user_contact', $userProfileRow['up_mobileno']);
