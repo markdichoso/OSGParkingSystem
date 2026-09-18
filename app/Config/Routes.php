@@ -10,7 +10,8 @@ $routes->get('/main', 'Dashboard::main');
 $routes->get('/qrcodescan', 'Dashboard::qrcodescan');
 
 $routes->get('/attendant', 'Dashboard::attendant');
-$routes->get('/assign-parking', 'Dashboard::assignParking');
+$routes->post('/assign-parking', 'Dashboard::assignParking');
+$routes->post('/confirm-entry', 'Dashboard::confirmEntry');
 
 
 $routes->get('/', 'Home::login');

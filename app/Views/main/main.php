@@ -60,6 +60,8 @@ if ($session->get('user_role') === 0) {
             },
         };
     </script>
+
+
     <style>
         :where([class^="ri-"])::before {
             content: "\f3c2";
@@ -183,13 +185,13 @@ if ($session->get('user_role') === 0) {
                 <div class="bg-gray-100 rounded-full p-1 flex gap-1">
                     <button
                         class="tab-btn flex-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer active"
-                        data-tab="profile">
-                        Profile
+                        data-tab="status">
+                        Car Park
                     </button>
                     <button
                         class="tab-btn flex-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer"
-                        data-tab="status">
-                        Car Park
+                        data-tab="profile">
+                        Profile
                     </button>
                     <button
                         class="tab-btn flex-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer"
@@ -205,8 +207,141 @@ if ($session->get('user_role') === 0) {
 
         <main class="pt-32 pb-8 px-5">
 
+            <!-- CAR PARK TAB  -->
+            <div id="status-tab" class="tab-content active">
+                <?php
+                $currentLog = $currentParking['log'] ?? null;
+                $isActive = ($currentParking['status'] ?? 'Inactive') === 'Active' && $currentLog !== null;
+                $currentStatus = $isActive ? 'Active' : 'Inactive';
+                $statusPanelClass = $isActive
+                    ? 'bg-gradient-to-br from-green-50 to-emerald-50'
+                    : 'bg-gradient-to-br from-gray-100 to-gray-200';
+                $statusBadgeClass = $isActive ? 'bg-secondary' : 'bg-gray-500';
+                $statusIconClass = $isActive ? 'bg-secondary text-secondary' : 'bg-gray-500 text-gray-500';
+                $durationSeconds = (int) ($currentParking['durationSeconds'] ?? 0);
+                $durationHours = intdiv($durationSeconds, 3600);
+                $durationMinutes = intdiv($durationSeconds % 3600, 60);
+                ?>
+                <div
+                    class="flex flex-wrap items-center gap-4 mb-4 pb-4 border-b border-gray-100">
+                    <img
+                        id="employee-photo"
+                        src="http://localhost/osgparkingsystem/public/img/photo/<?php echo $session->get('user_id'); ?>.jpg"
+                        alt="Employee"
+                        class="w-20 h-20 rounded-full object-cover ring-2 ring-primary ring-opacity-20" />
+                    <div class="min-w-0 flex-1">
+                        <h3
+                            id="employee-name"
+                            class="text-base font-bold text-gray-900 mb-1">
+                            <?php echo $session->get('user_fullname'); ?>
+                        </h3>
+                        <p id="employee-department" class="text-sm text-gray-600 mb-1">
+                            Case Management Service
+                        </p>
+                        <p
+                            id="employee-id"
+                            class="max-w-full break-all text-xs font-mono text-gray-500 bg-gray-50 px-1 py-1 rounded inline-block">
+                            <?php echo $session->get('user_id'); ?>
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="<?= $statusPanelClass ?> rounded-2xl shadow-md p-6 mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-semibold text-gray-900">
+                            Current Status
+                        </h2>
+                        <div
+                            class="flex items-center gap-2 <?= $statusBadgeClass ?> px-4 py-2 rounded-full">
+                            <span class="w-2 h-2 bg-white rounded-full <?= $isActive ? 'pulse-dot' : '' ?>"></span>
+                            <span class="text-sm font-semibold text-white"><?= esc(strtoupper($currentStatus)) ?></span>
+                        </div>
+                    </div>
+                    <div
+                        class="flex items-center justify-center gap-2 bg-white bg-opacity-60 rounded-xl p-4">
+                        <div
+                            class="w-10 h-10 flex items-center justify-center <?= $statusIconClass ?> bg-opacity-20 rounded-full">
+                            <i class="ri-time-line text-xl <?= $isActive ? 'text-secondary' : 'text-gray-500' ?>"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-600">Parking Duration</p>
+                            <p
+                                class="text-2xl font-bold text-gray-900"
+                                id="duration-display"
+                                data-has-parking="<?= $currentLog ? '1' : '0' ?>"
+                                data-duration-seconds="<?= $durationSeconds ?>">
+                                <?= $currentLog ? esc($durationHours . 'h ' . $durationMinutes . 'm') : 'Not parked' ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <?php if ($isActive && $currentLog): ?>
+                    <div
+                        class="bg-gradient-to-br from-primary to-blue-600 rounded-2xl shadow-md p-6 text-white">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <p class="text-sm text-blue-100 mb-1">Your Parking Spot</p>
+                                <p class="text-4xl font-bold"><?= esc($currentLog['p_slotno'] ?? 'N/A') ?></p>
+                            </div>
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-white bg-opacity-20 rounded-full">
+                                <i class="ri-map-pin-fill text-2xl"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="<?= (string) $currentLog['pl_category'] === '1' ? 'bg-orange-500' : 'bg-secondary' ?> px-3 py-1 rounded-full">
+                                <span class="text-xs font-medium"><?= (string) $currentLog['pl_category'] === '1' ? 'Pay Parking' : 'Free Parking' ?></span>
+                            </div>
+                            <div class="flex items-center gap-1 text-sm text-blue-100">
+                                <i class="ri-building-line text-base"></i>
+                                <span>Level <?= esc($currentLog['p_level'] ?? 'N/A') ?></span>
+                            </div>
+                        </div>
+                        <p class="mt-3 text-sm text-blue-100">
+                            <?= esc(($currentLog['v_make'] ?? '') . ' ' . ($currentLog['v_model'] ?? '') . ' - ' . ($currentLog['v_plateno'] ?? '')) ?>
+                        </p>
+                    </div>
+                <?php endif; ?>
+
+
+                <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
+                    <h3 class="text-base font-semibold text-gray-900 mb-4">
+                        Parking Availability
+                    </h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div
+                            class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-5">
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-white rounded-full mb-3">
+                                <i class="ri-parking-line text-2xl text-primary"></i>
+                            </div>
+                            <p class="text-4xl font-bold text-gray-900 mb-1">
+                                <?= esc((string) ($availableFreeParkingCount ?? 0)) ?>
+                            </p>
+                            <p class="text-sm text-gray-600">Free Parking Slots Available</p>
+                        </div>
+                        <div
+                            class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-5">
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-white rounded-full mb-3">
+                                <i class="ri-bank-card-line text-2xl text-orange-600"></i>
+                            </div>
+                            <p class="text-4xl font-bold text-gray-900 mb-1">
+                                <?= esc((string) ($availablePaidParkingCount ?? 0)) ?>
+                            </p>
+                            <p class="text-sm text-gray-600">Pay Parking Slots Available</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
             <!-- PROFILE TAB  -->
-            <div id="profile-tab" class="tab-content active">
+            <div id="profile-tab" class="tab-content">
                 <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
                     <div class="flex flex-col items-center">
                         <div class="relative mb-4">
@@ -271,89 +406,6 @@ if ($session->get('user_role') === 0) {
                 </div> -->
             </div>
 
-
-            <!-- CAR PARK TAB  -->
-            <div id="status-tab" class="tab-content">
-                <div
-                    class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl shadow-md p-6 mb-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-lg font-semibold text-gray-900">
-                            Current Status
-                        </h2>
-                        <div
-                            class="flex items-center gap-2 bg-secondary px-4 py-2 rounded-full">
-                            <span class="w-2 h-2 bg-white rounded-full pulse-dot"></span>
-                            <span class="text-sm font-semibold text-white">ACTIVE</span>
-                        </div>
-                    </div>
-                    <div
-                        class="flex items-center justify-center gap-2 bg-white bg-opacity-60 rounded-xl p-4">
-                        <div
-                            class="w-10 h-10 flex items-center justify-center bg-secondary bg-opacity-20 rounded-full">
-                            <i class="ri-time-line text-xl text-secondary"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs text-gray-600">Parking Duration</p>
-                            <p
-                                class="text-2xl font-bold text-gray-900"
-                                id="duration-display">
-                                2h 34m
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div
-                    class="bg-gradient-to-br from-primary to-blue-600 rounded-2xl shadow-md p-6 text-white">
-                    <div class="flex items-start justify-between mb-4">
-                        <div>
-                            <p class="text-sm text-blue-100 mb-1">Your Parking Spot</p>
-                            <p class="text-4xl font-bold">23</p>
-                        </div>
-                        <div
-                            class="w-12 h-12 flex items-center justify-center bg-white bg-opacity-20 rounded-full">
-                            <i class="ri-map-pin-fill text-2xl"></i>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <div class="bg-secondary px-3 py-1 rounded-full">
-                            <span class="text-xs font-medium">Free Parking</span>
-                        </div>
-                        <div class="flex items-center gap-1 text-sm text-blue-100">
-                            <i class="ri-building-line text-base"></i>
-                            <span>Level 2, Convergys One Building</span>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
-                    <h3 class="text-base font-semibold text-gray-900 mb-4">
-                        Parking Availability
-                    </h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div
-                            class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-5">
-                            <div
-                                class="w-12 h-12 flex items-center justify-center bg-white rounded-full mb-3">
-                                <i class="ri-parking-line text-2xl text-primary"></i>
-                            </div>
-                            <p class="text-4xl font-bold text-gray-900 mb-1">18</p>
-                            <p class="text-sm text-gray-600">Free Parking Slots Available</p>
-                        </div>
-                        <div
-                            class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-5">
-                            <div
-                                class="w-12 h-12 flex items-center justify-center bg-white rounded-full mb-3">
-                                <i class="ri-bank-card-line text-2xl text-orange-600"></i>
-                            </div>
-                            <p class="text-4xl font-bold text-gray-900 mb-1">12</p>
-                            <p class="text-sm text-gray-600">Pay Parking Slots Available</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 
 
@@ -432,146 +484,50 @@ if ($session->get('user_role') === 0) {
                     </button>
                 </div>
                 <div class="space-y-3">
-                    <div class="bg-white rounded-xl shadow-sm p-4 cursor-pointer">
-                        <div class="flex items-start justify-between mb-3">
-                            <div class="flex items-center gap-3">
+                    <?php if (empty($parkingHistory)): ?>
+                        <div class="bg-white rounded-xl shadow-sm p-4 text-sm text-gray-500">
+                            No parking history for this month.
+                        </div>
+                    <?php else: ?>
+                        <?php foreach ($parkingHistory as $historyItem): ?>
+                            <?php
+                            $isPaidHistory = (string) $historyItem['pl_category'] === '1';
+                            $duration = $historyItem['pl_duration'] === null || $historyItem['pl_duration'] === ''
+                                ? 'In progress'
+                                : ((int) $historyItem['pl_duration']) . 'h 00m';
+                            $dueAmount = number_format((float) ($historyItem['pl_due'] ?? 0), 2);
+                            ?>
+                            <div class="bg-white rounded-xl shadow-sm p-4">
+                                <div class="flex items-start justify-between mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-12 h-12 flex items-center justify-center <?= $isPaidHistory ? 'bg-orange-50' : 'bg-green-50' ?> rounded-lg">
+                                            <i class="ri-parking-fill text-xl <?= $isPaidHistory ? 'text-orange-600' : 'text-secondary' ?>"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-semibold text-gray-900"> <?= esc($historyItem['p_slotno'] ?? 'N/A') ?></p>
+                                            <p class="text-xs text-gray-600">Level <?= esc($historyItem['p_level'] ?? 'N/A') ?> | <?= esc(($historyItem['v_make'] ?? '') . ' ' . ($historyItem['v_model'] ?? '')) ?> - <?= esc($historyItem['v_plateno'] ?? 'N/A') ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="<?= $isPaidHistory ? 'bg-orange-50' : 'bg-green-50' ?> px-2 py-1 rounded">
+                                        <span class="text-xs font-medium <?= $isPaidHistory ? 'text-orange-600' : 'text-secondary' ?>"><?= $isPaidHistory ? 'Pay' : 'Free' ?></span>
+                                    </div>
+                                </div>
                                 <div
-                                    class="w-12 h-12 flex items-center justify-center bg-green-50 rounded-lg">
-                                    <i class="ri-parking-fill text-xl text-secondary"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-semibold text-gray-900">Slot 23</p>
-                                    <p class="text-xs text-gray-600">Level 2, Convergys One Building</p>
-                                </div>
-                            </div>
-                            <div class="bg-green-50 px-2 py-1 rounded">
-                                <span class="text-xs font-medium text-secondary">Free</span>
-                            </div>
-                        </div>
-                        <div
-                            class="flex items-center justify-between text-xs text-gray-600">
-                            <div class="flex items-center gap-1">
-                                <i class="ri-calendar-line"></i>
-                                <span>Dec 28, 2025</span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <i class="ri-time-line"></i>
-                                <span>7h 45m</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-sm p-4 cursor-pointer">
-                        <div class="flex items-start justify-between mb-3">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="w-12 h-12 flex items-center justify-center bg-blue-50 rounded-lg">
-                                    <i class="ri-parking-fill text-xl text-primary"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-semibold text-gray-900">Slot 15</p>
-                                    <p class="text-xs text-gray-600">Level 2, Convergys One Building</p>
+                                    class="flex items-center justify-between text-xs text-gray-600">
+                                    <div class="flex items-center gap-1">
+                                        <i class="ri-calendar-line"></i>
+                                        <span><?= esc(date('M d, Y', strtotime($historyItem['pl_checkin']))) ?></span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <i class="ri-time-line"></i>
+                                        <span><?= esc($duration) ?></span>
+                                        <span class="font-medium text-gray-700"> - Php <?= esc($dueAmount) ?></span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="bg-green-50 px-2 py-1 rounded">
-                                <span class="text-xs font-medium text-secondary">Free</span>
-                            </div>
-                        </div>
-                        <div
-                            class="flex items-center justify-between text-xs text-gray-600">
-                            <div class="flex items-center gap-1">
-                                <i class="ri-calendar-line"></i>
-                                <span>Dec 27, 2025</span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <i class="ri-time-line"></i>
-                                <span>8h 12m</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-sm p-4 cursor-pointer">
-                        <div class="flex items-start justify-between mb-3">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="w-12 h-12 flex items-center justify-center bg-orange-50 rounded-lg">
-                                    <i class="ri-parking-fill text-xl text-orange-600"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-semibold text-gray-900">Slot 08</p>
-                                    <p class="text-xs text-gray-600">Outside Parking, Convergys One Building</p>
-                                </div>
-                            </div>
-                            <div class="bg-orange-50 px-2 py-1 rounded">
-                                <span class="text-xs font-medium text-orange-600">Pay Park</span>
-                            </div>
-                        </div>
-                        <div
-                            class="flex items-center justify-between text-xs text-gray-600">
-                            <div class="flex items-center gap-1">
-                                <i class="ri-calendar-line"></i>
-                                <span>Dec 26, 2025</span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <i class="ri-time-line"></i>
-                                <span>5h 30m</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-sm p-4 cursor-pointer">
-                        <div class="flex items-start justify-between mb-3">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="w-12 h-12 flex items-center justify-center bg-green-50 rounded-lg">
-                                    <i class="ri-parking-fill text-xl text-secondary"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-semibold text-gray-900">Slot 18</p>
-                                    <p class="text-xs text-gray-600">Level 2, Convergys One Building</p>
-                                </div>
-                            </div>
-                            <div class="bg-green-50 px-2 py-1 rounded">
-                                <span class="text-xs font-medium text-secondary">Free</span>
-                            </div>
-                        </div>
-                        <div
-                            class="flex items-center justify-between text-xs text-gray-600">
-                            <div class="flex items-center gap-1">
-                                <i class="ri-calendar-line"></i>
-                                <span>Dec 23, 2025</span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <i class="ri-time-line"></i>
-                                <span>9h 05m</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-sm p-4 cursor-pointer">
-                        <div class="flex items-start justify-between mb-3">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="w-12 h-12 flex items-center justify-center bg-blue-50 rounded-lg">
-                                    <i class="ri-parking-fill text-xl text-primary"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-semibold text-gray-900">Slot 25</p>
-                                    <p class="text-xs text-gray-600">Level 2, Convergys One Building</p>
-                                </div>
-                            </div>
-                            <div class="bg-green-50 px-2 py-1 rounded">
-                                <span class="text-xs font-medium text-secondary">Free</span>
-                            </div>
-                        </div>
-                        <div
-                            class="flex items-center justify-between text-xs text-gray-600">
-                            <div class="flex items-center gap-1">
-                                <i class="ri-calendar-line"></i>
-                                <span>Dec 22, 2025</span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <i class="ri-time-line"></i>
-                                <span>6h 20m</span>
-                            </div>
-                        </div>
-                    </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </main>
@@ -665,16 +621,23 @@ if ($session->get('user_role') === 0) {
 
     <script id="duration-counter">
         document.addEventListener("DOMContentLoaded", function() {
-            let hours = 2;
-            let minutes = 34;
             const durationDisplay = document.getElementById("duration-display");
-            setInterval(function() {
-                minutes++;
-                if (minutes >= 60) {
-                    minutes = 0;
-                    hours++;
-                }
+            if (!durationDisplay || durationDisplay.dataset.hasParking !== "1") {
+                return;
+            }
+
+            let durationSeconds = Number(durationDisplay.dataset.durationSeconds);
+
+            function renderDuration() {
+                const hours = Math.floor(durationSeconds / 3600);
+                const minutes = Math.floor((durationSeconds % 3600) / 60);
                 durationDisplay.textContent = hours + "h " + minutes + "m";
+            }
+
+            renderDuration();
+            setInterval(function() {
+                durationSeconds++;
+                renderDuration();
             }, 60000);
         });
     </script>

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php $session = session(); ?>
+
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -161,10 +164,24 @@
     </style>
 </head>
 
+
+
+<?php
+
+
+
+?>
+
+
+
+
+
+
+
 <body class="bg-gray-50">
-    <div class="w-full max-w-[1080px] mx-auto bg-white min-h-screen relative">
-        <header class="fixed top-0 w-full max-w-[1080px] bg-white z-50 shadow-sm">
-            <div class="flex items-center justify-between px-5 py-4 h-16">
+    <div class="w-full max-w-[1080px] mx-auto bg-white min-h-screen relative overflow-x-hidden">
+        <header class="fixed left-1/2 top-0 w-full max-w-[1080px] -translate-x-1/2 bg-white z-50 shadow-sm">
+            <div class="flex items-center justify-between px-4 sm:px-5 py-3 sm:py-4 h-16">
                 <div class="font-['Pacifico'] text-2xl text-primary">
                     <img src="http://localhost/osgparkingsystem/public/img/logo/OSG CAR PARK.png" style="height: 60px;">
                 </div>
@@ -215,7 +232,7 @@
 
 
 
-        <main class="pt-20 pb-8 px-5">
+        <main class="pt-20 pb-8 px-4 sm:px-5">
             <div class="mb-6">
                 <h1 class="text-2xl font-bold text-gray-900 mb-1">
                     Confirm Entry
@@ -333,25 +350,25 @@
                     </div>
                 </div>
                 <div
-                    class="flex items-center gap-4 mb-4 pb-4 border-b border-gray-100">
+                    class="flex flex-wrap items-center gap-4 mb-4 pb-4 border-b border-gray-100">
                     <img
                         id="employee-photo"
-                        src="http://localhost/osgparkingsystem/public/img/photo/2003-03002.jpg"
+                        src="http://localhost/osgparkingsystem/public/img/photo/<?php echo $session->get('client_empno') ?>.jpg"
                         alt="Employee"
-                        class="w-16 h-16 rounded-full object-cover ring-2 ring-primary ring-opacity-20" />
-                    <div class="flex-1">
+                        class="w-24 h-24 rounded-full object-cover ring-2 ring-primary ring-opacity-20" />
+                    <div class="min-w-0 flex-1">
                         <h3
                             id="employee-name"
                             class="text-base font-bold text-gray-900 mb-1">
-                            Jayvie Neil Malick S. Malicdem
+                            <?= esc($clientName ?? '') ?>
                         </h3>
                         <p id="employee-department" class="text-sm text-gray-600 mb-1">
                             Case Management Service
                         </p>
                         <p
                             id="employee-id"
-                            class="text-xs font-mono text-gray-500 bg-gray-50 px-2 py-1 rounded inline-block">
-                            2003-03002
+                            class="max-w-full break-all text-xs font-mono text-gray-500 bg-gray-50 px-2 py-1 rounded inline-block">
+                            <?php echo $session->get('client_empno') ?>
                         </p>
                     </div>
                 </div>
@@ -359,9 +376,42 @@
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs text-gray-600">Vehicle Information</span>
                     </div>
-                    <p id="vehicle-info" class="text-sm font-medium text-gray-900">
-                        Kia Sonnet [NAA 2310]
-                    </p>
+                    <?php if (empty($clientVehicles)): ?>
+                        <p class="rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm text-gray-500">
+                            No registered vehicles found.
+                        </p>
+                    <?php else: ?>
+                        <div id="vehicle-info" class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                            <?php foreach ($clientVehicles as $vehicle): ?>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="vehicle_id" value="<?= esc($vehicle['v_id']) ?>"
+                                        data-vehicle-name="<?= esc($vehicle['v_make'] . ' ' . $vehicle['v_model']) ?>"
+                                        data-vehicle-color="<?= esc($vehicle['v_color']) ?>"
+                                        data-vehicle-plate="<?= esc($vehicle['v_plateno']) ?>"
+                                        class="peer sr-only" required>
+                                    <span class="flex h-full flex-col rounded-lg border border-gray-200 bg-white p-4 transition peer-checked:border-primary peer-checked:bg-blue-50 peer-checked:ring-2 peer-checked:ring-blue-200 peer-checked:[&_.vehicle-check]:border-primary peer-checked:[&_.vehicle-check]:bg-primary peer-checked:[&_.vehicle-check_i]:block hover:border-blue-300">
+                                        <span class="flex items-start justify-between gap-3">
+                                            <span class="min-w-0">
+                                                <span class="block truncate text-sm font-semibold text-gray-900">
+                                                    <?= esc($vehicle['v_make'] . ' ' . $vehicle['v_model']) ?>
+                                                </span>
+                                                <span class="mt-1 block text-xs text-gray-600">
+                                                    <?= esc($vehicle['v_color']) ?>
+                                                </span>
+                                            </span>
+                                            <span class="vehicle-check flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white">
+                                                <i class="ri-check-line hidden text-xs text-white"></i>
+                                            </span>
+                                        </span>
+                                        <span class="mt-3 flex items-center gap-2 text-xs font-medium text-gray-700">
+                                            <i class="ri-bank-card-line text-gray-500"></i>
+                                            <?= esc($vehicle['v_plateno']) ?>
+                                        </span>
+                                    </span>
+                                </label>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
             <!-- <div id="transaction-type-section" class="mb-6 fade-in">
@@ -378,6 +428,11 @@
                     </button>
                 </div>
             </div> -->
+
+
+
+
+
             <div
                 id="parking-assignment-section"
                 class="bg-white rounded-2xl shadow-md p-6 mb-6 slide-up">
@@ -401,196 +456,58 @@
                         Pay
                     </button>
                 </div>
-                <div class="grid grid-cols-3 gap-3 mb-4" id="parking-spots-grid">
-                    <div
-                        class="parking-spot bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-3 cursor-pointer"
-                        data-spot="A-12"
-                        data-type="free"
-                        data-level="2"
-                        data-block="A">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-lg font-bold text-gray-900">A-12</span>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4" id="parking-spots-grid">
+                    <?php if (empty($availableParkingSlots)): ?>
+                        <p class="col-span-full rounded-xl border border-gray-200 bg-gray-50 p-4 text-center text-sm text-gray-500">
+                            No available parking slots.
+                        </p>
+                    <?php else: ?>
+                        <?php foreach ($availableParkingSlots as $parkingSlot): ?>
+                            <?php $isPaid = (string) $parkingSlot['p_category'] === '1'; ?>
                             <div
-                                class="w-6 h-6 flex items-center justify-center bg-secondary rounded-full">
-                                <i class="ri-check-line text-white text-xs"></i>
+                                class="parking-spot <?= $isPaid ? 'bg-gradient-to-br from-orange-50 to-orange-100' : 'bg-gradient-to-br from-green-50 to-green-100' ?> rounded-xl p-3 cursor-pointer"
+                                data-spot-id="<?= esc($parkingSlot['p_id']) ?>"
+                                data-spot="<?= esc($parkingSlot['p_slotno']) ?>"
+                                data-type="<?= $isPaid ? 'pay' : 'free' ?>"
+                                data-level="<?= esc($parkingSlot['p_level']) ?>">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-lg font-bold text-gray-900"><?= esc($parkingSlot['p_slotno']) ?></span>
+                                    <div class="w-6 h-6 flex items-center justify-center <?= $isPaid ? 'bg-orange-600' : 'bg-secondary' ?> rounded-full">
+                                        <i class="ri-check-line text-white text-xs"></i>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-600"><?= esc($parkingSlot['p_level']) ?></p>
+                                <div class="mt-2 <?= $isPaid ? 'bg-orange-600 text-orange-600' : 'bg-secondary text-secondary' ?> bg-opacity-20 px-2 py-1 rounded text-xs font-medium">
+                                    <?= $isPaid ? 'Pay' : 'Free' ?>
+                                </div>
                             </div>
-                        </div>
-                        <p class="text-xs text-gray-600">Level 2</p>
-                        <div
-                            class="mt-2 bg-secondary bg-opacity-20 px-2 py-1 rounded text-xs font-medium text-secondary">
-                            Free
-                        </div>
-                    </div>
-                    <div
-                        class="parking-spot bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-3 cursor-pointer"
-                        data-spot="A-15"
-                        data-type="free"
-                        data-level="2"
-                        data-block="A">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-lg font-bold text-gray-900">A-15</span>
-                            <div
-                                class="w-6 h-6 flex items-center justify-center bg-secondary rounded-full">
-                                <i class="ri-check-line text-white text-xs"></i>
-                            </div>
-                        </div>
-                        <p class="text-xs text-gray-600">Level 2</p>
-                        <div
-                            class="mt-2 bg-secondary bg-opacity-20 px-2 py-1 rounded text-xs font-medium text-secondary">
-                            Free
-                        </div>
-                    </div>
-                    <div
-                        class="parking-spot bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-3 cursor-pointer"
-                        data-spot="B-08"
-                        data-type="pay"
-                        data-level="1"
-                        data-block="B">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-lg font-bold text-gray-900">B-08</span>
-                            <div
-                                class="w-6 h-6 flex items-center justify-center bg-orange-600 rounded-full">
-                                <i class="ri-check-line text-white text-xs"></i>
-                            </div>
-                        </div>
-                        <p class="text-xs text-gray-600">Level 1</p>
-                        <div
-                            class="mt-2 bg-orange-600 bg-opacity-20 px-2 py-1 rounded text-xs font-medium text-orange-600">
-                            Pay
-                        </div>
-                    </div>
-                    <div
-                        class="parking-spot bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-3 cursor-pointer"
-                        data-spot="A-18"
-                        data-type="free"
-                        data-level="2"
-                        data-block="A">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-lg font-bold text-gray-900">A-18</span>
-                            <div
-                                class="w-6 h-6 flex items-center justify-center bg-secondary rounded-full">
-                                <i class="ri-check-line text-white text-xs"></i>
-                            </div>
-                        </div>
-                        <p class="text-xs text-gray-600">Level 2</p>
-                        <div
-                            class="mt-2 bg-secondary bg-opacity-20 px-2 py-1 rounded text-xs font-medium text-secondary">
-                            Free
-                        </div>
-                    </div>
-                    <div
-                        class="parking-spot bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-3 cursor-pointer"
-                        data-spot="C-05"
-                        data-type="pay"
-                        data-level="3"
-                        data-block="C">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-lg font-bold text-gray-900">C-05</span>
-                            <div
-                                class="w-6 h-6 flex items-center justify-center bg-orange-600 rounded-full">
-                                <i class="ri-check-line text-white text-xs"></i>
-                            </div>
-                        </div>
-                        <p class="text-xs text-gray-600">Level 3</p>
-                        <div
-                            class="mt-2 bg-orange-600 bg-opacity-20 px-2 py-1 rounded text-xs font-medium text-orange-600">
-                            Pay
-                        </div>
-                    </div>
-                    <div
-                        class="parking-spot bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-3 cursor-pointer"
-                        data-spot="B-22"
-                        data-type="free"
-                        data-level="1"
-                        data-block="B">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-lg font-bold text-gray-900">B-22</span>
-                            <div
-                                class="w-6 h-6 flex items-center justify-center bg-secondary rounded-full">
-                                <i class="ri-check-line text-white text-xs"></i>
-                            </div>
-                        </div>
-                        <p class="text-xs text-gray-600">Level 1</p>
-                        <div
-                            class="mt-2 bg-secondary bg-opacity-20 px-2 py-1 rounded text-xs font-medium text-secondary">
-                            Free
-                        </div>
-                    </div>
-                    <div
-                        class="parking-spot bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-3 cursor-pointer"
-                        data-spot="C-12"
-                        data-type="pay"
-                        data-level="3"
-                        data-block="C">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-lg font-bold text-gray-900">C-12</span>
-                            <div
-                                class="w-6 h-6 flex items-center justify-center bg-orange-600 rounded-full">
-                                <i class="ri-check-line text-white text-xs"></i>
-                            </div>
-                        </div>
-                        <p class="text-xs text-gray-600">Level 3</p>
-                        <div
-                            class="mt-2 bg-orange-600 bg-opacity-20 px-2 py-1 rounded text-xs font-medium text-orange-600">
-                            Pay
-                        </div>
-                    </div>
-                    <div
-                        class="parking-spot bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-3 cursor-pointer"
-                        data-spot="A-25"
-                        data-type="free"
-                        data-level="2"
-                        data-block="A">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-lg font-bold text-gray-900">A-25</span>
-                            <div
-                                class="w-6 h-6 flex items-center justify-center bg-secondary rounded-full">
-                                <i class="ri-check-line text-white text-xs"></i>
-                            </div>
-                        </div>
-                        <p class="text-xs text-gray-600">Level 2</p>
-                        <div
-                            class="mt-2 bg-secondary bg-opacity-20 px-2 py-1 rounded text-xs font-medium text-secondary">
-                            Free
-                        </div>
-                    </div>
-                    <div
-                        class="parking-spot bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-3 cursor-pointer"
-                        data-spot="B-14"
-                        data-type="pay"
-                        data-level="1"
-                        data-block="B">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-lg font-bold text-gray-900">B-14</span>
-                            <div
-                                class="w-6 h-6 flex items-center justify-center bg-orange-600 rounded-full">
-                                <i class="ri-check-line text-white text-xs"></i>
-                            </div>
-                        </div>
-                        <p class="text-xs text-gray-600">Level 1</p>
-                        <div
-                            class="mt-2 bg-orange-600 bg-opacity-20 px-2 py-1 rounded text-xs font-medium text-orange-600">
-                            Pay
-                        </div>
-                    </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
-                <div
-                    id="selected-spot-info"
-                    class="hidden bg-gradient-to-br from-primary to-blue-600 rounded-xl p-4 text-white mb-4">
-                    <div class="flex items-center justify-between">
+            </div>
+            <div
+                id="selected-spot-info"
+                class="hidden bg-gradient-to-br from-primary to-blue-600 rounded-xl p-4 text-white mb-4">
+                <input type="hidden" id="selected-parking-id" name="parking_id">
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <div class="flex items-center justify-between gap-3">
                         <div>
                             <p class="text-sm text-blue-100 mb-1">Selected Spot</p>
                             <p id="selected-spot-number" class="text-3xl font-bold">A-12</p>
-                            <p
-                                id="selected-spot-details"
-                                class="text-sm text-blue-100 mt-1">
-                                Level 2, Block A - Free Parking
+                            <p id="selected-spot-details" class="text-sm text-blue-100 mt-1">
+                                Level 2 - Free Parking
                             </p>
                         </div>
-                        <div
-                            class="w-12 h-12 flex items-center justify-center bg-white bg-opacity-20 rounded-full">
+                        <div class="w-12 h-12 shrink-0 flex items-center justify-center bg-white bg-opacity-20 rounded-full">
                             <i class="ri-map-pin-fill text-2xl"></i>
                         </div>
+                    </div>
+                    <div class="border-t border-white border-opacity-20 pt-3 sm:border-l sm:border-t-0 sm:pl-4 sm:pt-0">
+                        <p class="text-sm text-blue-100 mb-1">Selected Vehicle</p>
+                        <p id="selected-vehicle-name" class="text-base font-bold">No vehicle selected</p>
+                        <p id="selected-vehicle-details" class="text-sm text-blue-100 mt-1">
+                            Select a registered vehicle above
+                        </p>
                     </div>
                 </div>
             </div>
@@ -856,6 +773,9 @@
     <script id="scanner-functionality">
         document.addEventListener("DOMContentLoaded", function() {
             const scanButton = document.getElementById("scan-button");
+            if (!scanButton) {
+                return;
+            }
             const scannerStatus = document.getElementById("scanner-status");
             const employeeInfoSection = document.getElementById("employee-info-section");
             const transactionTypeSection = document.getElementById(
@@ -1109,6 +1029,9 @@
     <script id="transaction-type-toggle">
         document.addEventListener("DOMContentLoaded", function() {
             const entryBtn = document.getElementById("entry-btn");
+            if (!entryBtn) {
+                return;
+            }
             const exitBtn = document.getElementById("exit-btn");
             const parkingAssignmentSection = document.getElementById(
                 "parking-assignment-section",
@@ -1162,15 +1085,34 @@
             const selectedSpotInfo = document.getElementById("selected-spot-info");
             const selectedSpotNumber = document.getElementById("selected-spot-number");
             const selectedSpotDetails = document.getElementById("selected-spot-details");
-            const transactionSummarySection = document.getElementById(
-                "transaction-summary-section",
-            );
+            const selectedParkingId = document.getElementById("selected-parking-id");
+            const selectedVehicleName = document.getElementById("selected-vehicle-name");
+            const selectedVehicleDetails = document.getElementById("selected-vehicle-details");
+            const vehicleInputs = document.querySelectorAll('input[name="vehicle_id"]');
+            const transactionSummarySection = document.getElementById("transaction-summary-section");
             const actionButtonsSection = document.getElementById(
                 "action-buttons-section",
             );
             const summarySpot = document.getElementById("summary-spot");
             const filterBtns = document.querySelectorAll(".filter-btn");
             let selectedSpot = null;
+
+            function updateSelectedVehicle(vehicleInput) {
+                if (!vehicleInput) {
+                    selectedVehicleName.textContent = "No vehicle selected";
+                    selectedVehicleDetails.textContent = "Select a registered vehicle above";
+                    return;
+                }
+
+                selectedVehicleName.textContent = vehicleInput.dataset.vehicleName;
+                selectedVehicleDetails.textContent = `${vehicleInput.dataset.vehicleColor} - ${vehicleInput.dataset.vehiclePlate}`;
+            }
+
+            vehicleInputs.forEach((vehicleInput) => {
+                vehicleInput.addEventListener("change", function() {
+                    updateSelectedVehicle(this);
+                });
+            });
             filterBtns.forEach((btn) => {
                 btn.addEventListener("click", function() {
                     filterBtns.forEach((b) => {
@@ -1197,18 +1139,23 @@
                     });
                     this.classList.add("selected", "ring-4", "ring-primary");
                     selectedSpot = {
+                        id: this.getAttribute("data-spot-id"),
                         number: this.getAttribute("data-spot"),
                         level: this.getAttribute("data-level"),
-                        block: this.getAttribute("data-block"),
                         type: this.getAttribute("data-type"),
                     };
+                    selectedParkingId.value = selectedSpot.id;
                     selectedSpotNumber.textContent = selectedSpot.number;
                     const typeText =
                         selectedSpot.type === "free" ? "Free Parking" : "Pay Parking";
-                    selectedSpotDetails.textContent = `Level ${selectedSpot.level}, Block ${selectedSpot.block} - ${typeText}`;
-                    summarySpot.textContent = selectedSpot.number;
+                    selectedSpotDetails.textContent = `Level ${selectedSpot.level} - ${typeText}`;
+                    if (summarySpot) {
+                        summarySpot.textContent = selectedSpot.number;
+                    }
                     selectedSpotInfo.classList.remove("hidden");
-                    transactionSummarySection.classList.remove("hidden");
+                    if (transactionSummarySection) {
+                        transactionSummarySection.classList.remove("hidden");
+                    }
                     actionButtonsSection.classList.remove("hidden");
                 });
             });
@@ -1233,6 +1180,8 @@
                 "action-buttons-section",
             );
             const selectedSpotInfo = document.getElementById("selected-spot-info");
+            const selectedParkingId = document.getElementById("selected-parking-id");
+            const confirmEntryUrl = <?= json_encode(base_url('osgparkingsystem/confirm-entry')) ?>;
 
             function showToast(message, type) {
                 const toastContainer = document.getElementById("toast-container");
@@ -1272,27 +1221,43 @@
                 document.getElementById("manual-id-input").value = "";
             }
             confirmButton.addEventListener("click", function() {
+                const selectedVehicle = document.querySelector('input[name="vehicle_id"]:checked');
+                if (!selectedVehicle || !selectedParkingId.value) {
+                    showToast("Select a vehicle and parking spot before confirming", "error");
+                    return;
+                }
+
                 const buttonText = document.getElementById(
                     "confirm-button-text",
                 ).textContent;
                 confirmButton.innerHTML =
                     '<div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div><span>Processing...</span>';
                 confirmButton.disabled = true;
-                setTimeout(() => {
-                    if (buttonText.includes("Entry")) {
-                        showToast("Entry transaction confirmed successfully", "success");
-                    } else {
-                        showToast("Exit transaction confirmed successfully", "success");
-                    }
-                    confirmButton.innerHTML =
-                        '<div class="w-5 h-5 flex items-center justify-center"><i class="ri-check-line text-lg"></i></div><span>' +
-                        buttonText +
-                        "</span>";
-                    confirmButton.disabled = false;
-                    setTimeout(() => {
-                        resetForm();
-                    }, 1000);
-                }, 2000);
+                fetch(confirmEntryUrl, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        body: new URLSearchParams({
+                            vehicle_id: selectedVehicle.value,
+                            parking_id: selectedParkingId.value,
+                        }),
+                    })
+                    .then(async (response) => {
+                        const result = await response.json();
+                        if (!response.ok) {
+                            throw new Error(result.message || "The vehicle entry could not be saved.");
+                        }
+                        window.location.href = result.redirect;
+                    })
+                    .catch((error) => {
+                        showToast(error.message, "error");
+                        confirmButton.innerHTML =
+                            '<div class="w-5 h-5 flex items-center justify-center"><i class="ri-check-line text-lg"></i></div><span>' +
+                            buttonText +
+                            "</span>";
+                        confirmButton.disabled = false;
+                    });
             });
             cancelButton.addEventListener("click", function() {
                 resetForm();
@@ -1302,6 +1267,11 @@
     </script>
     <script id="timestamp-update">
         document.addEventListener("DOMContentLoaded", function() {
+            const timestampElement = document.getElementById("summary-timestamp");
+            if (!timestampElement) {
+                return;
+            }
+
             function updateTimestamp() {
                 const now = new Date();
                 const options = {
@@ -1312,7 +1282,7 @@
                     minute: "2-digit",
                 };
                 const timestamp = now.toLocaleDateString("en-US", options);
-                document.getElementById("summary-timestamp").textContent = timestamp;
+                timestampElement.textContent = timestamp;
             }
             updateTimestamp();
             setInterval(updateTimestamp, 60000);
