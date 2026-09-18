@@ -182,7 +182,7 @@
                     <div class="mt-6 flex items-center">
                         <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
                         <span class="px-4 text-xs font-medium text-gray-400">
-                            <a href="#" class="text-sm font-semibold text-primary hover:text-blue-700 hover:underline transition-all">SIGN UP</a>
+                            <a href="./account-registration" class="text-sm font-semibold text-primary hover:text-blue-700 hover:underline transition-all">SIGN UP</a>
                         </span>
                         <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
                     </div>

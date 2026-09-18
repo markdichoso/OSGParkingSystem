@@ -29,12 +29,17 @@ class Home extends BaseController
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-
-        // Database configuration
-        $host = 'osgweb-db.mysql.database.azure.com';
-        $db   = 'osg_cpms_db';
-        $u = 'osgwebdbadmin@osgweb-db'; // Update if you have a specific database user
-        $p = '#0SGW3bDB!';     // Update with your database password
+        if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === '127.0.0.1') {
+            $host = LOC_HOST;
+            $db   = LOC_DB;
+            $u = LOC_USER; // Update if you have a specific database user
+            $p = LOC_PASS; // Update with your database password
+        } else {
+            $host = SRV_HOST;
+            $db   = SRV_DB;
+            $u = SRV_USER; // Update if you have a specific database user
+            $p = SRV_PASS; // Update with your database password
+        }
 
 
         try {
