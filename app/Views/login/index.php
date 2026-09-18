@@ -213,6 +213,46 @@
             <p class="text-xs text-gray-400 text-center font-medium">© 2026 Car Park Management System. All rights reserved.</p>
         </footer>
     </div>
+
+
+    <script id="password-toggle">
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggleBtn = document.getElementById("toggle-password");
+            const passwordInput = document.getElementById("password");
+            toggleBtn.addEventListener("click", function() {
+                const type = passwordInput.getAttribute("type");
+                if (type === "password") {
+                    passwordInput.setAttribute("type", "text");
+                    this.innerHTML = '<i class="ri-eye-off-line text-lg"></i>';
+                } else {
+                    passwordInput.setAttribute("type", "password");
+                    this.innerHTML = '<i class="ri-eye-line text-lg"></i>';
+                }
+            });
+        });
+    </script>
+
+
+    <script id="checkbox-interaction">
+        document.addEventListener("DOMContentLoaded", function() {
+            const checkbox = document.getElementById("remember-me");
+            const checkboxContainer = checkbox.parentElement.querySelector("div");
+            checkbox.addEventListener("change", function() {
+                if (this.checked) {
+                    checkboxContainer.classList.add("bg-primary", "border-primary");
+                    checkboxContainer.classList.remove("border-gray-300");
+                    checkboxContainer.querySelector("i").classList.remove("opacity-0");
+                    checkboxContainer.querySelector("i").classList.add("opacity-100");
+                } else {
+                    checkboxContainer.classList.remove("bg-primary", "border-primary");
+                    checkboxContainer.classList.add("border-gray-300");
+                    checkboxContainer.querySelector("i").classList.add("opacity-0");
+                    checkboxContainer.querySelector("i").classList.remove("opacity-100");
+                }
+            });
+        });
+    </script>
+
     <script id="form-validation">
         document.addEventListener("DOMContentLoaded", function() {
             const form = document.getElementById("login-form");
@@ -316,41 +356,7 @@
             });
         });
     </script>
-    <script id="password-toggle">
-        document.addEventListener("DOMContentLoaded", function() {
-            const toggleBtn = document.getElementById("toggle-password");
-            const passwordInput = document.getElementById("password");
-            toggleBtn.addEventListener("click", function() {
-                const type = passwordInput.getAttribute("type");
-                if (type === "password") {
-                    passwordInput.setAttribute("type", "text");
-                    this.innerHTML = '<i class="ri-eye-off-line text-lg"></i>';
-                } else {
-                    passwordInput.setAttribute("type", "password");
-                    this.innerHTML = '<i class="ri-eye-line text-lg"></i>';
-                }
-            });
-        });
-    </script>
-    <script id="checkbox-interaction">
-        document.addEventListener("DOMContentLoaded", function() {
-            const checkbox = document.getElementById("remember-me");
-            const checkboxContainer = checkbox.parentElement.querySelector("div");
-            checkbox.addEventListener("change", function() {
-                if (this.checked) {
-                    checkboxContainer.classList.add("bg-primary", "border-primary");
-                    checkboxContainer.classList.remove("border-gray-300");
-                    checkboxContainer.querySelector("i").classList.remove("opacity-0");
-                    checkboxContainer.querySelector("i").classList.add("opacity-100");
-                } else {
-                    checkboxContainer.classList.remove("bg-primary", "border-primary");
-                    checkboxContainer.classList.add("border-gray-300");
-                    checkboxContainer.querySelector("i").classList.add("opacity-0");
-                    checkboxContainer.querySelector("i").classList.remove("opacity-100");
-                }
-            });
-        });
-    </script>
+
 </body>
 
 </html>

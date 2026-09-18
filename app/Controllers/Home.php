@@ -85,12 +85,12 @@ class Home extends BaseController
                 // echo "Password does not match!<br>";
                 // echo json_encode(['success' => false, 'message' => 'Invalid password.']);
                 $session->setFlashdata('error', 'Invalid password. Please try again.');
-                return redirect()->to('./')->withInput();
+                return redirect()->to(base_url('osgparkingsystem/')); //->withInput();
             }
         } else {
             // echo json_encode(['success' => false, 'message' => 'User not found.']);
             $session->setFlashdata('error', 'User not found. Please check your credentials.');
-            // return redirect()->back()->withInput();
+            return redirect()->to(base_url('osgparkingsystem/')); //->withInput();
         }
     }
 }
