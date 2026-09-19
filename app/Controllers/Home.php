@@ -45,7 +45,6 @@ class Home extends BaseController
         try {
             $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $u, $p);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            // echo "Connection successful!<br><br>";
         } catch (PDOException $e) {
             echo json_encode(['success' => false, 'message' => 'Database connection failed.']);
             exit;
@@ -59,10 +58,7 @@ class Home extends BaseController
 
 
             if (hash('sha256', $password) === hash('sha256', $userRow['u_password'])) {
-                // echo "Password match!<br>";
-                // echo json_encode(['success' => true]);
                 $session->set('user_id', $userRow['u_empno']);
-                // $session->set('user_name', $userRow['u_name']);
 
 
 
@@ -71,7 +67,6 @@ class Home extends BaseController
                 $userProfileRow = $stmt_profile->fetch(PDO::FETCH_ASSOC);
 
                 if ($userProfileRow) {
-                    // $session->set('user_id', $userProfileRow['up_empno']);
                     $session->set('user_fullname', $userProfileRow['up_fullname']);
                     $session->set('user_email', $userProfileRow['up_email']);
                     $session->set('user_contact', $userProfileRow['up_mobileno']);
@@ -90,13 +85,10 @@ class Home extends BaseController
                     return redirect()->to(base_url('osgparkingsystem/main'));
                 }
             } else {
-                // echo "Password does not match!<br>";
-                // echo json_encode(['success' => false, 'message' => 'Invalid password.']);
                 $session->setFlashdata('error', 'Invalid password. Please try again.');
                 return redirect()->to(base_url('osgparkingsystem/')); //->withInput();
             }
         } else {
-            // echo json_encode(['success' => false, 'message' => 'User not found.']);
             $session->setFlashdata('error', 'User not found. Please check your credentials.');
             return redirect()->to(base_url('osgparkingsystem/')); //->withInput();
         }

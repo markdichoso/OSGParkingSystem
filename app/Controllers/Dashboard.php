@@ -191,7 +191,30 @@ class Dashboard extends BaseController
 
     public function updateProfile()
     {
-        return view('main/update-profile');
+        $session = session();
+
+        $clientEmpNo = session('user_id'); //$this->request->getPost('client_empno');
+        if ($clientEmpNo !== null && $clientEmpNo !== '') {
+            $session->set('client_empno', $clientEmpNo);
+        }
+
+        if ($clientEmpNo !== null && $clientEmpNo !== '') {
+            $activeLog = self::getActiveParkingLog($clientEmpNo);
+            if ($activeLog !== null) {
+                $this->checkoutParking($activeLog);
+                return redirect()->to(base_url('osgparkingsystem/attendant'));
+            }
+        }
+
+        $data['clientEmpNo'] = $session->get('client_empno');
+        $clientProfile = $data['clientEmpNo']
+            ? self::getClientProfile($data['clientEmpNo'])
+            : null;
+        $data['clientName'] = $clientProfile['up_fullname'] ?? '';
+        $data['clientVehicles'] = $data['clientEmpNo']
+            ? self::getClientVehicle($data['clientEmpNo'])
+            : [];
+        return view('main/update-profile', $data);
     }
 
     public static function getClientVehicle($empno)

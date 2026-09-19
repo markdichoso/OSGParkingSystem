@@ -114,9 +114,6 @@
             <div class="w-full fade-in">
                 <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl shadow-primary/5 p-8 mb-6 border border-gray-100">
                     <div class="text-center mb-8">
-                        <!-- <div class="w-16 h-16 bg-gradient-to-br from-primary to-blue-600 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg shadow-primary/30">
-                            <i class="ri-shield-user-line text-white text-3xl"></i>
-                        </div> -->
                         <h1 class="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-2">Welcome Back</h1>
                         <p class="text-sm text-gray-500">Sign in to continue to your dashboard</p>
                     </div>
@@ -187,20 +184,7 @@
                         </span>
                         <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
                     </div>
-                    <!-- <div class="mt-6 grid grid-cols-2 gap-3">
-                        <button type="button" class="h-12 border-2 border-gray-200 rounded-xl hover:border-gray-300 hover:bg-gray-50 transition-all flex items-center justify-center gap-2 whitespace-nowrap">
-                            <i class="ri-google-fill text-xl text-red-500"></i>
-                            <span class="text-sm font-medium text-gray-700">Google</span>
-                        </button>
-                        <button type="button" class="h-12 border-2 border-gray-200 rounded-xl hover:border-gray-300 hover:bg-gray-50 transition-all flex items-center justify-center gap-2 whitespace-nowrap">
-                            <i class="ri-apple-fill text-xl text-gray-900"></i>
-                            <span class="text-sm font-medium text-gray-700">Apple</span>
-                        </button>
-                    </div> -->
                 </div>
-                <!-- <div class="text-center mt-6">
-                    <p class="text-sm text-gray-600">Don't have an account? <a href="#" class="font-semibold text-primary hover:text-blue-700 hover:underline transition-all">Sign Up</a></p>
-                </div> -->
             </div>
         </main>
         <footer class="py-8 px-6">
@@ -263,11 +247,6 @@
             const passwordError = document.getElementById("password-error");
             const generalError = document.getElementById("general-error");
             const submitBtn = document.getElementById("submit-btn");
-
-            // alert("Login form script loaded successfully!");
-            // SetTimeout(() => {
-            //     alert("Login form script executed successfully!");
-            // }, 1000);
 
             function showError(element, message) {
                 const errorSpan = element.querySelector("span");

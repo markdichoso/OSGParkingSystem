@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+<?php $session = session(); ?>
+
+
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -209,8 +214,8 @@
                     <div class="flex items-center gap-4">
                         <div class="relative">
                             <img
-                                src="http://localhost/osgparkingsystem/public/img/photo/2003-03002.jpg"
-                                class="w-20 h-20 rounded-full object-cover ring-4 ring-primary ring-opacity-20" />
+                                src="http://localhost/osgparkingsystem/public/img/photo/<?php echo $_SESSION['user_id']; ?>.jpg"
+                                class="w-24 h-24 rounded-full object-cover ring-4 ring-primary ring-opacity-20" />
                             <div
                                 class="absolute bottom-0 right-0 w-6 h-6 bg-secondary rounded-full border-3 border-white flex items-center justify-center">
                                 <i class="ri-check-line text-white text-xs"></i>
@@ -218,12 +223,12 @@
                         </div>
                         <div>
                             <h2 class="text-xl font-bold text-gray-900">
-                                Jayvie Neil Malick S. Malicdem
+                                <?php echo $_SESSION['user_fullname']; ?>
                             </h2>
-                            <p class="text-sm text-gray-600">Case Management Service</p>
+                            <p class="text-sm text-gray-600"><?php echo $_SESSION['user_division']; ?></p>
                             <div
-                                class="bg-gray-100 px-3 py-1 rounded-full mt-2 inline-block">
-                                <p class="text-xs font-mono text-gray-700">2003-03002</p>
+                                class="bg-gray-100 px-3 py-1 rounded-full mt-1 inline-block">
+                                <p class="text-xs font-mono text-gray-700"><?php echo $_SESSION['user_id']; ?></p>
                             </div>
                         </div>
                     </div>
@@ -271,6 +276,9 @@
                     });
                 });
             </script>
+
+
+
             <div id="personal-content" class="tab-content">
                 <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
                     <h3 class="text-base font-semibold text-gray-900 mb-4">
@@ -282,7 +290,7 @@
                             <input
                                 type="email"
                                 id="email-input"
-                                value="jayviemalicdem@osg.gov.ph"
+                                value="<?php echo $session->get('user_email'); ?>"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
                         </div>
                         <div>
@@ -290,7 +298,7 @@
                             <input
                                 type="tel"
                                 id="phone-input"
-                                value="+63 917 234 5678"
+                                value="<?php echo $session->get('user_contact'); ?>"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
                         </div>
                         <div>
@@ -298,7 +306,7 @@
                             <input
                                 type="text"
                                 id="department-input"
-                                value="Engineering Division"
+                                value="<?php echo $session->get('user_division'); ?>"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
                         </div>
                         <!-- <div>
@@ -326,100 +334,85 @@
                         <div class="bg-gray-100 px-3 py-1 rounded-full">
                             <span
                                 class="text-sm font-semibold text-gray-900"
-                                id="vehicle-count">2/3</span>
+                                id="vehicle-count"></span>
                         </div>
                     </div>
                     <div id="vehicles-container" class="space-y-3 mb-4">
-                        <div
-                            class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4">
-                            <div class="flex items-start justify-between mb-3">
-                                <div class="flex items-center gap-3">
+
+
+
+                        <?php if (empty($clientVehicles)): ?>
+                            <p class="rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm text-gray-500">
+                                No registered vehicles found.
+                            </p>
+                        <?php else: ?>
+                            <div id="vehicle-info" class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                                <?php foreach ($clientVehicles as $vehicle): ?>
                                     <div
-                                        class="w-12 h-12 flex items-center justify-center bg-white rounded-full">
-                                        <i class="ri-car-fill text-2xl text-primary"></i>
+                                        class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4">
+                                        <div class="flex items-start justify-between mb-3">
+                                            <div class="flex items-center gap-3">
+                                                <div
+                                                    class="w-12 h-12 flex items-center justify-center bg-white rounded-full">
+                                                    <i class="ri-car-fill text-2xl text-primary"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="text-sm font-semibold text-gray-900">
+                                                        <?= esc($vehicle['v_make'] . ' ' . $vehicle['v_model']) ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <button
+                                                    class="edit-vehicle-btn w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer"
+                                                    data-vehicle-id="<?= esc($vehicle['v_id']) ?>">
+                                                    <i class="ri-pencil-line text-base text-primary"></i>
+                                                </button>
+                                                <button
+                                                    class="delete-vehicle-btn w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer"
+                                                    data-vehicle-id="<?= esc($vehicle['v_id']) ?>">
+                                                    <i class="ri-delete-bin-line text-base text-red-600"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-4">
+                                            <div class="flex items-center gap-2">
+                                                <div
+                                                    class="w-4 h-4 rounded-full bg-gray-800 border-2 border-white"></div>
+                                                <span class="text-xs text-gray-700"><?= esc($vehicle['v_color']) ?></span>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <i class="ri-bank-card-line text-sm text-gray-600"></i>
+                                                <span class="text-xs text-gray-700"><?= esc($vehicle['v_plateno']) ?></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p class="text-sm font-semibold text-gray-900">
-                                            Toyota Camry 2020
-                                        </p>
-                                        <p class="text-xs text-gray-600">Toyota</p>
-                                    </div>
-                                </div>
-                                <div class="flex gap-2">
-                                    <button
-                                        class="edit-vehicle-btn w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer"
-                                        data-vehicle-id="1">
-                                        <i class="ri-pencil-line text-base text-primary"></i>
-                                    </button>
-                                    <button
-                                        class="delete-vehicle-btn w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer"
-                                        data-vehicle-id="1">
-                                        <i class="ri-delete-bin-line text-base text-red-600"></i>
-                                    </button>
-                                </div>
+                                    <?php $vehicleCount = count($clientVehicles); ?>
+
+                                    <script>
+                                        const vechicleCount = document.getElementById("vehicle-count");
+                                        vechicleCount.textContent = "<?= $vehicleCount ?> / 3";
+                                    </script>
+
+                                <?php endforeach; ?>
                             </div>
-                            <div class="flex items-center gap-4">
-                                <div class="flex items-center gap-2">
-                                    <div
-                                        class="w-4 h-4 rounded-full bg-gray-800 border-2 border-white"></div>
-                                    <span class="text-xs text-gray-700">Black</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <i class="ri-bank-card-line text-sm text-gray-600"></i>
-                                    <span class="text-xs text-gray-700">ABC-1234</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4">
-                            <div class="flex items-start justify-between mb-3">
-                                <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-12 h-12 flex items-center justify-center bg-white rounded-full">
-                                        <i class="ri-car-fill text-2xl text-secondary"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm font-semibold text-gray-900">
-                                            Tesla Model Y 2026
-                                        </p>
-                                        <p class="text-xs text-gray-600">Tesla</p>
-                                    </div>
-                                </div>
-                                <div class="flex gap-2">
-                                    <button
-                                        class="edit-vehicle-btn w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer"
-                                        data-vehicle-id="2">
-                                        <i class="ri-pencil-line text-base text-secondary"></i>
-                                    </button>
-                                    <button
-                                        class="delete-vehicle-btn w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer"
-                                        data-vehicle-id="2">
-                                        <i class="ri-delete-bin-line text-base text-red-600"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="flex items-center gap-2">
-                                    <div
-                                        class="w-4 h-4 rounded-full bg-white border-2 border-gray-300"></div>
-                                    <span class="text-xs text-gray-700">White</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <i class="ri-bank-card-line text-sm text-gray-600"></i>
-                                    <span class="text-xs text-gray-700">XYZ-5678</span>
-                                </div>
-                            </div>
-                        </div>
+                        <?php endif; ?>
+
                     </div>
-                    <button
-                        id="add-vehicle-btn"
-                        class="w-full border-2 border-dashed border-gray-300 rounded-xl p-4 flex items-center justify-center gap-2 cursor-pointer hover:border-primary hover:bg-blue-50 transition-all">
-                        <div
-                            class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full">
-                            <i class="ri-add-line text-xl text-primary"></i>
-                        </div>
-                        <span class="text-sm font-medium text-gray-700">Add New Vehicle</span>
-                    </button>
+                    <?php if ($vehicleCount < 3): ?>
+
+                        <button
+                            id="add-vehicle-btn"
+                            class="w-full border-2 border-dashed border-gray-300 rounded-xl p-4 flex items-center justify-center gap-2 cursor-pointer hover:border-primary hover:bg-blue-50 transition-all">
+                            <div
+                                class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full">
+                                <i class="ri-add-line text-xl text-primary"></i>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700">Add New Vehicle</span>
+                        </button>
+
+                    <?php endif; ?>
+
                 </div>
             </div>
         </main>

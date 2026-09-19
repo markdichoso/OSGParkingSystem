@@ -376,6 +376,8 @@
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs text-gray-600">Vehicle Information</span>
                     </div>
+
+
                     <?php if (empty($clientVehicles)): ?>
                         <p class="rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm text-gray-500">
                             No registered vehicles found.
@@ -412,24 +414,11 @@
                             <?php endforeach; ?>
                         </div>
                     <?php endif; ?>
+
+
+
                 </div>
             </div>
-            <!-- <div id="transaction-type-section" class="mb-6 fade-in">
-                <div class="bg-gray-100 rounded-full p-1 flex gap-1">
-                    <button
-                        id="entry-btn"
-                        class="flex-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer bg-white text-gray-900 shadow-sm">
-                        Entry
-                    </button>
-                    <button
-                        id="exit-btn"
-                        class="flex-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer text-gray-600">
-                        Exit
-                    </button>
-                </div>
-            </div> -->
-
-
 
 
 
@@ -511,89 +500,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div
-                id="exit-summary-section"
-                class="hidden bg-white rounded-2xl shadow-md p-6 mb-6 slide-up">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Exit Summary</h2>
-                <div
-                    class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 mb-4">
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="text-sm text-gray-600">Parking Spot</span>
-                        <span
-                            id="exit-spot-number"
-                            class="text-xl font-bold text-gray-900">A-23</span>
-                    </div>
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="text-sm text-gray-600">Duration</span>
-                        <span id="exit-duration" class="text-xl font-bold text-gray-900">7h 45m</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-600">Parking Type</span>
-                        <div class="bg-secondary px-3 py-1 rounded-full">
-                            <span
-                                id="exit-parking-type"
-                                class="text-xs font-medium text-white">Free Parking</span>
-                        </div>
-                    </div>
-                </div>
-                <div id="fee-section" class="hidden bg-orange-50 rounded-xl p-4 mb-4">
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm font-medium text-gray-700">Parking Fee</span>
-                        <span id="parking-fee" class="text-2xl font-bold text-orange-600">$15.00</span>
-                    </div>
-                </div>
-            </div> -->
-            <!-- <div
-                id="transaction-summary-section"
-                class="hidden bg-white rounded-2xl shadow-md p-6 mb-6 slide-up">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-lg font-semibold text-gray-900">
-                        Transaction Summary
-                    </h2>
-                    <div class="bg-blue-50 px-3 py-1 rounded-full">
-                        <span
-                            id="transaction-type-badge"
-                            class="text-xs font-medium text-primary">Entry</span>
-                    </div>
-                </div>
-                <div class="space-y-3 mb-4">
-                    <div
-                        class="flex items-center justify-between py-2 border-b border-gray-100">
-                        <span class="text-sm text-gray-600">Employee</span>
-                        <span
-                            id="summary-employee-name"
-                            class="text-sm font-medium text-gray-900">Sarah Johnson</span>
-                    </div>
-                    <div
-                        class="flex items-center justify-between py-2 border-b border-gray-100">
-                        <span class="text-sm text-gray-600">Employee ID</span>
-                        <span
-                            id="summary-employee-id"
-                            class="text-sm font-mono text-gray-900">2008-15847</span>
-                    </div>
-                    <div
-                        class="flex items-center justify-between py-2 border-b border-gray-100">
-                        <span class="text-sm text-gray-600">Timestamp</span>
-                        <span
-                            id="summary-timestamp"
-                            class="text-sm font-medium text-gray-900">Dec 28, 2026 09:15 AM</span>
-                    </div>
-                    <div
-                        id="summary-spot-row"
-                        class="flex items-center justify-between py-2 border-b border-gray-100">
-                        <span class="text-sm text-gray-600">Parking Spot</span>
-                        <span id="summary-spot" class="text-sm font-bold text-primary">A-12</span>
-                    </div>
-                    <div
-                        id="summary-duration-row"
-                        class="hidden flex items-center justify-between py-2 border-b border-gray-100">
-                        <span class="text-sm text-gray-600">Duration</span>
-                        <span
-                            id="summary-duration"
-                            class="text-sm font-medium text-gray-900">7h 45m</span>
-                    </div>
-                </div>
-            </div> -->
             <div id="action-buttons-section" class=" space-y-3 mb-6">
                 <button
                     id="confirm-button"
@@ -612,140 +518,7 @@
                     <span>Cancel</span>
                 </button>
             </div>
-            <!-- <div
-                id="recent-transactions-section"
-                class="bg-white rounded-2xl shadow-md p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-base font-semibold text-gray-900">
-                        Recent Transactions
-                    </h2>
-                    <button class="text-sm text-primary font-medium cursor-pointer">
-                        View All
-                    </button>
-                </div>
-                <div class="space-y-3" id="recent-transactions-list">
-                    <div class="bg-gray-50 rounded-xl p-3 cursor-pointer">
-                        <div class="flex items-center justify-between mb-2">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="w-10 h-10 flex items-center justify-center bg-secondary bg-opacity-10 rounded-lg">
-                                    <i class="ri-login-box-line text-lg text-secondary"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-semibold text-gray-900">
-                                        Michael Chen
-                                    </p>
-                                    <p class="text-xs text-gray-600">Spot B-15</p>
-                                </div>
-                            </div>
-                            <div class="bg-secondary px-2 py-1 rounded">
-                                <span class="text-xs font-medium text-white">Entry</span>
-                            </div>
-                        </div>
-                        <div
-                            class="flex items-center justify-between text-xs text-gray-600 pl-13">
-                            <span>08:45 AM</span>
-                            <span>Free Parking</span>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 rounded-xl p-3 cursor-pointer">
-                        <div class="flex items-center justify-between mb-2">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="w-10 h-10 flex items-center justify-center bg-orange-600 bg-opacity-10 rounded-lg">
-                                    <i class="ri-logout-box-line text-lg text-orange-600"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-semibold text-gray-900">
-                                        Emily Rodriguez
-                                    </p>
-                                    <p class="text-xs text-gray-600">Spot C-08 - 6h 20m</p>
-                                </div>
-                            </div>
-                            <div class="bg-orange-600 px-2 py-1 rounded">
-                                <span class="text-xs font-medium text-white">Exit</span>
-                            </div>
-                        </div>
-                        <div
-                            class="flex items-center justify-between text-xs text-gray-600 pl-13">
-                            <span>08:30 AM</span>
-                            <span>Pay Parking</span>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 rounded-xl p-3 cursor-pointer">
-                        <div class="flex items-center justify-between mb-2">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="w-10 h-10 flex items-center justify-center bg-secondary bg-opacity-10 rounded-lg">
-                                    <i class="ri-login-box-line text-lg text-secondary"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-semibold text-gray-900">
-                                        David Thompson
-                                    </p>
-                                    <p class="text-xs text-gray-600">Spot A-18</p>
-                                </div>
-                            </div>
-                            <div class="bg-secondary px-2 py-1 rounded">
-                                <span class="text-xs font-medium text-white">Entry</span>
-                            </div>
-                        </div>
-                        <div
-                            class="flex items-center justify-between text-xs text-gray-600 pl-13">
-                            <span>08:15 AM</span>
-                            <span>Free Parking</span>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 rounded-xl p-3 cursor-pointer">
-                        <div class="flex items-center justify-between mb-2">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="w-10 h-10 flex items-center justify-center bg-orange-600 bg-opacity-10 rounded-lg">
-                                    <i class="ri-logout-box-line text-lg text-orange-600"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-semibold text-gray-900">
-                                        Jessica Wang
-                                    </p>
-                                    <p class="text-xs text-gray-600">Spot B-22 - 8h 15m</p>
-                                </div>
-                            </div>
-                            <div class="bg-orange-600 px-2 py-1 rounded">
-                                <span class="text-xs font-medium text-white">Exit</span>
-                            </div>
-                        </div>
-                        <div
-                            class="flex items-center justify-between text-xs text-gray-600 pl-13">
-                            <span>08:00 AM</span>
-                            <span>Free Parking</span>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 rounded-xl p-3 cursor-pointer">
-                        <div class="flex items-center justify-between mb-2">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="w-10 h-10 flex items-center justify-center bg-secondary bg-opacity-10 rounded-lg">
-                                    <i class="ri-login-box-line text-lg text-secondary"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-semibold text-gray-900">
-                                        Robert Martinez
-                                    </p>
-                                    <p class="text-xs text-gray-600">Spot C-12</p>
-                                </div>
-                            </div>
-                            <div class="bg-secondary px-2 py-1 rounded">
-                                <span class="text-xs font-medium text-white">Entry</span>
-                            </div>
-                        </div>
-                        <div
-                            class="flex items-center justify-between text-xs text-gray-600 pl-13">
-                            <span>07:45 AM</span>
-                            <span>Pay Parking</span>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+
         </main>
     </div>
     <div id="toast-container"></div>
@@ -811,37 +584,37 @@
                 modal.className =
                     "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-5";
                 modal.innerHTML = `
-      <div class="bg-white rounded-2xl max-w-sm w-full p-6 fade-in">
-      <div class="w-16 h-16 flex items-center justify-center bg-orange-100 rounded-full mx-auto mb-4">
-      <i class="ri-camera-off-line text-3xl text-orange-600"></i>
-      </div>
-      <h3 class="text-xl font-bold text-gray-900 text-center mb-2">Camera Access Required</h3>
-      <p class="text-sm text-gray-600 text-center mb-6">
-      We need camera access to scan QR codes for employee verification. Please allow camera permissions to continue.
-      </p>
-      <div class="space-y-3">
-      <button id="retry-camera-btn" class="w-full bg-primary text-white py-3 rounded-button font-medium flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap">
-      <div class="w-5 h-5 flex items-center justify-center">
-      <i class="ri-refresh-line text-lg"></i>
-      </div>
-      <span>Retry Camera Access</span>
-      </button>
-      <button id="manual-entry-btn" class="w-full bg-secondary text-white py-3 rounded-button font-medium flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap">
-      <div class="w-5 h-5 flex items-center justify-center">
-      <i class="ri-keyboard-line text-lg"></i>
-      </div>
-      <span>Enter ID Manually</span>
-      </button>
-      <button id="settings-help-btn" class="w-full bg-gray-100 text-gray-700 py-3 rounded-button font-medium flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap">
-      <div class="w-5 h-5 flex items-center justify-center">
-      <i class="ri-settings-3-line text-lg"></i>
-      </div>
-      <span>Check Device Settings</span>
-      </button>
-      </div>
-      <button id="close-modal-btn" class="mt-4 w-full text-sm text-gray-500 py-2 cursor-pointer">Cancel</button>
-      </div>
-      `;
+                    <div class="bg-white rounded-2xl max-w-sm w-full p-6 fade-in">
+                    <div class="w-16 h-16 flex items-center justify-center bg-orange-100 rounded-full mx-auto mb-4">
+                    <i class="ri-camera-off-line text-3xl text-orange-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 text-center mb-2">Camera Access Required</h3>
+                    <p class="text-sm text-gray-600 text-center mb-6">
+                    We need camera access to scan QR codes for employee verification. Please allow camera permissions to continue.
+                    </p>
+                    <div class="space-y-3">
+                    <button id="retry-camera-btn" class="w-full bg-primary text-white py-3 rounded-button font-medium flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                    <i class="ri-refresh-line text-lg"></i>
+                    </div>
+                    <span>Retry Camera Access</span>
+                    </button>
+                    <button id="manual-entry-btn" class="w-full bg-secondary text-white py-3 rounded-button font-medium flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                    <i class="ri-keyboard-line text-lg"></i>
+                    </div>
+                    <span>Enter ID Manually</span>
+                    </button>
+                    <button id="settings-help-btn" class="w-full bg-gray-100 text-gray-700 py-3 rounded-button font-medium flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                    <i class="ri-settings-3-line text-lg"></i>
+                    </div>
+                    <span>Check Device Settings</span>
+                    </button>
+                    </div>
+                    <button id="close-modal-btn" class="mt-4 w-full text-sm text-gray-500 py-2 cursor-pointer">Cancel</button>
+                    </div>
+                    `;
                 document.body.appendChild(modal);
 
                 document
@@ -881,30 +654,30 @@
                         helpModal.className =
                             "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-5";
                         helpModal.innerHTML = `
-      <div class="bg-white rounded-2xl max-w-sm w-full p-6 fade-in">
-      <div class="flex items-center justify-between mb-4">
-      <h3 class="text-lg font-bold text-gray-900">Camera Settings Help</h3>
-      <button id="close-help-modal" class="w-8 h-8 flex items-center justify-center cursor-pointer">
-      <i class="ri-close-line text-xl text-gray-500"></i>
-      </button>
-      </div>
-      <div class="space-y-4 text-sm text-gray-700">
-      <div>
-      <p class="font-semibold mb-2">For Chrome/Safari:</p>
-      <p>1. Click the lock icon in the address bar</p>
-      <p>2. Find "Camera" permissions</p>
-      <p>3. Select "Allow" and reload the page</p>
-      </div>
-      <div>
-      <p class="font-semibold mb-2">For Mobile Devices:</p>
-      <p>1. Go to device Settings</p>
-      <p>2. Find this app/browser</p>
-      <p>3. Enable Camera permissions</p>
-      </div>
-      </div>
-      <button id="got-it-btn" class="w-full bg-primary text-white py-3 rounded-button font-medium mt-6 cursor-pointer whitespace-nowrap">Got it</button>
-      </div>
-      `;
+                            <div class="bg-white rounded-2xl max-w-sm w-full p-6 fade-in">
+                            <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-gray-900">Camera Settings Help</h3>
+                            <button id="close-help-modal" class="w-8 h-8 flex items-center justify-center cursor-pointer">
+                            <i class="ri-close-line text-xl text-gray-500"></i>
+                            </button>
+                            </div>
+                            <div class="space-y-4 text-sm text-gray-700">
+                            <div>
+                            <p class="font-semibold mb-2">For Chrome/Safari:</p>
+                            <p>1. Click the lock icon in the address bar</p>
+                            <p>2. Find "Camera" permissions</p>
+                            <p>3. Select "Allow" and reload the page</p>
+                            </div>
+                            <div>
+                            <p class="font-semibold mb-2">For Mobile Devices:</p>
+                            <p>1. Go to device Settings</p>
+                            <p>2. Find this app/browser</p>
+                            <p>3. Enable Camera permissions</p>
+                            </div>
+                            </div>
+                            <button id="got-it-btn" class="w-full bg-primary text-white py-3 rounded-button font-medium mt-6 cursor-pointer whitespace-nowrap">Got it</button>
+                            </div>
+                            `;
                         document.body.appendChild(helpModal);
 
                         document
