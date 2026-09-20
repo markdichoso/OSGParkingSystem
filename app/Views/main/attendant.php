@@ -45,9 +45,6 @@ $session = session();
         };
     </script>
 
-    <script>
-        alert(" \n\nYou have successfully logged in.\n\nWelcome <?php echo $session->get('user_fullname'); ?>!");
-    </script>
 
     <style>
         :where([class^="ri-"])::before {

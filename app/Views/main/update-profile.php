@@ -152,28 +152,7 @@
                 </div>
             </div>
 
-            <!-- <div class="flex items-center justify-between px-5 py-4 h-16">
-                <div class="flex items-center gap-3">
-                    <button
-                        id="back-button"
-                        class="w-10 h-10 flex items-center justify-center cursor-pointer">
-                        <i class="ri-arrow-left-line text-2xl text-gray-700"></i>
-                    </button>
-                    <h1 class="text-xl font-semibold text-gray-900">Edit Profile</h1>
-                </div>
-                <div class="flex items-center gap-4">
-                    <div
-                        class="w-10 h-10 flex items-center justify-center cursor-pointer">
-                        <i class="ri-notification-3-line text-2xl text-gray-700"></i>
-                    </div>
-                    <div
-                        class="w-10 h-10 flex items-center justify-center cursor-pointer"
-                        id="menu-button">
-                        <i class="ri-menu-line text-2xl text-gray-700"></i>
-                    </div>
-                </div>
-            </div>
-            
+
             <div
                 id="menu-dropdown"
                 class="absolute right-5 top-16 bg-white rounded-xl shadow-lg w-48 hidden overflow-hidden z-50">
@@ -196,226 +175,225 @@
                         <span class="text-sm font-medium text-red-600">Log Out</span>
                     </button>
                 </div>
-            </div> -->
-        </header>
-        <main class="pt-20 px-5">
+            </div>
 
-            <div class="flex items-center gap-3">
+        </header>
+
+        <!-- LOGIN FORM -->
+        <!-- UPDATE PROFILE - FORM - ----------------------------------------------------------------------------------------------------------------------------------------->
+        <form id="update-form" class="space-y-5">
+            <main class="pt-20 px-5">
+
+                <!-- <div class="flex items-center gap-3">
                 <button
                     id="back-button"
                     class="w-10 h-10 flex items-center justify-center cursor-pointer">
                     <i class="ri-arrow-left-line text-2xl text-gray-700"></i>
                 </button>
-                <h1 class="text-xl font-semibold text-gray-900">Edit Profile</h1>
-            </div>
-            <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
+                <h1 class="text-xl font-semibold text-gray-900">Back</h1>
+            </div> -->
+                <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
 
-                <div class="flex items-start justify-between mb-1">
-                    <div class="flex items-center gap-4">
-                        <div class="relative">
-                            <img
-                                src="http://localhost/osgparkingsystem/public/img/photo/<?php echo $_SESSION['user_id']; ?>.jpg"
-                                class="w-24 h-24 rounded-full object-cover ring-4 ring-primary ring-opacity-20" />
-                            <div
-                                class="absolute bottom-0 right-0 w-6 h-6 bg-secondary rounded-full border-3 border-white flex items-center justify-center">
-                                <i class="ri-check-line text-white text-xs"></i>
+                    <div class="flex items-start justify-between mb-1">
+                        <div class="flex items-center gap-4">
+                            <div class="relative">
+                                <img
+                                    src="http://localhost/osgparkingsystem/public/img/photo/<?php echo $_SESSION['user_id']; ?>.jpg"
+                                    class="w-24 h-24 rounded-full object-cover ring-4 ring-primary ring-opacity-20" />
+                                <div
+                                    class="absolute bottom-0 right-0 w-6 h-6 bg-secondary rounded-full border-3 border-white flex items-center justify-center">
+                                    <i class="ri-check-line text-white text-xs"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-900">
+                                    <?php echo $_SESSION['user_fullname']; ?>
+                                </h2>
+                                <p class="text-sm text-gray-600"><?php echo $_SESSION['user_division']; ?></p>
+                                <div
+                                    class="bg-gray-100 px-3 py-1 rounded-full mt-1 inline-block">
+                                    <p class="text-xs font-mono text-gray-700"><?php echo $_SESSION['user_id']; ?></p>
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <h2 class="text-xl font-bold text-gray-900">
-                                <?php echo $_SESSION['user_fullname']; ?>
-                            </h2>
-                            <p class="text-sm text-gray-600"><?php echo $_SESSION['user_division']; ?></p>
-                            <div
-                                class="bg-gray-100 px-3 py-1 rounded-full mt-1 inline-block">
-                                <p class="text-xs font-mono text-gray-700"><?php echo $_SESSION['user_id']; ?></p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-1 mb-6">
+                    <div class="flex gap-2">
+                        <button
+                            id="tab-personal"
+                            class="tab-button flex-1 px-1 py-1 text-md font-medium rounded-full transition-all bg-primary text-white">
+                            Personal Details
+                        </button>
+                        <button
+                            id="tab-vehicles"
+                            class="tab-button flex-1 px-1 py-1 text-md font-medium rounded-full transition-all text-gray-600">
+                            Vehicles
+                        </button>
+                    </div>
+                </div>
+
+                <script id="tab-switching">
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const tabPersonal = document.getElementById("tab-personal");
+                        const tabVehicles = document.getElementById("tab-vehicles");
+                        const personalContent = document.getElementById("personal-content");
+                        const vehiclesContent = document.getElementById("vehicles-content");
+
+                        tabPersonal.addEventListener("click", function() {
+                            tabPersonal.classList.add("bg-primary", "text-white");
+                            tabPersonal.classList.remove("text-gray-600");
+                            tabVehicles.classList.remove("bg-primary", "text-white");
+                            tabVehicles.classList.add("text-gray-600");
+                            personalContent.classList.remove("hidden");
+                            vehiclesContent.classList.add("hidden");
+                        });
+
+                        tabVehicles.addEventListener("click", function() {
+                            tabVehicles.classList.add("bg-primary", "text-white");
+                            tabVehicles.classList.remove("text-gray-600");
+                            tabPersonal.classList.remove("bg-primary", "text-white");
+                            tabPersonal.classList.add("text-gray-600");
+                            vehiclesContent.classList.remove("hidden");
+                            personalContent.classList.add("hidden");
+                        });
+                    });
+                </script>
+
+
+
+                <div id="personal-content" class="tab-content">
+                    <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
+                        <h3 class="text-base font-semibold text-gray-900 mb-4">
+                            Personal Details
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                <input
+                                    type="email"
+                                    id="email-input"
+                                    value="<?php echo $session->get('user_email'); ?>"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                <input
+                                    type="tel"
+                                    id="phone-input"
+                                    value="<?php echo $session->get('user_contact'); ?>"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Department</label>
+                                <input
+                                    type="text"
+                                    id="department-input"
+                                    value="<?php echo $session->get('user_division'); ?>"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-md p-1 mb-6">
-                <div class="flex gap-2">
-                    <button
-                        id="tab-personal"
-                        class="tab-button flex-1 px-1 py-1 text-md font-medium rounded-full transition-all bg-primary text-white">
-                        Personal Details
-                    </button>
-                    <button
-                        id="tab-vehicles"
-                        class="tab-button flex-1 px-1 py-1 text-md font-medium rounded-full transition-all text-gray-600">
-                        Vehicles
-                    </button>
-                </div>
-            </div>
-
-            <script id="tab-switching">
-                document.addEventListener("DOMContentLoaded", function() {
-                    const tabPersonal = document.getElementById("tab-personal");
-                    const tabVehicles = document.getElementById("tab-vehicles");
-                    const personalContent = document.getElementById("personal-content");
-                    const vehiclesContent = document.getElementById("vehicles-content");
-
-                    tabPersonal.addEventListener("click", function() {
-                        tabPersonal.classList.add("bg-primary", "text-white");
-                        tabPersonal.classList.remove("text-gray-600");
-                        tabVehicles.classList.remove("bg-primary", "text-white");
-                        tabVehicles.classList.add("text-gray-600");
-                        personalContent.classList.remove("hidden");
-                        vehiclesContent.classList.add("hidden");
-                    });
-
-                    tabVehicles.addEventListener("click", function() {
-                        tabVehicles.classList.add("bg-primary", "text-white");
-                        tabVehicles.classList.remove("text-gray-600");
-                        tabPersonal.classList.remove("bg-primary", "text-white");
-                        tabPersonal.classList.add("text-gray-600");
-                        vehiclesContent.classList.remove("hidden");
-                        personalContent.classList.add("hidden");
-                    });
-                });
-            </script>
-
-
-
-            <div id="personal-content" class="tab-content">
-                <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
-                    <h3 class="text-base font-semibold text-gray-900 mb-4">
-                        Personal Details
-                    </h3>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                            <input
-                                type="email"
-                                id="email-input"
-                                value="<?php echo $session->get('user_email'); ?>"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
+                <div id="vehicles-content" class="tab-content hidden">
+                    <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h3 class="text-base font-semibold text-gray-900">
+                                    Registered Vehicles
+                                </h3>
+                                <p class="text-xs text-gray-600 mt-1">
+                                    You can register up to 3 vehicles
+                                </p>
+                            </div>
+                            <div class="bg-gray-100 px-3 py-1 rounded-full">
+                                <span
+                                    class="text-sm font-semibold text-gray-900"
+                                    id="vehicle-count"></span>
+                            </div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                            <input
-                                type="tel"
-                                id="phone-input"
-                                value="<?php echo $session->get('user_contact'); ?>"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Department</label>
-                            <input
-                                type="text"
-                                id="department-input"
-                                value="<?php echo $session->get('user_division'); ?>"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
-                        </div>
-                        <!-- <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Employee ID</label>
-                            <input
-                                type="text"
-                                value="2008-11092"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm bg-gray-50 text-gray-600 font-mono"
-                                readonly />
-                        </div> -->
-                    </div>
-                </div>
-            </div>
-            <div id="vehicles-content" class="tab-content hidden">
-                <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <div>
-                            <h3 class="text-base font-semibold text-gray-900">
-                                Registered Vehicles
-                            </h3>
-                            <p class="text-xs text-gray-600 mt-1">
-                                You can register up to 3 vehicles
-                            </p>
-                        </div>
-                        <div class="bg-gray-100 px-3 py-1 rounded-full">
-                            <span
-                                class="text-sm font-semibold text-gray-900"
-                                id="vehicle-count"></span>
-                        </div>
-                    </div>
-                    <div id="vehicles-container" class="space-y-3 mb-4">
+                        <div id="vehicles-container" class="space-y-3 mb-4">
 
 
 
-                        <?php if (empty($clientVehicles)): ?>
-                            <p class="rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm text-gray-500">
-                                No registered vehicles found.
-                            </p>
-                        <?php else: ?>
-                            <div id="vehicle-info" class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                                <?php foreach ($clientVehicles as $vehicle): ?>
-                                    <div
-                                        class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4">
-                                        <div class="flex items-start justify-between mb-3">
-                                            <div class="flex items-center gap-3">
-                                                <div
-                                                    class="w-12 h-12 flex items-center justify-center bg-white rounded-full">
-                                                    <i class="ri-car-fill text-2xl text-primary"></i>
+                            <?php if (empty($clientVehicles)): ?>
+                                <p class="rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm text-gray-500">
+                                    No registered vehicles found.
+                                </p>
+                            <?php else: ?>
+                                <div id="vehicle-info" class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                                    <?php foreach ($clientVehicles as $vehicle): ?>
+                                        <div
+                                            class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4">
+                                            <div class="flex items-start justify-between mb-3">
+                                                <div class="flex items-center gap-3">
+                                                    <div
+                                                        class="w-12 h-12 flex items-center justify-center bg-white rounded-full">
+                                                        <i class="ri-car-fill text-2xl text-primary"></i>
+                                                    </div>
+                                                    <div>
+                                                        <p class="text-sm font-semibold text-gray-900">
+                                                            <?= esc($vehicle['v_make'] . ' ' . $vehicle['v_model']) ?>
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <p class="text-sm font-semibold text-gray-900">
-                                                        <?= esc($vehicle['v_make'] . ' ' . $vehicle['v_model']) ?>
-                                                    </p>
+                                                <div class="flex gap-2">
+                                                    <button
+                                                        class="edit-vehicle-btn w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer"
+                                                        data-vehicle-id="<?= esc($vehicle['v_id']) ?>">
+                                                        <i class="ri-pencil-line text-base text-primary"></i>
+                                                    </button>
+                                                    <button
+                                                        class="delete-vehicle-btn w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer"
+                                                        data-vehicle-id="<?= esc($vehicle['v_id']) ?>">
+                                                        <i class="ri-delete-bin-line text-base text-red-600"></i>
+                                                    </button>
                                                 </div>
                                             </div>
-                                            <div class="flex gap-2">
-                                                <button
-                                                    class="edit-vehicle-btn w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer"
-                                                    data-vehicle-id="<?= esc($vehicle['v_id']) ?>">
-                                                    <i class="ri-pencil-line text-base text-primary"></i>
-                                                </button>
-                                                <button
-                                                    class="delete-vehicle-btn w-8 h-8 flex items-center justify-center bg-white rounded-lg cursor-pointer"
-                                                    data-vehicle-id="<?= esc($vehicle['v_id']) ?>">
-                                                    <i class="ri-delete-bin-line text-base text-red-600"></i>
-                                                </button>
+                                            <div class="flex items-center gap-4">
+                                                <div class="flex items-center gap-2">
+                                                    <div
+                                                        class="w-4 h-4 rounded-full bg-gray-800 border-2 border-white"></div>
+                                                    <span class="text-xs text-gray-700"><?= esc($vehicle['v_color']) ?></span>
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <i class="ri-bank-card-line text-sm text-gray-600"></i>
+                                                    <span class="text-xs text-gray-700"><?= esc($vehicle['v_plateno']) ?></span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="flex items-center gap-4">
-                                            <div class="flex items-center gap-2">
-                                                <div
-                                                    class="w-4 h-4 rounded-full bg-gray-800 border-2 border-white"></div>
-                                                <span class="text-xs text-gray-700"><?= esc($vehicle['v_color']) ?></span>
-                                            </div>
-                                            <div class="flex items-center gap-2">
-                                                <i class="ri-bank-card-line text-sm text-gray-600"></i>
-                                                <span class="text-xs text-gray-700"><?= esc($vehicle['v_plateno']) ?></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php $vehicleCount = count($clientVehicles); ?>
+                                        <?php $vehicleCount = count($clientVehicles); ?>
 
-                                    <script>
-                                        const vechicleCount = document.getElementById("vehicle-count");
-                                        vechicleCount.textContent = "<?= $vehicleCount ?> / 3";
-                                    </script>
+                                        <script>
+                                            const vechicleCount = document.getElementById("vehicle-count");
+                                            vechicleCount.textContent = "<?= $vehicleCount ?> / 3";
+                                        </script>
 
-                                <?php endforeach; ?>
-                            </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+
+                        </div>
+                        <?php if ($vehicleCount < 3): ?>
+
+                            <button
+                                id="add-vehicle-btn"
+                                class="w-full border-2 border-dashed border-gray-300 rounded-xl p-4 flex items-center justify-center gap-2 cursor-pointer hover:border-primary hover:bg-blue-50 transition-all">
+                                <div
+                                    class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full">
+                                    <i class="ri-add-line text-xl text-primary"></i>
+                                </div>
+                                <span class="text-sm font-medium text-gray-700">Add New Vehicle</span>
+                            </button>
+
                         <?php endif; ?>
 
                     </div>
-                    <?php if ($vehicleCount < 3): ?>
-
-                        <button
-                            id="add-vehicle-btn"
-                            class="w-full border-2 border-dashed border-gray-300 rounded-xl p-4 flex items-center justify-center gap-2 cursor-pointer hover:border-primary hover:bg-blue-50 transition-all">
-                            <div
-                                class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full">
-                                <i class="ri-add-line text-xl text-primary"></i>
-                            </div>
-                            <span class="text-sm font-medium text-gray-700">Add New Vehicle</span>
-                        </button>
-
-                    <?php endif; ?>
-
                 </div>
-            </div>
-        </main>
+            </main>
+        </form>
+        <!-- UPDATE PROFILE - FORM - END ------------------------------------------------------------------------------------------------------------------------------------->
         <div
             class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-5 max-w-[375px] mx-auto z-40">
             <div class="flex gap-3">
@@ -431,7 +409,16 @@
                 </button>
             </div>
         </div>
+
+
     </div>
+
+
+
+
+
+
+
     <div
         id="vehicle-modal"
         class="modal-overlay fixed inset-0 bg-black bg-opacity-50 z-50 items-end justify-center">
@@ -780,9 +767,17 @@
     </script>
     <script id="save-profile">
         document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById("update-form");
             const saveBtn = document.getElementById("save-btn");
             const cancelBtn = document.getElementById("cancel-btn");
             saveBtn.addEventListener("click", function() {
+
+                // Submit the form natively to your CI4 backend Controller
+                form.method = 'POST';
+                form.action = '<?= "save-update-profile" ?>'; // Update with your actual CI4 Route
+                form.submit();
+
+
                 showToast("Changes Saved", "Your profile has been updated successfully");
                 setTimeout(function() {
                     window.history.back();

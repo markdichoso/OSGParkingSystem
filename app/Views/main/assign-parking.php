@@ -166,14 +166,6 @@
 
 
 
-<?php
-
-
-
-?>
-
-
-
 
 
 
@@ -522,6 +514,10 @@
         </main>
     </div>
     <div id="toast-container"></div>
+
+
+
+
     <script id="menu-toggle">
         document.addEventListener("DOMContentLoaded", function() {
             const menuButton = document.getElementById("menu-button");
@@ -543,6 +539,11 @@
             });
         });
     </script>
+
+
+
+
+
     <script id="scanner-functionality">
         document.addEventListener("DOMContentLoaded", function() {
             const scanButton = document.getElementById("scan-button");
@@ -799,6 +800,10 @@
             });
         });
     </script>
+
+
+
+
     <script id="transaction-type-toggle">
         document.addEventListener("DOMContentLoaded", function() {
             const entryBtn = document.getElementById("entry-btn");
@@ -852,6 +857,10 @@
             });
         });
     </script>
+
+
+
+
     <script id="parking-spot-selection">
         document.addEventListener("DOMContentLoaded", function() {
             const parkingSpots = document.querySelectorAll(".parking-spot");
@@ -934,6 +943,9 @@
             });
         });
     </script>
+
+
+
     <script id="transaction-confirmation">
         document.addEventListener("DOMContentLoaded", function() {
             const confirmButton = document.getElementById("confirm-button");
@@ -1038,6 +1050,10 @@
             });
         });
     </script>
+
+
+
+
     <script id="timestamp-update">
         document.addEventListener("DOMContentLoaded", function() {
             const timestampElement = document.getElementById("summary-timestamp");
