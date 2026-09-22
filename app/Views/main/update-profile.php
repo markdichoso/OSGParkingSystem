@@ -392,26 +392,6 @@
                     </div>
                 </div>
             </main>
-        </form>
-        <!-- UPDATE PROFILE - FORM - END ------------------------------------------------------------------------------------------------------------------------------------->
-        <div
-            class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-5 max-w-[375px] mx-auto z-40">
-            <div class="flex gap-3">
-                <button
-                    id="cancel-btn"
-                    class="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 font-medium rounded-button cursor-pointer hover:bg-gray-50 transition-colors !rounded-button">
-                    Cancel
-                </button>
-                <button
-                    id="save-btn"
-                    class="flex-1 px-6 py-3 bg-primary text-white font-medium rounded-button cursor-pointer hover:bg-blue-700 transition-colors !rounded-button">
-                    Save Changes
-                </button>
-            </div>
-        </div>
-
-
-    </div>
 
 
 
@@ -419,388 +399,401 @@
 
 
 
-    <div
-        id="vehicle-modal"
-        class="modal-overlay fixed inset-0 bg-black bg-opacity-50 z-50 items-end justify-center">
-        <div
-            class="modal-content bg-white rounded-t-3xl w-full max-w-[375px] p-6 max-h-[90vh] overflow-y-auto">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-semibold text-gray-900" id="modal-title">
-                    Add New Vehicle
-                </h3>
-                <button
-                    id="close-modal-btn"
-                    class="w-8 h-8 flex items-center justify-center cursor-pointer">
-                    <i class="ri-close-line text-2xl text-gray-700"></i>
-                </button>
-            </div>
-            <form id="vehicle-form" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Car Make/Brand <span class="text-red-500">*</span></label>
-                    <input
-                        type="text"
-                        id="car-brand"
-                        required
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                        placeholder="e.g. Toyota, Honda, Ford, Tesla" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Car Model <span class="text-red-500">*</span></label>
-                    <input
-                        type="text"
-                        id="car-model"
-                        required
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                        placeholder="e.g. Camry 2020, Civic 2019, Model Y 2026" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Color <span class="text-red-500">*</span></label>
-                    <div class="grid grid-cols-4 gap-3">
-                        <div
-                            class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
-                            data-color="Black">
-                            <div
-                                class="w-8 h-8 rounded-full bg-gray-900 border-2 border-white shadow-sm"></div>
-                            <span class="text-xs text-gray-700">Black</span>
-                        </div>
-                        <div
-                            class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
-                            data-color="White">
-                            <div
-                                class="w-8 h-8 rounded-full bg-white border-2 border-gray-300 shadow-sm"></div>
-                            <span class="text-xs text-gray-700">White</span>
-                        </div>
-                        <div
-                            class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
-                            data-color="Silver">
-                            <div
-                                class="w-8 h-8 rounded-full bg-gray-400 border-2 border-white shadow-sm"></div>
-                            <span class="text-xs text-gray-700">Silver</span>
-                        </div>
-                        <div
-                            class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
-                            data-color="Gray">
-                            <div
-                                class="w-8 h-8 rounded-full bg-gray-600 border-2 border-white shadow-sm"></div>
-                            <span class="text-xs text-gray-700">Gray</span>
-                        </div>
-                        <div
-                            class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
-                            data-color="Red">
-                            <div
-                                class="w-8 h-8 rounded-full bg-red-600 border-2 border-white shadow-sm"></div>
-                            <span class="text-xs text-gray-700">Red</span>
-                        </div>
-                        <div
-                            class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
-                            data-color="Blue">
-                            <div
-                                class="w-8 h-8 rounded-full bg-blue-600 border-2 border-white shadow-sm"></div>
-                            <span class="text-xs text-gray-700">Blue</span>
-                        </div>
-                        <div
-                            class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
-                            data-color="Green">
-                            <div
-                                class="w-8 h-8 rounded-full bg-green-600 border-2 border-white shadow-sm"></div>
-                            <span class="text-xs text-gray-700">Green</span>
-                        </div>
-                        <div
-                            class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
-                            data-color="Yellow">
-                            <div
-                                class="w-8 h-8 rounded-full bg-yellow-400 border-2 border-white shadow-sm"></div>
-                            <span class="text-xs text-gray-700">Yellow</span>
-                        </div>
+            <div
+                id="vehicle-modal"
+                class="modal-overlay fixed inset-0 bg-black bg-opacity-50 z-50 items-end justify-center">
+                <div
+                    class="modal-content bg-white rounded-t-3xl w-full max-w-[375px] p-6 max-h-[90vh] overflow-y-auto">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900" id="modal-title">
+                            Add New Vehicle
+                        </h3>
+                        <button
+                            id="close-modal-btn"
+                            class="w-8 h-8 flex items-center justify-center cursor-pointer">
+                            <i class="ri-close-line text-2xl text-gray-700"></i>
+                        </button>
                     </div>
-                    <input type="hidden" id="car-color" required />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Plate Number/Conduction Sticker
-                        <span class="text-red-500">*</span></label>
-                    <input
-                        type="text"
-                        id="car-plate"
-                        required
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent uppercase"
-                        placeholder="e.g. ABC-1234" />
-                </div>
-                <div class="flex gap-3 pt-4">
-                    <button
-                        type="button"
-                        id="modal-cancel-btn"
-                        class="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 font-medium rounded-button cursor-pointer !rounded-button">
-                        Cancel
-                    </button>
-                    <button
-                        type="submit"
-                        class="flex-1 px-6 py-3 bg-primary text-white font-medium rounded-button cursor-pointer !rounded-button">
-                        Save Vehicle
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div
-        id="delete-modal"
-        class="modal-overlay fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center">
-        <div class="bg-white rounded-2xl w-11/12 max-w-[320px] p-6">
-            <div
-                class="w-16 h-16 flex items-center justify-center bg-red-50 rounded-full mx-auto mb-4">
-                <i class="ri-delete-bin-line text-3xl text-red-600"></i>
-            </div>
-            <h3 class="text-lg font-semibold text-gray-900 text-center mb-2">
-                Delete Vehicle
-            </h3>
-            <p class="text-sm text-gray-600 text-center mb-6">
-                Are you sure you want to delete this vehicle? This action cannot be
-                undone.
-            </p>
-            <div class="flex gap-3">
-                <button
-                    id="delete-cancel-btn"
-                    class="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 font-medium rounded-button cursor-pointer !rounded-button">
-                    Cancel
-                </button>
-                <button
-                    id="delete-confirm-btn"
-                    class="flex-1 px-6 py-3 bg-red-600 text-white font-medium rounded-button cursor-pointer !rounded-button">
-                    Delete
-                </button>
-            </div>
-        </div>
-    </div>
-    <div id="toast" class="toast">
-        <div
-            class="bg-white rounded-xl shadow-lg px-6 py-4 flex items-center gap-3 max-w-[335px]">
-            <div
-                class="w-10 h-10 flex items-center justify-center bg-green-50 rounded-full">
-                <i class="ri-check-line text-xl text-secondary"></i>
-            </div>
-            <div>
-                <p class="text-sm font-semibold text-gray-900">Changes Saved</p>
-                <p class="text-xs text-gray-600">
-                    Your profile has been updated successfully
-                </p>
-            </div>
-        </div>
-    </div>
-    <script id="menu-toggle">
-        document.addEventListener("DOMContentLoaded", function() {
-            const menuButton = document.getElementById("menu-button");
-            const menuDropdown = document.getElementById("menu-dropdown");
-            menuButton.addEventListener("click", function(e) {
-                e.stopPropagation();
-                menuDropdown.classList.toggle("hidden");
-            });
-            document.addEventListener("click", function(e) {
-                if (!menuDropdown.contains(e.target) && !menuButton.contains(e.target)) {
-                    menuDropdown.classList.add("hidden");
-                }
-            });
-            const menuOptions = menuDropdown.querySelectorAll("button");
-            menuOptions.forEach((option) => {
-                option.addEventListener("click", function() {
-                    menuDropdown.classList.add("hidden");
-                });
-            });
-        });
-    </script>
-    <script id="back-navigation">
-        document.addEventListener("DOMContentLoaded", function() {
-            const backButton = document.getElementById("back-button");
-            backButton.addEventListener("click", function() {
-                window.history.back();
-            });
-        });
-    </script>
-    <script id="vehicle-modal-control">
-        document.addEventListener("DOMContentLoaded", function() {
-            const addVehicleBtn = document.getElementById("add-vehicle-btn");
-            const vehicleModal = document.getElementById("vehicle-modal");
-            const closeModalBtn = document.getElementById("close-modal-btn");
-            const modalCancelBtn = document.getElementById("modal-cancel-btn");
-            const vehicleForm = document.getElementById("vehicle-form");
-            const modalTitle = document.getElementById("modal-title");
-            let editMode = false;
-            let editVehicleId = null;
-            let vehicleCount = 2;
 
-            function updateVehicleCount() {
-                document.getElementById("vehicle-count").textContent = vehicleCount + "/3";
-                if (vehicleCount >= 3) {
-                    addVehicleBtn.style.display = "none";
-                } else {
-                    addVehicleBtn.style.display = "flex";
-                }
-            }
-            addVehicleBtn.addEventListener("click", function() {
-                editMode = false;
-                modalTitle.textContent = "Add New Vehicle";
-                vehicleForm.reset();
-                document.getElementById("car-color").value = "";
-                document.querySelectorAll(".color-option").forEach((opt) => {
-                    opt.classList.remove("selected", "border-primary");
-                    opt.classList.add("border-gray-200");
+
+
+
+                    <form id="vehicle-form" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Car Make/Brand <span class="text-red-500">*</span></label>
+                            <input
+                                type="text"
+                                id="car-brand"
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                placeholder="e.g. Toyota, Honda, Ford, Tesla" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Car Model <span class="text-red-500">*</span></label>
+                            <input
+                                type="text"
+                                id="car-model"
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                placeholder="e.g. Camry 2020, Civic 2019, Model Y 2026" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Color <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-4 gap-3">
+                                <div
+                                    class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
+                                    data-color="Black">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-gray-900 border-2 border-white shadow-sm"></div>
+                                    <span class="text-xs text-gray-700">Black</span>
+                                </div>
+                                <div
+                                    class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
+                                    data-color="White">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-white border-2 border-gray-300 shadow-sm"></div>
+                                    <span class="text-xs text-gray-700">White</span>
+                                </div>
+                                <div
+                                    class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
+                                    data-color="Silver">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-gray-400 border-2 border-white shadow-sm"></div>
+                                    <span class="text-xs text-gray-700">Silver</span>
+                                </div>
+                                <div
+                                    class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
+                                    data-color="Gray">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-gray-600 border-2 border-white shadow-sm"></div>
+                                    <span class="text-xs text-gray-700">Gray</span>
+                                </div>
+                                <div
+                                    class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
+                                    data-color="Red">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-red-600 border-2 border-white shadow-sm"></div>
+                                    <span class="text-xs text-gray-700">Red</span>
+                                </div>
+                                <div
+                                    class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
+                                    data-color="Blue">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-blue-600 border-2 border-white shadow-sm"></div>
+                                    <span class="text-xs text-gray-700">Blue</span>
+                                </div>
+                                <div
+                                    class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
+                                    data-color="Green">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-green-600 border-2 border-white shadow-sm"></div>
+                                    <span class="text-xs text-gray-700">Green</span>
+                                </div>
+                                <div
+                                    class="color-option flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer"
+                                    data-color="Yellow">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-yellow-400 border-2 border-white shadow-sm"></div>
+                                    <span class="text-xs text-gray-700">Yellow</span>
+                                </div>
+                            </div>
+                            <input type="hidden" id="car-color" required />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Plate Number/Conduction Sticker
+                                <span class="text-red-500">*</span></label>
+                            <input
+                                type="text"
+                                id="car-plate"
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent uppercase"
+                                placeholder="e.g. ABC-1234" />
+                        </div>
+                        <div class="flex gap-3 pt-4">
+                            <button
+                                type="button"
+                                id="modal-cancel-btn"
+                                class="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 font-medium rounded-button cursor-pointer !rounded-button">
+                                Cancel
+                            </button>
+                            <button
+                                type="submit"
+                                class="flex-1 px-6 py-3 bg-primary text-white font-medium rounded-button cursor-pointer !rounded-button">
+                                Save Vehicle
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div
+                id="delete-modal"
+                class="modal-overlay fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center">
+                <div class="bg-white rounded-2xl w-11/12 max-w-[320px] p-6">
+                    <div
+                        class="w-16 h-16 flex items-center justify-center bg-red-50 rounded-full mx-auto mb-4">
+                        <i class="ri-delete-bin-line text-3xl text-red-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 text-center mb-2">
+                        Delete Vehicle
+                    </h3>
+                    <p class="text-sm text-gray-600 text-center mb-6">
+                        Are you sure you want to delete this vehicle? This action cannot be
+                        undone.
+                    </p>
+                    <div class="flex gap-3">
+                        <button
+                            id="delete-cancel-btn"
+                            class="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 font-medium rounded-button cursor-pointer !rounded-button">
+                            Cancel
+                        </button>
+                        <button
+                            id="delete-confirm-btn"
+                            class="flex-1 px-6 py-3 bg-red-600 text-white font-medium rounded-button cursor-pointer !rounded-button">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="toast" class="toast">
+                <div
+                    class="bg-white rounded-xl shadow-lg px-6 py-4 flex items-center gap-3 max-w-[335px]">
+                    <div
+                        class="w-10 h-10 flex items-center justify-center bg-green-50 rounded-full">
+                        <i class="ri-check-line text-xl text-secondary"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-gray-900">Changes Saved</p>
+                        <p class="text-xs text-gray-600">
+                            Your profile has been updated successfully
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+        <script id="menu-toggle">
+            document.addEventListener("DOMContentLoaded", function() {
+                const menuButton = document.getElementById("menu-button");
+                const menuDropdown = document.getElementById("menu-dropdown");
+                menuButton.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    menuDropdown.classList.toggle("hidden");
                 });
-                vehicleModal.classList.add("active");
+                document.addEventListener("click", function(e) {
+                    if (!menuDropdown.contains(e.target) && !menuButton.contains(e.target)) {
+                        menuDropdown.classList.add("hidden");
+                    }
+                });
+                const menuOptions = menuDropdown.querySelectorAll("button");
+                menuOptions.forEach((option) => {
+                    option.addEventListener("click", function() {
+                        menuDropdown.classList.add("hidden");
+                    });
+                });
             });
-            closeModalBtn.addEventListener("click", function() {
-                vehicleModal.classList.remove("active");
+        </script>
+        <script id="back-navigation">
+            document.addEventListener("DOMContentLoaded", function() {
+                const backButton = document.getElementById("back-button");
+                backButton.addEventListener("click", function() {
+                    window.history.back();
+                });
             });
-            modalCancelBtn.addEventListener("click", function() {
-                vehicleModal.classList.remove("active");
-            });
-            vehicleModal.addEventListener("click", function(e) {
-                if (e.target === vehicleModal) {
-                    vehicleModal.classList.remove("active");
+        </script>
+        <script id="vehicle-modal-control">
+            document.addEventListener("DOMContentLoaded", function() {
+                const addVehicleBtn = document.getElementById("add-vehicle-btn");
+                const vehicleModal = document.getElementById("vehicle-modal");
+                const closeModalBtn = document.getElementById("close-modal-btn");
+                const modalCancelBtn = document.getElementById("modal-cancel-btn");
+                const vehicleForm = document.getElementById("vehicle-form");
+                const modalTitle = document.getElementById("modal-title");
+                let editMode = false;
+                let editVehicleId = null;
+                let vehicleCount = 2;
+
+                function updateVehicleCount() {
+                    document.getElementById("vehicle-count").textContent = vehicleCount + "/3";
+                    if (vehicleCount >= 3) {
+                        addVehicleBtn.style.display = "none";
+                    } else {
+                        addVehicleBtn.style.display = "flex";
+                    }
                 }
-            });
-            const colorOptions = document.querySelectorAll(".color-option");
-            colorOptions.forEach((option) => {
-                option.addEventListener("click", function() {
-                    colorOptions.forEach((opt) => {
+                addVehicleBtn.addEventListener("click", function() {
+                    editMode = false;
+                    modalTitle.textContent = "Add New Vehicle";
+                    vehicleForm.reset();
+                    document.getElementById("car-color").value = "";
+                    document.querySelectorAll(".color-option").forEach((opt) => {
                         opt.classList.remove("selected", "border-primary");
                         opt.classList.add("border-gray-200");
                     });
-                    this.classList.add("selected", "border-primary");
-                    this.classList.remove("border-gray-200");
-                    document.getElementById("car-color").value =
-                        this.getAttribute("data-color");
-                });
-            });
-            vehicleForm.addEventListener("submit", function(e) {
-                e.preventDefault();
-                const brand = document.getElementById("car-brand").value;
-                const model = document.getElementById("car-model").value;
-                const color = document.getElementById("car-color").value;
-                const plate = document.getElementById("car-plate").value.toUpperCase();
-                if (!color) {
-                    return;
-                }
-                if (editMode) {
-                    showToast(
-                        "Vehicle Updated",
-                        "Vehicle information has been updated successfully",
-                    );
-                } else {
-                    vehicleCount++;
-                    updateVehicleCount();
-                    showToast("Vehicle Added", "New vehicle has been added successfully");
-                }
-                vehicleModal.classList.remove("active");
-                vehicleForm.reset();
-            });
-            const editButtons = document.querySelectorAll(".edit-vehicle-btn");
-            editButtons.forEach((button) => {
-                button.addEventListener("click", function() {
-                    editMode = true;
-                    editVehicleId = this.getAttribute("data-vehicle-id");
-                    modalTitle.textContent = "Edit Vehicle";
-                    if (editVehicleId === "1") {
-                        document.getElementById("car-brand").value = "Toyota";
-                        document.getElementById("car-model").value = "Camry 2020";
-                        document.getElementById("car-plate").value = "ABC-1234";
-                        document.getElementById("car-color").value = "Black";
-                        colorOptions.forEach((opt) => {
-                            if (opt.getAttribute("data-color") === "Black") {
-                                opt.classList.add("selected", "border-primary");
-                                opt.classList.remove("border-gray-200");
-                            }
-                        });
-                    } else if (editVehicleId === "2") {
-                        document.getElementById("car-brand").value = "Tesla";
-                        document.getElementById("car-model").value = "Model Y 2026";
-                        document.getElementById("car-plate").value = "XYZ-5678";
-                        document.getElementById("car-color").value = "White";
-                        colorOptions.forEach((opt) => {
-                            if (opt.getAttribute("data-color") === "White") {
-                                opt.classList.add("selected", "border-primary");
-                                opt.classList.remove("border-gray-200");
-                            }
-                        });
-                    }
                     vehicleModal.classList.add("active");
                 });
-            });
-        });
-    </script>
-    <script id="delete-vehicle-control">
-        document.addEventListener("DOMContentLoaded", function() {
-            const deleteModal = document.getElementById("delete-modal");
-            const deleteCancelBtn = document.getElementById("delete-cancel-btn");
-            const deleteConfirmBtn = document.getElementById("delete-confirm-btn");
-            let deleteVehicleId = null;
-            let vehicleCount = 2;
-
-            function updateVehicleCount() {
-                document.getElementById("vehicle-count").textContent = vehicleCount + "/3";
-                const addVehicleBtn = document.getElementById("add-vehicle-btn");
-                if (vehicleCount >= 3) {
-                    addVehicleBtn.style.display = "none";
-                } else {
-                    addVehicleBtn.style.display = "flex";
-                }
-            }
-            const deleteButtons = document.querySelectorAll(".delete-vehicle-btn");
-            deleteButtons.forEach((button) => {
-                button.addEventListener("click", function() {
-                    deleteVehicleId = this.getAttribute("data-vehicle-id");
-                    deleteModal.classList.add("active");
+                closeModalBtn.addEventListener("click", function() {
+                    vehicleModal.classList.remove("active");
+                });
+                modalCancelBtn.addEventListener("click", function() {
+                    vehicleModal.classList.remove("active");
+                });
+                vehicleModal.addEventListener("click", function(e) {
+                    if (e.target === vehicleModal) {
+                        vehicleModal.classList.remove("active");
+                    }
+                });
+                const colorOptions = document.querySelectorAll(".color-option");
+                colorOptions.forEach((option) => {
+                    option.addEventListener("click", function() {
+                        colorOptions.forEach((opt) => {
+                            opt.classList.remove("selected", "border-primary");
+                            opt.classList.add("border-gray-200");
+                        });
+                        this.classList.add("selected", "border-primary");
+                        this.classList.remove("border-gray-200");
+                        document.getElementById("car-color").value =
+                            this.getAttribute("data-color");
+                    });
+                });
+                vehicleForm.addEventListener("submit", function(e) {
+                    e.preventDefault();
+                    const brand = document.getElementById("car-brand").value;
+                    const model = document.getElementById("car-model").value;
+                    const color = document.getElementById("car-color").value;
+                    const plate = document.getElementById("car-plate").value.toUpperCase();
+                    if (!color) {
+                        return;
+                    }
+                    if (editMode) {
+                        showToast(
+                            "Vehicle Updated",
+                            "Vehicle information has been updated successfully",
+                        );
+                    } else {
+                        vehicleCount++;
+                        updateVehicleCount();
+                        showToast("Vehicle Added", "New vehicle has been added successfully");
+                    }
+                    vehicleModal.classList.remove("active");
+                    vehicleForm.reset();
+                });
+                const editButtons = document.querySelectorAll(".edit-vehicle-btn");
+                editButtons.forEach((button) => {
+                    button.addEventListener("click", function() {
+                        editMode = true;
+                        editVehicleId = this.getAttribute("data-vehicle-id");
+                        modalTitle.textContent = "Edit Vehicle";
+                        if (editVehicleId === "1") {
+                            document.getElementById("car-brand").value = "Toyota";
+                            document.getElementById("car-model").value = "Camry 2020";
+                            document.getElementById("car-plate").value = "ABC-1234";
+                            document.getElementById("car-color").value = "Black";
+                            colorOptions.forEach((opt) => {
+                                if (opt.getAttribute("data-color") === "Black") {
+                                    opt.classList.add("selected", "border-primary");
+                                    opt.classList.remove("border-gray-200");
+                                }
+                            });
+                        } else if (editVehicleId === "2") {
+                            document.getElementById("car-brand").value = "Tesla";
+                            document.getElementById("car-model").value = "Model Y 2026";
+                            document.getElementById("car-plate").value = "XYZ-5678";
+                            document.getElementById("car-color").value = "White";
+                            colorOptions.forEach((opt) => {
+                                if (opt.getAttribute("data-color") === "White") {
+                                    opt.classList.add("selected", "border-primary");
+                                    opt.classList.remove("border-gray-200");
+                                }
+                            });
+                        }
+                        vehicleModal.classList.add("active");
+                    });
                 });
             });
-            deleteCancelBtn.addEventListener("click", function() {
-                deleteModal.classList.remove("active");
-            });
-            deleteModal.addEventListener("click", function(e) {
-                if (e.target === deleteModal) {
-                    deleteModal.classList.remove("active");
+        </script>
+        <script id="delete-vehicle-control">
+            document.addEventListener("DOMContentLoaded", function() {
+                const deleteModal = document.getElementById("delete-modal");
+                const deleteCancelBtn = document.getElementById("delete-cancel-btn");
+                const deleteConfirmBtn = document.getElementById("delete-confirm-btn");
+                let deleteVehicleId = null;
+                let vehicleCount = 2;
+
+                function updateVehicleCount() {
+                    document.getElementById("vehicle-count").textContent = vehicleCount + "/3";
+                    const addVehicleBtn = document.getElementById("add-vehicle-btn");
+                    if (vehicleCount >= 3) {
+                        addVehicleBtn.style.display = "none";
+                    } else {
+                        addVehicleBtn.style.display = "flex";
+                    }
                 }
+                const deleteButtons = document.querySelectorAll(".delete-vehicle-btn");
+                deleteButtons.forEach((button) => {
+                    button.addEventListener("click", function() {
+                        deleteVehicleId = this.getAttribute("data-vehicle-id");
+                        deleteModal.classList.add("active");
+                    });
+                });
+                deleteCancelBtn.addEventListener("click", function() {
+                    deleteModal.classList.remove("active");
+                });
+                deleteModal.addEventListener("click", function(e) {
+                    if (e.target === deleteModal) {
+                        deleteModal.classList.remove("active");
+                    }
+                });
+                deleteConfirmBtn.addEventListener("click", function() {
+                    vehicleCount--;
+                    updateVehicleCount();
+                    deleteModal.classList.remove("active");
+                    showToast("Vehicle Deleted", "Vehicle has been removed from your profile");
+                });
             });
-            deleteConfirmBtn.addEventListener("click", function() {
-                vehicleCount--;
-                updateVehicleCount();
-                deleteModal.classList.remove("active");
-                showToast("Vehicle Deleted", "Vehicle has been removed from your profile");
-            });
-        });
-    </script>
-    <script id="save-profile">
-        document.addEventListener("DOMContentLoaded", function() {
-            const form = document.getElementById("update-form");
-            const saveBtn = document.getElementById("save-btn");
-            const cancelBtn = document.getElementById("cancel-btn");
-            saveBtn.addEventListener("click", function() {
+        </script>
+        <script id="save-profile">
+            document.addEventListener("DOMContentLoaded", function() {
+                const form = document.getElementById("update-form");
+                const saveBtn = document.getElementById("save-btn");
+                const cancelBtn = document.getElementById("cancel-btn");
+                saveBtn.addEventListener("click", function() {
 
-                // Submit the form natively to your CI4 backend Controller
-                form.method = 'POST';
-                form.action = '<?= "save-update-profile" ?>'; // Update with your actual CI4 Route
-                form.submit();
+                    // Submit the form natively to your CI4 backend Controller
+                    form.method = 'POST';
+                    form.action = '<?= "save-update-profile" ?>'; // Update with your actual CI4 Route
+                    form.submit();
 
 
-                showToast("Changes Saved", "Your profile has been updated successfully");
-                setTimeout(function() {
+                    showToast("Changes Saved", "Your profile has been updated successfully");
+                    setTimeout(function() {
+                        window.history.back();
+                    }, 1500);
+                });
+                cancelBtn.addEventListener("click", function() {
                     window.history.back();
-                }, 1500);
+                });
             });
-            cancelBtn.addEventListener("click", function() {
-                window.history.back();
-            });
-        });
-    </script>
-    <script id="toast-notification">
-        function showToast(title, message) {
-            const toast = document.getElementById("toast");
-            const toastTitle = toast.querySelector(".text-sm.font-semibold");
-            const toastMessage = toast.querySelector(".text-xs");
-            toastTitle.textContent = title;
-            toastMessage.textContent = message;
-            toast.classList.add("active");
-            setTimeout(function() {
-                toast.classList.remove("active");
-            }, 3000);
-        }
-    </script>
+        </script>
+        <script id="toast-notification">
+            function showToast(title, message) {
+                const toast = document.getElementById("toast");
+                const toastTitle = toast.querySelector(".text-sm.font-semibold");
+                const toastMessage = toast.querySelector(".text-xs");
+                toastTitle.textContent = title;
+                toastMessage.textContent = message;
+                toast.classList.add("active");
+                setTimeout(function() {
+                    toast.classList.remove("active");
+                }, 3000);
+            }
+        </script>
 </body>
 
 </html>

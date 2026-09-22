@@ -78,19 +78,19 @@ class Home extends BaseController
                 }
 
                 if ($session->get('user_role') === 0) {
-                    return redirect()->to(base_url('osgparkingsystem/admin-dashboard'));
+                    return redirect()->to(base_url('admin-dashboard'));
                 } elseif ($session->get('user_role') === 1) {
-                    return redirect()->to(base_url('osgparkingsystem/attendant'));
+                    return redirect()->to(base_url('attendant'));
                 } else {
-                    return redirect()->to(base_url('osgparkingsystem/main'));
+                    return redirect()->to(base_url('main'));
                 }
             } else {
                 $session->setFlashdata('error', 'Invalid password. Please try again.');
-                return redirect()->to(base_url('osgparkingsystem/')); //->withInput();
+                return redirect()->to(base_url()); //->withInput();
             }
         } else {
             $session->setFlashdata('error', 'User not found. Please check your credentials.');
-            return redirect()->to(base_url('osgparkingsystem/')); //->withInput();
+            return redirect()->to(base_url()); //->withInput();
         }
     }
 
@@ -98,6 +98,6 @@ class Home extends BaseController
     {
         $session = session();
         $session->destroy();
-        return redirect()->to(base_url('osgparkingsystem/'));
+        return redirect()->to(base_url());
     }
 }

@@ -53,7 +53,7 @@ class Dashboard extends BaseController
             $activeLog = self::getActiveParkingLog($clientEmpNo);
             if ($activeLog !== null) {
                 $this->checkoutParking($activeLog);
-                return redirect()->to(base_url('osgparkingsystem/attendant'));
+                return redirect()->to(base_url('attendant'));
             }
         }
 
@@ -180,7 +180,7 @@ class Dashboard extends BaseController
         ]);
 
         return $this->response->setJSON([
-            'redirect' => base_url('osgparkingsystem/attendant'),
+            'redirect' => base_url('attendant'),
         ]);
     }
 
@@ -193,6 +193,10 @@ class Dashboard extends BaseController
     {
         $session = session();
 
+        if (!session('user_id')) {
+            return redirect()->to(base_url());
+        }
+
         $clientEmpNo = session('user_id'); //$this->request->getPost('client_empno');
         if ($clientEmpNo !== null && $clientEmpNo !== '') {
             $session->set('client_empno', $clientEmpNo);
@@ -202,7 +206,7 @@ class Dashboard extends BaseController
             $activeLog = self::getActiveParkingLog($clientEmpNo);
             if ($activeLog !== null) {
                 $this->checkoutParking($activeLog);
-                return redirect()->to(base_url('osgparkingsystem/attendant'));
+                return redirect()->to(base_url('attendant'));
             }
         }
 

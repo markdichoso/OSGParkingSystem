@@ -145,7 +145,7 @@ if ($session->get('user_role') === 0) {
                 class="absolute right-5 top-16 bg-white rounded-xl shadow-lg w-48 hidden overflow-hidden z-50">
                 <div class="py-2">
                     <button
-                        class="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors cursor-pointer" onclick="window.location.href = '<?php echo base_url('osgparkingsystem/update-profile'); ?>';">
+                        class="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors cursor-pointer" onclick="window.location.href = '<?php echo base_url('update-profile'); ?>';">
                         <div
                             class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-lg">
                             <i class="ri-user-line text-lg text-primary"></i>
@@ -154,7 +154,7 @@ if ($session->get('user_role') === 0) {
                     </button>
                     <div class="border-t border-gray-100"></div>
                     <button
-                        class="w-full px-4 py-3 flex items-center gap-3 hover:bg-red-50 transition-colors cursor-pointer" onclick="window.location.href = '<?php echo base_url('osgparkingsystem/signout'); ?>';">
+                        class="w-full px-4 py-3 flex items-center gap-3 hover:bg-red-50 transition-colors cursor-pointer" onclick="window.location.href = '<?php echo base_url('signout'); ?>';">
                         <div
                             class="w-8 h-8 flex items-center justify-center bg-red-50 rounded-lg">
                             <i class="ri-logout-box-r-line text-lg text-red-600"></i>
