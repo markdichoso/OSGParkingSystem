@@ -24,14 +24,14 @@ class Home extends BaseController
     }
     public function authenticate(): string
     {
-        $session = session();
+        // $session = session();
 
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        // $username = $_POST['username'];
+        // $password = $_POST['password'];
 
-        return "Username = ".$_POST['username'];
+        return "Username";
 
-        echo "USERNAME : " . $username . "<br><br>";
+        // echo "USERNAME : " . $username . "<br><br>";
 
         // if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === '127.0.0.1') {
         //     $host = LOC_HOST;
