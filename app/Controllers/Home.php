@@ -24,10 +24,10 @@ class Home extends BaseController
     }
     public function authenticate(): string
     {
-        $session = session();
+        // $session = session();
 
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        // $username = $_POST['username'];
+        // $password = $_POST['password'];
 
         // return "Username";
 
