@@ -93,7 +93,7 @@ class Home extends BaseController
         //         return redirect()->to(base_url()); //->withInput();
         //     }
         // } else {
-            $session->setFlashdata('error', 'User not found. Please check your credentials.');
+            // $session->setFlashdata('error', 'User not found. Please check your credentials.');
             // return redirect()->to(base_url()); //->withInput();
         return "OKAY";
         // }
