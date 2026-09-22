@@ -26,6 +26,10 @@ class Home extends BaseController
     {
         $session = session();
 
+        echo "<pre>";
+        print_r(session()->get());
+        echo "</pre>";
+        
         // $username = $_POST['username'];
         // $password = $_POST['password'];
 
