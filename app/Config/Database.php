@@ -28,7 +28,7 @@ class Database extends Config
         'DSN'          => '',
         'hostname'     => 'osgweb-db.mysql.database.azure.com',
         'username'     => 'osgwebdbadmin@osgweb-db',
-        'password'     => '#0SGw3bDB!',
+        'password'     => '#0SGW3bDB!',
         'database'     => 'osg_cpms_db',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
