@@ -21,6 +21,6 @@ $routes->get('/profile', 'Dashboard::userProfile');
 
 $routes->get('/update-profile', 'Dashboard::updateProfile');
 
-$routes->post('/authenticate', 'Home::authenticate');
+$routes->get('/authenticate', 'Home::authenticate');
 
 $routes->get('/signout', 'Home::signout');
