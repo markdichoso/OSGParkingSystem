@@ -29,6 +29,8 @@ class Home extends BaseController
         echo "<pre>";
         print_r(session()->get());
         echo "</pre>";
+
+        echo "USERNAME = ".$_POST['username'];
         
         // $username = $_POST['username'];
         // $password = $_POST['password'];
@@ -99,7 +101,7 @@ class Home extends BaseController
         // } else {
             // $session->setFlashdata('error', 'User not found. Please check your credentials.');
             // return redirect()->to(base_url()); //->withInput();
-        return "OKAY ";
+        
         // }
     }
 
