@@ -30,8 +30,11 @@ class Home extends BaseController
         print_r(session()->get());
         echo "</pre>";
 
-        echo "USERNAME = ".$_POST['username'];
-        
+        if(!$_POST) {
+            echo "NO POSTED VALUE";
+        } else {
+            echo "USERNAME = ".$_POST['username'];
+        }
         // $username = $_POST['username'];
         // $password = $_POST['password'];
 
