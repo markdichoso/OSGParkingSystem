@@ -6,21 +6,28 @@ use CodeIgniter\Router\RouteCollection;
 /** @var RouteCollection $routes */
 // $routes->get('/', 'Home::index');
 
+$routes->get('/', 'Home::login');
+
+$routes->get('/account-registration', 'Home::register');
+
+
+
+
+
 $routes->get('/main', 'Dashboard::main');
+
 $routes->get('/qrcodescan', 'Dashboard::qrcodescan');
 
 $routes->get('/attendant', 'Dashboard::attendant');
+
 $routes->post('/assign-parking', 'Dashboard::assignParking');
+
 $routes->post('/confirm-entry', 'Dashboard::confirmEntry');
-
-
-$routes->get('/', 'Home::login');
-$routes->get('/account-registration', 'Home::register');
 
 $routes->get('/profile', 'Dashboard::userProfile');
 
 $routes->get('/update-profile', 'Dashboard::updateProfile');
 
-$routes->get('/authenticate', 'Home::authenticate');
+$routes->post('/authenticate', 'Home::authenticate');
 
 $routes->get('/signout', 'Home::signout');

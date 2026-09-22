@@ -18,9 +18,11 @@ class Home extends BaseController
         return view('login/index');
     }
 
-    public function register(): string
+    public function register()
     {
-        return view('main/register');
+
+        echo "HERE!";
+        // return view('main/register');
     }
     public function authenticate()
     {
