@@ -24,7 +24,7 @@ class Home extends BaseController
     }
     public function authenticate(): string
     {
-        // $session = session();
+        $session = session();
 
         // $username = $_POST['username'];
         // $password = $_POST['password'];
@@ -95,7 +95,7 @@ class Home extends BaseController
         // } else {
             // $session->setFlashdata('error', 'User not found. Please check your credentials.');
             // return redirect()->to(base_url()); //->withInput();
-        return "OKAY";
+        return "OKAY ";
         // }
     }
 
