@@ -22,13 +22,14 @@ class Home extends BaseController
     {
         return view('main/register');
     }
-    public function authenticate()
+    public function authenticate(): string
     {
         $session = session();
 
         $username = $_POST['username'];
         $password = $_POST['password'];
 
+        return "Username = ".$_POST['username'];
 
         echo "USERNAME : " . $username . "<br><br>";
 
