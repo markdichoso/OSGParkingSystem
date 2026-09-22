@@ -36,7 +36,7 @@ CI_ENVIRONMENT = development
 
 #--------------------------------------------------------------------
 
-# app.baseURL = ''
+app.baseURL = 'https://osgcpms-eabqfpcjgxfwamcp.scm.southeastasia-01.azurewebsites.net/'
 
 # If you have trouble with `.`, you could also use `_`.
 
