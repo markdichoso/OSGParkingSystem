@@ -22,7 +22,7 @@ class Home extends BaseController
     {
         return view('main/register');
     }
-    public function authenticate(): string
+    public function authenticate()
     {
         $session = session();
 
