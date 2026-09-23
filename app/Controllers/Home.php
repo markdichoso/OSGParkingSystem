@@ -24,15 +24,25 @@ class Home extends BaseController
         echo "HERE!";
         // return view('main/register');
     }
-    public function authenticate()
+    public function authenticate(): string
     {
         $session = session();
 
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        echo "<pre>";
+        print_r(session()->get());
+        echo "</pre>";
 
+        if(!$_POST) {
+            echo "NO POSTED VALUE";
+        } else {
+            echo "USERNAME = ".$_POST['username'];
+        }
+        // $username = $_POST['username'];
+        // $password = $_POST['password'];
 
-        echo "USERNAME : " . $username . "<br><br>";
+        // return "Username";
+
+        // echo "USERNAME : " . $username . "<br><br>";
 
         // if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === '127.0.0.1') {
         //     $host = LOC_HOST;
@@ -94,8 +104,9 @@ class Home extends BaseController
         //         return redirect()->to(base_url()); //->withInput();
         //     }
         // } else {
-        //     $session->setFlashdata('error', 'User not found. Please check your credentials.');
-        //     return redirect()->to(base_url()); //->withInput();
+            // $session->setFlashdata('error', 'User not found. Please check your credentials.');
+            // return redirect()->to(base_url()); //->withInput();
+        
         // }
     }
 

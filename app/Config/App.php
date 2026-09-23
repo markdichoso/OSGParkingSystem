@@ -16,7 +16,7 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    public string $baseURL = 'https://osgcpms-eabqfpcjgxfwamcp.southeastasia-01.azurewebsites.net/';
+    public string $baseURL = 'https://osgcpms-eabqfpcjgxfwamcp.scm.southeastasia-01.azurewebsites.net/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
@@ -57,8 +57,8 @@ class App extends BaseConfig
      *
      * WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
      */
-    public string $uriProtocol = 'REQUEST_URI';
-    // public string $uriProtocol = 'PATH_INFO';
+    // public string $uriProtocol = 'REQUEST_URI';
+    public string $uriProtocol = 'PATH_INFO';
 
     /*
     |--------------------------------------------------------------------------
