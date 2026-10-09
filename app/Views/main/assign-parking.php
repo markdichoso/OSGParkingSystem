@@ -966,7 +966,7 @@
             );
             const selectedSpotInfo = document.getElementById("selected-spot-info");
             const selectedParkingId = document.getElementById("selected-parking-id");
-            const confirmEntryUrl = <?= json_encode(base_url('osgparkingsystem/confirm-entry')) ?>;
+            const confirmEntryUrl = <?= json_encode(base_url('confirm-entry')) ?>;
 
             function showToast(message, type) {
                 const toastContainer = document.getElementById("toast-container");

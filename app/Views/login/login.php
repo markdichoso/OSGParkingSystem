@@ -3,10 +3,6 @@
 header('Content-Type: application/json');
 
 
-                                setTimeout(() => {
-                                    alert("Password is  and username is ";
-                                }, 0);
-
 // Database configuration
 $host = 'localhost';
 $db   = 'osg_cpms_db';
@@ -31,18 +27,24 @@ if (empty($username) || empty($password)) {
     exit;
 }
 
-// Prepare statement to prevent SQL injection
-// Note: Adjust column names ('username', 'email', 'password') if yours differ
-$stmt = $pdo->prepare("SELECT * FROM users_tbl WHERE username = :username OR email = :email LIMIT 1");
-$stmt->execute(['username' => $username, 'email' => $username]);
+// Prepare statement to prevent SQL injection.
+// The project stores the password as a hash in users_tbl.u_password.
+$stmt = $pdo->prepare("SELECT * FROM users_tbl WHERE u_email = :username OR u_empno = :username LIMIT 1");
+$stmt->execute(['username' => $username]);
 $userRow = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($userRow) {
-    // IMPORTANT: Use password_verify() if passwords in the DB are hashed (recommended).
-    // If your passwords are saved as plain text (not recommended), use: if ($password === $userRow['password'])
+    $storedHash = (string) ($userRow['u_password'] ?? '');
+    $passwordIsValid = false;
 
-    if (password_verify($password, $userRow['password'])) {
-        // Start session here if needed (e.g., session_start(); $_SESSION['user_id'] = $userRow['id'];)
+    if ($storedHash !== '') {
+        $passwordInfo = password_get_info($storedHash);
+        $passwordIsValid = !empty($passwordInfo['algo'])
+            ? password_verify($password, $storedHash)
+            : hash_equals(hash('sha256', $storedHash), hash('sha256', $password));
+    }
+
+    if ($passwordIsValid) {
         echo json_encode(['success' => true]);
     } else {
         echo json_encode(['success' => false, 'message' => 'Invalid password.']);

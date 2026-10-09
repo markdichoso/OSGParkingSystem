@@ -135,7 +135,7 @@
                                 <div class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400 group-focus-within:text-primary transition-colors">
                                     <i class="ri-user-line text-lg"></i>
                                 </div>
-                                <input type="text" id="username" name="username" placeholder="Enter your username or email" class="w-full h-14 pl-12 pr-4 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-0 focus:bg-white focus:border-primary transition-all placeholder:text-gray-400" value="markdichoso@osg.gov.ph">
+                                <input type="text" id="username" name="username" placeholder="Enter your username or email" class="w-full h-14 pl-12 pr-4 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-0 focus:bg-white focus:border-primary transition-all placeholder:text-gray-400">
                             </div>
                             <p id="username-error" class="error-message text-xs text-red-600 mt-2 gap-1.5 items-center">
                                 <i class="ri-error-warning-fill"></i>
@@ -148,7 +148,7 @@
                                 <div class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400 group-focus-within:text-primary transition-colors">
                                     <i class="ri-lock-line text-lg"></i>
                                 </div>
-                                <input type="password" id="password" name="password" placeholder="Enter your password" class="w-full h-14 pl-12 pr-14 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-0 focus:bg-white focus:border-primary transition-all placeholder:text-gray-400" value="Mark4321">
+                                <input type="password" id="password" name="password" placeholder="Enter your password" class="w-full h-14 pl-12 pr-14 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-0 focus:bg-white focus:border-primary transition-all placeholder:text-gray-400">
                                 <button type="button" id="toggle-password" class="absolute right-4 top-1/2 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary hover:bg-gray-100 rounded-lg transition-all cursor-pointer">
                                     <i class="ri-eye-line text-lg"></i>
                                 </button>
@@ -161,7 +161,7 @@
                         <div class="flex items-center justify-between pt-1">
                             <label class="flex items-center gap-2.5 cursor-pointer group">
                                 <div class="relative">
-                                    <input type="checkbox" id="remember-me" class="sr-only peer">
+                                    <input type="checkbox" id="remember-me" name="remember_me" value="1" class="sr-only peer" <?= session()->getFlashdata('remember_me') ? 'checked' : '' ?>>
                                     <div class="w-5 h-5 border-2 border-gray-300 rounded-md peer-checked:bg-primary peer-checked:border-primary transition-all flex items-center justify-center group-hover:border-primary">
                                         <i class="ri-check-line text-white text-sm font-bold opacity-0 peer-checked:opacity-100 transition-opacity"></i>
                                     </div>
@@ -326,7 +326,7 @@
 
                     // Submit the form natively to your CI4 backend Controller
                     form.method = 'POST';
-                    form.action = '<?= "authenticate" ?>'; // Update with your actual CI4 Route
+                    form.action = '<?= base_url('authenticate') ?>';
                     form.submit();
                 }
                 // --------------------------------------------------------------------------------------------------------

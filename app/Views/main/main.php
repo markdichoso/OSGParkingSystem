@@ -166,7 +166,7 @@ if ($session->get('user_role') === 0) {
 
 
 
-
+            <div style="padding-top: 10px;"></div>
 
 
 
@@ -205,9 +205,15 @@ if ($session->get('user_role') === 0) {
 
 
 
-        <main class="pt-32 pb-8 px-5">
+        <main class="pt-32 pb-8 px-5" style="margin-top: 10px;">
+
+
+
 
             <!-- CAR PARK TAB  -->
+            <!-- ####################################################################################################################################################### -->
+
+
             <div id="status-tab" class="tab-content active">
                 <?php
                 $currentLog = $currentParking['log'] ?? null;
@@ -236,11 +242,11 @@ if ($session->get('user_role') === 0) {
                             <?php echo $session->get('user_fullname'); ?>
                         </h3>
                         <p id="employee-department" class="text-sm text-gray-600 mb-1">
-                            Case Management Service
+                            <?php echo $session->get('user_division'); ?>
                         </p>
                         <p
                             id="employee-id"
-                            class="max-w-full break-all text-xs font-mono text-gray-500 bg-gray-50 px-1 py-1 rounded inline-block">
+                            class="text-sm text-gray-600 mb-1 font-bold">
                             <?php echo $session->get('user_id'); ?>
                         </p>
                     </div>
@@ -273,6 +279,11 @@ if ($session->get('user_role') === 0) {
                                 data-duration-seconds="<?= $durationSeconds ?>">
                                 <?= $currentLog ? esc($durationHours . 'h ' . $durationMinutes . 'm') : 'Not parked' ?>
                             </p>
+                            <?php if ($currentLog && !empty($currentLog['pl_checkin'])): ?>
+                                <p class="mt-2 text-sm text-gray-700">
+                                    Checked in: <?= esc(date('M d, Y g:i A', strtotime($currentLog['pl_checkin']))) ?>
+                                </p>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -296,7 +307,7 @@ if ($session->get('user_role') === 0) {
                             </div>
                             <div class="flex items-center gap-1 text-sm text-blue-100">
                                 <i class="ri-building-line text-base"></i>
-                                <span>Level <?= esc($currentLog['p_level'] ?? 'N/A') ?></span>
+                                <span><?= esc($currentLog['p_level'] ?? 'N/A') ?> Level</span>
                             </div>
                         </div>
                         <p class="mt-3 text-sm text-blue-100">
@@ -337,10 +348,23 @@ if ($session->get('user_role') === 0) {
                 </div>
             </div>
 
+            <!-- ####################################################################################################################################################### -->
+
+
+
+
+
+
+
+
+
+
 
 
 
             <!-- PROFILE TAB  -->
+            <!-- ####################################################################################################################################################### -->
+
             <div id="profile-tab" class="tab-content">
                 <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
                     <div class="flex flex-col items-center">
@@ -357,7 +381,7 @@ if ($session->get('user_role') === 0) {
                         <h1 class="text-2xl font-bold text-gray-900 mb-1">
                             <p style="text-align: center;"><?php echo $session->get('user_fullname'); ?></p>
                         </h1>
-                        <p class="text-base text-gray-600 mb-2"><?php echo $session->get('user_division'); ?></p>
+                        <p class="bg-gray-200 px-4 py-2 rounded-full"><?php echo $session->get('user_division'); ?></p>
                         <div class="items-center">
                             <input id="text" type="text" value="<?php echo $session->get('user_id'); ?>" style="width:80%" hidden />
                             <div id="qrcode" style="width:200px; height:200px; margin-top:15px; margin-bottom:15px;"></div>
@@ -366,7 +390,7 @@ if ($session->get('user_role') === 0) {
                                 alt="QR Code"
                                 class="w-48 h-48 object-contain" /> -->
                         </div>
-                        <div class="bg-gray-100 px-4 py-2 rounded-full">
+                        <div class="text-base text-gray-600 mb-2">
                             <p class="text-sm font-mono text-gray-700">Employee No. <?php echo $session->get('user_id'); ?></p>
                         </div>
                     </div>
@@ -439,34 +463,45 @@ if ($session->get('user_role') === 0) {
             </div>
             -->
 
+            <!-- ####################################################################################################################################################### -->
+
+
+
+
+
+
+
+
+
+
+
+
 
             <!-- HISTORY TAB  -->
+            <!-- ####################################################################################################################################################### -->
+
+
+
+
+            <!-- PARKING STATS ------------------------------------------------------------------->
+
             <div id="history-tab" class="tab-content">
                 <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
                     <h2 class="text-lg font-semibold text-gray-900 mb-4">
                         Parking Statistics
                     </h2>
-                    <div class="grid grid-cols-3 gap-3 mb-6">
-                        <!-- <div class="text-center">
-                            <p class="text-2xl font-bold text-gray-900">5</p>
-                            <p class="text-xs text-gray-600 mt-1">Total Visits</p>
-                        </div> -->
-                        <div class="text-center border-l border-r border-gray-200">
-                            <p class="text-2xl font-bold text-gray-900">37 h</p>
-                            <p class="text-xs text-gray-600 mt-1">Total Hours</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-2xl font-bold text-gray-900">Php 0.00</p>
-                            <p class="text-xs text-gray-600 mt-1">Total Spent</p>
-                        </div>
-                    </div>
                     <div
                         class="bg-gradient-to-r from-primary to-blue-600 rounded-xl p-4 text-white">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-sm text-blue-100 mb-1">This Month</p>
-                                <p class="text-3xl font-bold">32</p>
-                                <p class="text-xs text-blue-100 mt-1">parking sessions</p>
+                                <p class="text-xl font-bold">
+                                    <?= esc((string) ($paidParkingStats['hours'] ?? 0)) ?> hours
+                                    <span class="text-lg font-medium">| Php <?= esc(number_format((float) ($paidParkingStats['amount'] ?? 0), 2)) ?></span>
+                                </p>
+                                <p class="text-xs text-blue-100 mt-1">
+                                    <?= esc((string) ($paidParkingStats['sessions'] ?? 0)) ?> paid parking sessions
+                                </p>
                             </div>
                             <div
                                 class="w-16 h-16 flex items-center justify-center bg-white bg-opacity-20 rounded-full">
@@ -475,12 +510,33 @@ if ($session->get('user_role') === 0) {
                         </div>
                     </div>
                 </div>
+
+                <!-- PARKING STATS ------------------------------------------------------------------->
+
+
+
+
+
+
+
+                <!-- RECENT HISTORY ------------------------------------------------------------------->
+
+                <?php
+                $parkingHistory = $parkingHistory ?? [];
+                $parkingHistoryByDate = [];
+                foreach ($parkingHistory as $historyItem) {
+                    $historyDate = !empty($historyItem['pl_checkin'])
+                        ? date('Y-m-d', strtotime($historyItem['pl_checkin']))
+                        : 'unknown-date';
+                    $parkingHistoryByDate[$historyDate][] = $historyItem;
+                }
+                ?>
                 <div class="mb-4 flex items-center justify-between">
                     <h3 class="text-base font-semibold text-gray-900">
                         Recent History
                     </h3>
-                    <button class="text-sm text-primary font-medium cursor-pointer">
-                        View All
+                    <button id="view-month-history" type="button" class="text-sm text-primary font-medium cursor-pointer">
+                        View This Month
                     </button>
                 </div>
                 <div class="space-y-3">
@@ -489,15 +545,23 @@ if ($session->get('user_role') === 0) {
                             No parking history for this month.
                         </div>
                     <?php else: ?>
-                        <?php foreach ($parkingHistory as $historyItem): ?>
+                        <?php foreach (array_slice($parkingHistory, 0, 5) as $historyItem): ?>
                             <?php
                             $isPaidHistory = (string) $historyItem['pl_category'] === '1';
                             $duration = $historyItem['pl_duration'] === null || $historyItem['pl_duration'] === ''
                                 ? 'In progress'
                                 : ((int) $historyItem['pl_duration']) . 'h 00m';
                             $dueAmount = number_format((float) ($historyItem['pl_due'] ?? 0), 2);
+                            $checkinTime = !empty($historyItem['pl_checkin'])
+                                // ? date('M d, Y g:i A', strtotime($historyItem['pl_checkin']))
+                                ? date('g:i A', strtotime($historyItem['pl_checkin']))
+                                : 'N/A';
+                            $checkoutTime = !empty($historyItem['pl_checkout'])
+                                // ? date('M d, Y g:i A', strtotime($historyItem['pl_checkout']))
+                                ? date('g:i A', strtotime($historyItem['pl_checkout']))
+                                : 'In progress';
                             ?>
-                            <div class="bg-white rounded-xl shadow-sm p-4">
+                            <div class="bg-white rounded-xl shadow-sm p-4" <?= $isPaidHistory ? 'style="background: #fafafa; background: linear-gradient(123deg, rgba(250, 250, 250, 1) 1%, rgba(202, 217, 219, 1) 100%);"' : 'style="background: #fafafa; background: linear-gradient(300deg, rgba(250, 250, 250, 1) 1%, rgba(165, 255, 161, 1) 100%);"' ?>">
                                 <div class="flex items-start justify-between mb-3">
                                     <div class="flex items-center gap-3">
                                         <div
@@ -506,7 +570,7 @@ if ($session->get('user_role') === 0) {
                                         </div>
                                         <div>
                                             <p class="text-sm font-semibold text-gray-900"> <?= esc($historyItem['p_slotno'] ?? 'N/A') ?></p>
-                                            <p class="text-xs text-gray-600">Level <?= esc($historyItem['p_level'] ?? 'N/A') ?> | <?= esc(($historyItem['v_make'] ?? '') . ' ' . ($historyItem['v_model'] ?? '')) ?> - <?= esc($historyItem['v_plateno'] ?? 'N/A') ?></p>
+                                            <p class="text-xs text-gray-600"><?= esc($historyItem['p_level'] ?? 'N/A') ?> Level | <?= esc(($historyItem['v_make'] ?? '') . ' ' . ($historyItem['v_model'] ?? '')) ?> - <?= esc($historyItem['v_plateno'] ?? 'N/A') ?></p>
                                         </div>
                                     </div>
                                     <div class="<?= $isPaidHistory ? 'bg-orange-50' : 'bg-green-50' ?> px-2 py-1 rounded">
@@ -514,22 +578,101 @@ if ($session->get('user_role') === 0) {
                                     </div>
                                 </div>
                                 <div
-                                    class="flex items-center justify-between text-xs text-gray-600">
+                                    class="flex-xs items-center justify-between text-xs text-gray-600">
                                     <div class="flex items-center gap-1">
                                         <i class="ri-calendar-line"></i>
-                                        <span><?= esc(date('M d, Y', strtotime($historyItem['pl_checkin']))) ?></span>
+                                        <span class="font-medium"><?= esc(date('M d, Y', strtotime($historyItem['pl_checkin']))) ?></span>
+                                        <!-- </div>
+                                    <div class="flex items-center gap-1"> -->
+                                        |
+                                        <?= $isPaidHistory ? '<i class="ri-time-line"></i>
+                                        <span>' . esc($duration) . ' - </span>' : '' ?>
+
+                                        <span class="font-medium text-gray-700">Php <?= esc($dueAmount) ?></span>
                                     </div>
-                                    <div class="flex items-center gap-1">
-                                        <i class="ri-time-line"></i>
-                                        <span><?= esc($duration) ?></span>
-                                        <span class="font-medium text-gray-700"> - Php <?= esc($dueAmount) ?></span>
+                                </div>
+                                <div class="mt-3 grid grid-cols-4 gap-3 border-t border-gray-100 pt-3 text-xs">
+                                    <div>
+                                        <p class="text-gray-500">Check-in</p>
+                                        <p class="mt-1 font-medium text-gray-800"><?= esc($checkinTime) ?></p>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-500">Check-out</p>
+                                        <p class="mt-1 font-medium text-gray-800"><?= esc($checkoutTime) ?></p>
                                     </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
+                <!-- RECENT HISTORY ------------------------------------------------------------------->
+
+                <div id="month-history-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 p-4" role="dialog" aria-modal="true" aria-labelledby="month-history-title">
+                    <div class="flex max-h-[85vh] w-full max-w-2xl flex-col rounded-xl bg-white shadow-xl">
+                        <div class="flex items-center justify-between border-b border-gray-200 px-5 py-4">
+                            <div>
+                                <h2 id="month-history-title" class="text-lg font-semibold text-gray-900">All Parking History</h2>
+                                <p class="text-sm text-gray-500"><?= esc(date('F Y')) ?></p>
+                            </div>
+                            <button id="close-month-history" type="button" class="flex h-9 w-9 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100" aria-label="Close parking history">
+                                <i class="ri-close-line text-xl"></i>
+                            </button>
+                        </div>
+                        <div class="overflow-y-auto px-5 py-4">
+                            <?php if (empty($parkingHistoryByDate)): ?>
+                                <p class="py-8 text-center text-sm text-gray-500">No parking history for this month.</p>
+                            <?php else: ?>
+                                <div class="space-y-6">
+                                    <?php foreach ($parkingHistoryByDate as $historyDate => $dateEntries): ?>
+                                        <section aria-label="Parking history for <?= esc($historyDate) ?>">
+                                            <h3 class="sticky top-0 mb-3 border-b border-gray-200 bg-white py-2 text-sm font-semibold text-gray-800">
+                                                <?= $historyDate === 'unknown-date' ? 'Date unavailable' : esc(date('l, F j, Y', strtotime($historyDate))) ?>
+                                            </h3>
+                                            <div class="space-y-3">
+                                                <?php foreach ($dateEntries as $historyItem): ?>
+                                                    <?php
+                                                    $isPaidHistory = (string) ($historyItem['pl_category'] ?? '') === '1';
+                                                    $checkinTime = !empty($historyItem['pl_checkin']) ? date('g:i A', strtotime($historyItem['pl_checkin'])) : 'N/A';
+                                                    $checkoutTime = !empty($historyItem['pl_checkout']) ? date('g:i A', strtotime($historyItem['pl_checkout'])) : 'In progress';
+                                                    $duration = $historyItem['pl_duration'] === null || $historyItem['pl_duration'] === ''
+                                                        ? 'In progress'
+                                                        : ((int) $historyItem['pl_duration']) . 'h 00m';
+                                                    ?>
+                                                    <article class="rounded-lg border border-gray-200 p-4">
+                                                        <div class="flex flex-wrap items-start justify-between gap-2">
+                                                            <div>
+                                                                <p class="font-semibold text-gray-900">Slot <?= esc($historyItem['p_slotno'] ?? 'N/A') ?>, <?= esc($historyItem['p_level'] ?? 'N/A') ?> Level</p>
+                                                                <p class="mt-1 text-sm text-gray-600"><?= esc(trim(($historyItem['v_make'] ?? '') . ' ' . ($historyItem['v_model'] ?? '')) ?: 'Vehicle unavailable') ?> · <?= esc($historyItem['v_plateno'] ?? 'N/A') ?></p>
+                                                            </div>
+                                                            <span class="rounded px-2 py-1 text-xs font-medium <?= $isPaidHistory ? 'bg-orange-50 text-orange-700' : 'bg-green-50 text-green-700' ?>"><?= $isPaidHistory ? 'Paid' : 'Free' ?></span>
+                                                        </div>
+                                                        <dl class="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-gray-100 pt-3 text-sm sm:grid-cols-4">
+                                                            <div><dt class="text-xs text-gray-500">Check-in</dt><dd class="mt-1 font-medium text-gray-800"><?= esc($checkinTime) ?></dd></div>
+                                                            <div><dt class="text-xs text-gray-500">Check-out</dt><dd class="mt-1 font-medium text-gray-800"><?= esc($checkoutTime) ?></dd></div>
+                                                            <div><dt class="text-xs text-gray-500">Duration</dt><dd class="mt-1 font-medium text-gray-800"><?= esc($duration) ?></dd></div>
+                                                            <div><dt class="text-xs text-gray-500">Charge</dt><dd class="mt-1 font-medium text-gray-800">Php <?= esc(number_format((float) ($historyItem['pl_due'] ?? 0), 2)) ?></dd></div>
+                                                        </dl>
+                                                    </article>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        </section>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
             </div>
+
+            <!-- ####################################################################################################################################################### -->
+
+
+
         </main>
     </div>
 
@@ -639,6 +782,39 @@ if ($session->get('user_role') === 0) {
                 durationSeconds++;
                 renderDuration();
             }, 60000);
+        });
+    </script>
+
+    <script id="month-history-modal-controls">
+        document.addEventListener("DOMContentLoaded", function() {
+            const modal = document.getElementById("month-history-modal");
+            const openButton = document.getElementById("view-month-history");
+            const closeButton = document.getElementById("close-month-history");
+
+            function closeHistoryModal() {
+                modal.classList.add("hidden");
+                modal.classList.remove("flex");
+                document.body.classList.remove("overflow-hidden");
+                openButton.focus();
+            }
+
+            openButton.addEventListener("click", function() {
+                modal.classList.remove("hidden");
+                modal.classList.add("flex");
+                document.body.classList.add("overflow-hidden");
+                closeButton.focus();
+            });
+            closeButton.addEventListener("click", closeHistoryModal);
+            modal.addEventListener("click", function(event) {
+                if (event.target === modal) {
+                    closeHistoryModal();
+                }
+            });
+            document.addEventListener("keydown", function(event) {
+                if (event.key === "Escape" && !modal.classList.contains("hidden")) {
+                    closeHistoryModal();
+                }
+            });
         });
     </script>
 </body>

@@ -25,6 +25,32 @@ class Dashboard extends BaseController
         $data['availableFreeParkingCount'] = self::getAvailableFreeParkingCount();
         $data['availablePaidParkingCount'] = self::getAvailablePaidParkingCount();
         $data['parkingHistory'] = self::getCurrentMonthHistory($session->get('user_id'));
+        $paidParkingStats = [
+            'sessions' => 0,
+            'hours' => 0,
+            'amount' => 0.0,
+        ];
+
+        foreach ($data['parkingHistory'] as $parkingLog) {
+            if ((string) ($parkingLog['pl_category'] ?? '') !== '1') {
+                continue;
+            }
+
+            $paidParkingStats['sessions']++;
+            $hours = (int) ($parkingLog['pl_duration'] ?? 0);
+            $amount = (float) ($parkingLog['pl_due'] ?? 0);
+
+            if (empty($parkingLog['pl_checkout']) && !empty($parkingLog['pl_checkin'])) {
+                $elapsedSeconds = max(0, time() - strtotime($parkingLog['pl_checkin']));
+                $hours = max(1, (int) ceil($elapsedSeconds / 3600));
+                $amount = $hours <= 2 ? 40 : 40 + (($hours - 2) * 10);
+            }
+
+            $paidParkingStats['hours'] += $hours;
+            $paidParkingStats['amount'] += $amount;
+        }
+
+        $data['paidParkingStats'] = $paidParkingStats;
         return view('main/main', $data);
     }
 
@@ -36,7 +62,13 @@ class Dashboard extends BaseController
 
     public function attendant()
     {
-        return view('main/attendant');
+        if (!session('user_id')) {
+            $session = session();
+            $session->setFlashdata('error', 'Please log-in your account.');
+            return redirect()->to(base_url());
+        } else {
+            return view('main/attendant');
+        }
     }
 
 
@@ -127,6 +159,11 @@ class Dashboard extends BaseController
         $vehicleId = (int) $this->request->getPost('vehicle_id');
         $parkingId = (int) $this->request->getPost('parking_id');
 
+
+        $session->set('client_vehicleid', $this->request->getPost('vehicle_id'));
+        $session->set('client_parkingid', $this->request->getPost('parking_id'));
+
+
         if (!$clientEmpNo || $vehicleId < 1 || $parkingId < 1) {
             return $this->response->setStatusCode(422)->setJSON([
                 'message' => 'A client, vehicle, and parking slot are required.',
@@ -193,32 +230,217 @@ class Dashboard extends BaseController
     {
         $session = session();
 
-        if (!session('user_id')) {
+        if (!$session->get('user_id')) {
             return redirect()->to(base_url());
         }
 
-        $clientEmpNo = session('user_id'); //$this->request->getPost('client_empno');
-        if ($clientEmpNo !== null && $clientEmpNo !== '') {
-            $session->set('client_empno', $clientEmpNo);
-        }
+        $employeeNumber = $session->get('user_id');
+        $clientProfile = self::getClientProfile($employeeNumber);
+        $data['clientEmpNo'] = $employeeNumber;
+        $data['clientProfile'] = $clientProfile ?? [];
+        $data['clientVehicles'] = self::getClientVehicle($employeeNumber);
 
-        if ($clientEmpNo !== null && $clientEmpNo !== '') {
-            $activeLog = self::getActiveParkingLog($clientEmpNo);
-            if ($activeLog !== null) {
-                $this->checkoutParking($activeLog);
-                return redirect()->to(base_url('attendant'));
-            }
-        }
-
-        $data['clientEmpNo'] = $session->get('client_empno');
-        $clientProfile = $data['clientEmpNo']
-            ? self::getClientProfile($data['clientEmpNo'])
-            : null;
-        $data['clientName'] = $clientProfile['up_fullname'] ?? '';
-        $data['clientVehicles'] = $data['clientEmpNo']
-            ? self::getClientVehicle($data['clientEmpNo'])
-            : [];
         return view('main/update-profile', $data);
+    }
+
+    public function saveProfile()
+    {
+        $session = session();
+        $employeeNumber = $session->get('user_id');
+        if (!$employeeNumber) {
+            return $this->response->setStatusCode(401)->setJSON([
+                'success' => false,
+                'message' => 'Please sign in again to update your profile.',
+            ]);
+        }
+
+        $email = trim((string) $this->request->getPost('email'));
+        $phone = trim((string) $this->request->getPost('phone'));
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $phone === '') {
+            return $this->response->setStatusCode(422)->setJSON([
+                'success' => false,
+                'message' => 'Enter a valid email address and phone number.',
+            ]);
+        }
+
+        $db = \Config\Database::connect();
+        $profileExists = $db->table('userprofile_tbl')
+            ->where('up_empno', $employeeNumber)
+            ->countAllResults() > 0;
+        if (!$profileExists) {
+            return $this->response->setStatusCode(404)->setJSON([
+                'success' => false,
+                'message' => 'The employee profile could not be found.',
+            ]);
+        }
+
+        $db->transStart();
+        $db->table('userprofile_tbl')
+            ->where('up_empno', $employeeNumber)
+            ->update([
+                'up_email' => $email,
+                'up_mobileno' => $phone,
+            ]);
+        $db->table('users_tbl')
+            ->where('u_empno', $employeeNumber)
+            ->update(['u_email' => $email]);
+        $db->transComplete();
+
+        if (!$db->transStatus()) {
+            return $this->response->setStatusCode(500)->setJSON([
+                'success' => false,
+                'message' => 'Profile changes could not be saved.',
+            ]);
+        }
+
+        $session->set([
+            'user_email' => $email,
+            'user_contact' => $phone,
+        ]);
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Your profile has been updated.',
+        ]);
+    }
+
+    public function saveVehicle()
+    {
+        $employeeNumber = session('user_id');
+        if (!$employeeNumber) {
+            return $this->response->setStatusCode(401)->setJSON([
+                'success' => false,
+                'message' => 'Please sign in again to update your vehicles.',
+            ]);
+        }
+
+        $vehicleId = (int) $this->request->getPost('vehicle_id');
+        $make = trim((string) $this->request->getPost('make'));
+        $model = trim((string) $this->request->getPost('model'));
+        $color = trim((string) $this->request->getPost('color'));
+        $plate = strtoupper(trim((string) $this->request->getPost('plate')));
+
+        if ($make === '' || $model === '' || $color === '' || $plate === '') {
+            return $this->response->setStatusCode(422)->setJSON([
+                'success' => false,
+                'message' => 'Complete all vehicle fields before saving.',
+            ]);
+        }
+
+        $db = \Config\Database::connect();
+        $duplicatePlate = $db->table('vehicle_tbl')
+            ->where('v_empno', $employeeNumber)
+            ->where('v_plateno', $plate)
+            ->where('v_id !=', $vehicleId)
+            ->countAllResults() > 0;
+        if ($duplicatePlate) {
+            return $this->response->setStatusCode(409)->setJSON([
+                'success' => false,
+                'message' => 'That plate number is already registered to your account.',
+            ]);
+        }
+
+        $vehicleData = [
+            'v_make' => $make,
+            'v_model' => $model,
+            'v_color' => $color,
+            'v_plateno' => $plate,
+        ];
+
+        $saved = false;
+        if ($vehicleId > 0) {
+            $ownedVehicle = $db->table('vehicle_tbl')
+                ->where('v_id', $vehicleId)
+                ->where('v_empno', $employeeNumber)
+                ->countAllResults() > 0;
+            if (!$ownedVehicle) {
+                return $this->response->setStatusCode(404)->setJSON([
+                    'success' => false,
+                    'message' => 'That vehicle was not found in your account.',
+                ]);
+            }
+
+            $saved = $db->table('vehicle_tbl')
+                ->where('v_id', $vehicleId)
+                ->where('v_empno', $employeeNumber)
+                ->update($vehicleData);
+        } else {
+            $vehicleCount = $db->table('vehicle_tbl')
+                ->where('v_empno', $employeeNumber)
+                ->countAllResults();
+            if ($vehicleCount >= 3) {
+                return $this->response->setStatusCode(422)->setJSON([
+                    'success' => false,
+                    'message' => 'You can register up to 3 vehicles.',
+                ]);
+            }
+
+            $vehicleData['v_empno'] = $employeeNumber;
+            $saved = $db->table('vehicle_tbl')->insert($vehicleData);
+        }
+
+        if (!$saved) {
+            return $this->response->setStatusCode(500)->setJSON([
+                'success' => false,
+                'message' => 'Vehicle changes could not be saved.',
+            ]);
+        }
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => $vehicleId > 0 ? 'Vehicle updated.' : 'Vehicle added.',
+        ]);
+    }
+
+    public function deleteVehicle()
+    {
+        $employeeNumber = session('user_id');
+        if (!$employeeNumber) {
+            return $this->response->setStatusCode(401)->setJSON([
+                'success' => false,
+                'message' => 'Please sign in again to manage your vehicles.',
+            ]);
+        }
+
+        $vehicleId = (int) $this->request->getPost('vehicle_id');
+        if ($vehicleId < 1) {
+            return $this->response->setStatusCode(422)->setJSON([
+                'success' => false,
+                'message' => 'Select a valid vehicle to delete.',
+            ]);
+        }
+
+        $db = \Config\Database::connect();
+        $vehicleExists = $db->table('vehicle_tbl')
+            ->where('v_id', $vehicleId)
+            ->where('v_empno', $employeeNumber)
+            ->countAllResults() > 0;
+        if (!$vehicleExists) {
+            return $this->response->setStatusCode(404)->setJSON([
+                'success' => false,
+                'message' => 'That vehicle was not found in your account.',
+            ]);
+        }
+
+        $hasParkingHistory = $db->table('parklog_tbl')
+            ->where('v_id', $vehicleId)
+            ->countAllResults() > 0;
+        if ($hasParkingHistory) {
+            return $this->response->setStatusCode(409)->setJSON([
+                'success' => false,
+                'message' => 'This vehicle is linked to parking history and cannot be deleted.',
+            ]);
+        }
+
+        $db->table('vehicle_tbl')
+            ->where('v_id', $vehicleId)
+            ->where('v_empno', $employeeNumber)
+            ->delete();
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Vehicle deleted.',
+        ]);
     }
 
     public static function getClientVehicle($empno)
@@ -236,7 +458,7 @@ class Dashboard extends BaseController
 
         return \Config\Database::connect()
             ->table('parklog_tbl pl')
-            ->select('pl.pl_checkin, pl.pl_category, pl.pl_duration, pl.pl_due, p.p_slotno, p.p_level, v.v_make, v.v_model, v.v_plateno')
+            ->select('pl.pl_checkin, pl.pl_checkout, pl.pl_category, pl.pl_duration, pl.pl_due, p.p_slotno, p.p_level, v.v_make, v.v_model, v.v_plateno')
             ->join('parking_tbl p', 'p.p_id = pl.p_id', 'left')
             ->join('vehicle_tbl v', 'v.v_id = pl.v_id', 'left')
             ->where('pl.u_empno', $empno)
@@ -329,5 +551,31 @@ class Dashboard extends BaseController
         $builder->where('p_status', '0');
         $builder->where('p_category', '1');
         return $builder->countAllResults();
+    }
+
+    public static function getCurrentUserInfo(string $empno)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('userprofile_tbl');
+        $builder->where('up_empno', $empno);
+        return $builder->get()->getRow();
+    }
+
+
+    public function parkingEntryConfirmation()
+    {
+        $session = session();
+
+        $empno = $session->get('client_empno');
+        $parkingId = $session->get('client_parkingid');
+        $vehicleId = $session->get('client_vehicleid');
+
+        $userInfo = $this->getCurrentUserInfo($empno);
+
+        $data['fullname'] = $userInfo->fullname;
+
+
+
+        return view('main/parking-entry-confirmed', $data);
     }
 }

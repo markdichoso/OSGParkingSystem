@@ -130,3 +130,55 @@ database.default.port = 3306
 #--------------------------------------------------------------------
 
 # logger.threshold = 4
+
+#--------------------------------------------------------------------
+
+# MICROSOFT 365 REGISTRATION NOTIFICATIONS
+
+#--------------------------------------------------------------------
+
+# Configure these in the deployed environment or .env. Use a Microsoft 365
+
+# mailbox with authenticated SMTP enabled. Never commit the mailbox password.
+
+# email.protocol = 'smtp'
+
+# email.fromEmail = 'notifications@osg.gov.ph'
+
+# email.fromName = 'OSG Car Parking System'
+
+# email.SMTPHost = 'smtp.office365.com'
+
+# email.SMTPUser = 'notifications@osg.gov.ph'
+
+# email.SMTPPass = 'set-this-as-a-secret'
+
+# email.SMTPPort = 587
+
+# email.SMTPCrypto = 'tls'
+
+#--------------------------------------------------------------------
+
+# MICROSOFT 365 REGISTRATION NOTIFICATIONS
+
+#--------------------------------------------------------------------
+
+# Configure these in the deployed environment or .env. Use a Microsoft 365
+
+# mailbox with authenticated SMTP enabled. Never commit the mailbox password.
+
+# email.protocol = 'smtp'
+
+# email.fromEmail = 'notifications@osg.gov.ph'
+
+# email.fromName = 'OSG Car Parking System'
+
+# email.SMTPHost = 'smtp.office365.com'
+
+# email.SMTPUser = 'notifications@osg.gov.ph'
+
+# email.SMTPPass = 'set-this-as-a-secret'
+
+# email.SMTPPort = 587
+
+# email.SMTPCrypto = 'tls'

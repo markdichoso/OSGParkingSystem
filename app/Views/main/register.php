@@ -1,3 +1,4 @@
+<?php helper('form'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -155,7 +156,12 @@
                     Enter your OSG Employee details
                 </p>
             </div>
-            <form id="registration-form" class="space-y-5">
+            <?php if (session()->getFlashdata('error')): ?>
+                <div role="alert" class="mb-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                    <?= esc(session()->getFlashdata('error')) ?>
+                </div>
+            <?php endif; ?>
+            <form id="registration-form" class="space-y-5" method="post" action="<?= base_url('register-submit') ?>">
                 <div>
                     <label
                         for="osg-email"
@@ -167,8 +173,11 @@
                         <input
                             type="email"
                             id="osg-email"
+                            name="email"
+                            required
                             class="input-with-icon w-full h-12 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                            placeholder="employee@osg.gov.ph" />
+                            placeholder="employee@osg.gov.ph"
+                            value="<?= esc(old('email') ?? '') ?>" />
                     </div>
                     <div id="email-validation" class="validation-message hidden"></div>
                 </div>
@@ -183,8 +192,11 @@
                         <input
                             type="text"
                             id="employee-number"
+                            name="employee_number"
+                            required
                             class="input-with-icon w-full h-12 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                            placeholder="2026-01001" />
+                            placeholder="2026-01001"
+                            value="<?= esc(old('employee_number') ?? '') ?>" />
                     </div>
                     <div id="empnum-validation" class="validation-message hidden"></div>
                 </div>
@@ -217,6 +229,9 @@
                         <input
                             type="password"
                             id="password"
+                            name="password"
+                            required
+                            autocomplete="new-password"
                             class="input-with-icon w-full h-12 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all pr-12"
                             placeholder="Enter your password" />
                         <div
@@ -240,6 +255,9 @@
                         <input
                             type="password"
                             id="confirm-password"
+                            name="password_confirmation"
+                            required
+                            autocomplete="new-password"
                             class="input-with-icon w-full h-12 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all pr-12"
                             placeholder="Re-enter your password" />
                         <div
@@ -364,12 +382,10 @@
         document.addEventListener("DOMContentLoaded", function() {
             const emailInput = document.getElementById("osg-email");
             const empNumInput = document.getElementById("employee-number");
-            const usernameInput = document.getElementById("username");
             const passwordInput = document.getElementById("password");
             const confirmPasswordInput = document.getElementById("confirm-password");
             const emailValidation = document.getElementById("email-validation");
             const empNumValidation = document.getElementById("empnum-validation");
-            const usernameValidation = document.getElementById("username-validation");
             const passwordValidation = document.getElementById("password-validation");
             const confirmPasswordValidation = document.getElementById(
                 "confirm-password-validation",
@@ -394,14 +410,6 @@
             function validateEmployeeNumber(empNum) {
                 const pattern = /^\d{4}-\d{5}$/;
                 return pattern.test(empNum);
-            }
-
-            function validateUsername(username) {
-                return (
-                    username.length >= 4 &&
-                    username.length <= 20 &&
-                    /^[a-zA-Z0-9_]+$/.test(username)
-                );
             }
 
             function validatePassword(password) {
@@ -450,25 +458,6 @@
             empNumInput.addEventListener("input", function() {
                 if (this.value.trim() === "") {
                     hideValidation(empNumValidation);
-                }
-            });
-            usernameInput.addEventListener("blur", function() {
-                const value = this.value.trim();
-                if (value === "") {
-                    hideValidation(usernameValidation);
-                } else if (!validateUsername(value)) {
-                    showValidation(
-                        usernameValidation,
-                        "Username must be 4-20 characters (letters, numbers, underscore)",
-                        true,
-                    );
-                } else {
-                    showValidation(usernameValidation, "Username is available", false);
-                }
-            });
-            usernameInput.addEventListener("input", function() {
-                if (this.value.trim() === "") {
-                    hideValidation(usernameValidation);
                 }
             });
             passwordInput.addEventListener("blur", function() {
@@ -523,22 +512,18 @@
             const form = document.getElementById("registration-form");
             const cancelBtn = document.getElementById("cancel-btn");
             form.addEventListener("submit", function(e) {
-                e.preventDefault();
                 const emailInput = document.getElementById("osg-email");
                 const empNumInput = document.getElementById("employee-number");
-                const usernameInput = document.getElementById("username");
                 const passwordInput = document.getElementById("password");
                 const confirmPasswordInput = document.getElementById("confirm-password");
                 let isValid = true;
                 const emailValue = emailInput.value.trim();
                 const empNumValue = empNumInput.value.trim();
-                const usernameValue = usernameInput.value.trim();
                 const passwordValue = passwordInput.value;
                 const confirmPasswordValue = confirmPasswordInput.value;
                 if (
                     emailValue === "" ||
                     empNumValue === "" ||
-                    usernameValue === "" ||
                     passwordValue === "" ||
                     confirmPasswordValue === ""
                 ) {
@@ -550,13 +535,6 @@
                 }
                 const empPattern = /^\d{4}-\d{5}$/;
                 if (!empPattern.test(empNumValue)) {
-                    isValid = false;
-                }
-                if (
-                    usernameValue.length < 4 ||
-                    usernameValue.length > 20 ||
-                    !/^[a-zA-Z0-9_]+$/.test(usernameValue)
-                ) {
                     isValid = false;
                 }
                 const minLength = passwordValue.length >= 8;
@@ -578,14 +556,21 @@
                 if (passwordValue !== confirmPasswordValue) {
                     isValid = false;
                 }
+                if (!isValid) {
+                    e.preventDefault();
+                    if (passwordValue !== confirmPasswordValue) {
+                        showValidation(confirmPasswordValidation, "Passwords do not match", true);
+                    }
+                    if (!validatePassword(passwordValue)) {
+                        showValidation(passwordValidation, "Password does not meet requirements", true);
+                    }
+                    return;
+                }
                 if (isValid) {
                     const submitBtn = document.getElementById("submit-btn");
                     submitBtn.innerHTML =
                         '<i class="ri-loader-4-line text-lg animate-spin"></i><span>Creating Account...</span>';
                     submitBtn.disabled = true;
-                    setTimeout(function() {
-                        window.location.href = "dashboard.html";
-                    }, 2000);
                 }
             });
             cancelBtn.addEventListener("click", function() {

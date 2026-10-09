@@ -86,6 +86,14 @@ define('LOC_USER', 'root');
 define('LOC_PASS', '');
 
 
+
+define('NET_HOST', 'http://192.168.102.21');
+define('NET_DB', 'osg_cpms_db');
+define('NET_USER', 'root');
+define('NET_PASS', '');
+
+
+
 define('SRV_HOST', 'osgweb-db.mysql.database.azure.com');
 define('SRV_DB', 'osg_cpms_db');
 define('SRV_USER', 'osgwebdbadmin@osgweb-db');

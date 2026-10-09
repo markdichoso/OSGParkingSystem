@@ -276,13 +276,13 @@ $session = session();
             </section>
 
             <form id="scan-result-form" class="mt-5 rounded-2xl bg-white p-5 shadow-sm"
-                action="<?= esc(base_url('osgparkingsystem/assign-parking')) ?>" method="post">
-                <label for="qr-result" class="block text-sm font-semibold text-slate-700">Detected value</label>
-                <input id="qr-result" name="qr_code" type="text" readonly
+                action="<?= esc(base_url('assign-parking')) ?>" method="post">
+                <!-- <label for="qr-result" class="block text-sm font-semibold text-slate-700">Detected value</label> -->
+                <input id="qr-result" name="qr_code" type="text" readonly hidden
                     class="mt-2 w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-3 text-sm text-slate-900"
                     placeholder="The detected QR value will appear here">
                 <input id="client-empno" name="client_empno" type="hidden">
-                <button id="continue-button" type="button" disabled
+                <button id="continue-button" type="button" disabled hidden
                     class="mt-4 w-full rounded-lg bg-emerald-600 px-4 py-3 font-semibold text-white transition enabled:hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50">
                     Continue
                 </button>
