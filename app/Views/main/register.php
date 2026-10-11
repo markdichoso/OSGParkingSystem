@@ -312,6 +312,7 @@
                     Already have an account?
                 </p>
                 <button
+                    onclick="window.location.href='<?= base_url('/') ?>'"
                     class="w-full h-12 bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 text-gray-900 font-semibold text-sm !rounded-button hover:from-gray-100 hover:to-gray-200 transition-all cursor-pointer flex items-center justify-center gap-2">
                     <i class="ri-login-box-line text-lg"></i>
                     <span>Sign In</span>

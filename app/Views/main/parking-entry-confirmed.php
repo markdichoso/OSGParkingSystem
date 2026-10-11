@@ -3,6 +3,15 @@
 
 <?php
 $session = session();
+$entry = $entry ?? [];
+$employeeName = $entry['up_fullname'] ?? 'Employee';
+$employeeNumber = $entry['u_empno'] ?? '';
+$employeeDivision = $entry['up_division'] ?? 'Division not provided';
+$vehicleName = trim(($entry['v_make'] ?? '') . ' ' . ($entry['v_model'] ?? ''));
+$vehiclePlate = $entry['v_plateno'] ?? 'Not available';
+$parkingSlot = $entry['p_slotno'] ?? 'Not available';
+$parkingLevel = $entry['p_level'] ?? 'Not available';
+$checkinTime = !empty($entry['pl_checkin']) ? date('M j, Y h:i A', strtotime($entry['pl_checkin'])) : 'Not available';
 ?>
 
 
@@ -127,10 +136,12 @@ $session = session();
 </head>
 
 <body class="bg-gray-50">
-    <div class="w-full max-w-[375px] mx-auto bg-white min-h-screen relative">
-        <header class="fixed top-0 w-full max-w-[375px] bg-white z-50 shadow-sm">
+    <div class="w-full max-w-2xl mx-auto bg-white min-h-screen relative">
+        <header class="fixed left-1/2 top-0 w-full max-w-2xl -translate-x-1/2 bg-white z-50 shadow-sm">
             <div class="flex items-center justify-between px-5 py-4 h-16">
-                <div class="font-['Pacifico'] text-2xl text-primary">logo</div>
+                <a href="<?= esc(base_url('attendant')) ?>" aria-label="Parking attendant home">
+                    <img src="<?= esc(base_url('img/logo/OSG CAR PARK.png')) ?>" alt="OSG Car Park" class="h-10 w-auto" />
+                </a>
                 <div class="flex items-center gap-4">
                     <div
                         class="w-10 h-10 flex items-center justify-center cursor-pointer relative">
@@ -186,26 +197,23 @@ $session = session();
                         class="absolute inset-0 w-24 h-24 bg-secondary rounded-full success-ring"></div>
                 </div>
                 <h2 class="text-xl font-bold text-gray-900 mb-1">
-                    Assignment Successful
+                    Parking Entry Confirmed
                 </h2>
-                <p class="text-sm text-gray-600">Parking spot has been assigned</p>
+                <p class="text-sm text-gray-600">The employee's parking entry has been recorded successfully.</p>
             </div>
             <div
                 class="bg-white rounded-2xl shadow-md p-6 mb-6 slide-up"
                 style="animation-delay: 0.1s;">
                 <div class="flex flex-col items-center mb-4">
-                    <div class="relative mb-4">
-                        <img
-                            src="https://readdy.ai/api/search-image?query=professional%20business%20portrait%20of%20confident%20male%20employee%20in%20corporate%20attire%2C%20studio%20lighting%2C%20clean%20white%20background%2C%20high%20quality%20headshot%20photography%2C%20friendly%20smile%2C%20business%20casual%2C%20modern%20professional%20look&width=200&height=200&seq=conf001&orientation=squarish"
-                            alt="Employee"
-                            class="w-20 h-20 rounded-full object-cover ring-4 ring-primary ring-opacity-20" />
+                    <div class="w-20 h-20 rounded-full ring-4 ring-primary/20 bg-blue-50 flex items-center justify-center text-2xl font-bold text-primary mb-4" aria-hidden="true">
+                        <?= esc(strtoupper(substr($employeeName, 0, 1))) ?>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-1">
-                        <?= esc($fullname ?? '') ?>
+                        <?= esc($employeeName) ?>
                     </h3>
-                    <p class="text-sm text-gray-600 mb-2">Engineering Division</p>
+                    <p class="text-sm text-gray-600 mb-2"><?= esc($employeeDivision) ?></p>
                     <div class="bg-gray-100 px-3 py-1 rounded-full">
-                        <p class="text-xs font-mono text-gray-700">2008-15847</p>
+                        <p class="text-xs font-mono text-gray-700"><?= esc($employeeNumber) ?></p>
                     </div>
                 </div>
             </div>
@@ -221,13 +229,13 @@ $session = session();
                 <div class="bg-white rounded-xl p-4">
                     <div class="flex items-center justify-between mb-3">
                         <span class="text-sm text-gray-600">Car Model</span>
-                        <span class="text-sm font-bold text-gray-900">Honda Accord</span>
+                        <span class="text-sm font-bold text-gray-900"><?= esc($vehicleName !== '' ? $vehicleName : 'Vehicle') ?></span>
                     </div>
                     <div class="border-t border-gray-100 my-3"></div>
                     <div class="flex items-center justify-between">
                         <span class="text-sm text-gray-600">License Plate</span>
                         <div class="bg-gray-900 px-3 py-1 rounded">
-                            <span class="text-sm font-bold text-white tracking-wider">XYZ 5678</span>
+                            <span class="text-sm font-bold text-white tracking-wider"><?= esc($vehiclePlate) ?></span>
                         </div>
                     </div>
                 </div>
@@ -243,19 +251,13 @@ $session = session();
                             </div>
                             <span class="text-xs font-medium text-blue-200">Assigned Parking Slot</span>
                         </div>
-                        <p class="text-5xl font-bold mb-2">A-12</p>
+                        <p class="text-5xl font-bold mb-2"><?= esc($parkingSlot) ?></p>
                         <div class="flex items-center gap-4 text-sm text-blue-100">
                             <div class="flex items-center gap-1">
                                 <div class="w-4 h-4 flex items-center justify-center">
                                     <i class="ri-building-2-line text-xs"></i>
                                 </div>
-                                <span>Level 2</span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <div class="w-4 h-4 flex items-center justify-center">
-                                    <i class="ri-layout-grid-line text-xs"></i>
-                                </div>
-                                <span>Block A</span>
+                                <span>Level <?= esc($parkingLevel) ?></span>
                             </div>
                         </div>
                     </div>
@@ -266,7 +268,7 @@ $session = session();
                 </div>
                 <div
                     class="bg-secondary bg-opacity-20 rounded-xl px-4 py-2 inline-block">
-                    <span class="text-sm font-semibold text-white">Free Parking</span>
+                    <span class="text-sm font-semibold text-white"><?= esc($parkingType ?? 'Parking') ?></span>
                 </div>
             </div>
             <div
@@ -280,7 +282,7 @@ $session = session();
                     <div>
                         <p class="text-xs text-gray-600">Entry Timestamp</p>
                         <p class="text-sm font-semibold text-gray-900">
-                            Dec 28, 2026 09:15 AM
+                            <?= esc($checkinTime) ?>
                         </p>
                     </div>
                 </div>
@@ -304,19 +306,19 @@ $session = session();
                     <div
                         class="flex items-center justify-between py-2 border-b border-gray-100">
                         <span class="text-sm text-gray-600">Reference Number</span>
-                        <span class="text-sm font-mono font-medium text-gray-900">#PKG-2026-0847</span>
+                        <span class="text-sm font-mono font-medium text-gray-900">#<?= esc($referenceNumber ?? '') ?></span>
                     </div>
                     <div
                         class="flex items-center justify-between py-2 border-b border-gray-100">
                         <span class="text-sm text-gray-600">Parking Type</span>
                         <div class="bg-secondary bg-opacity-10 px-3 py-1 rounded-full">
-                            <span class="text-xs font-medium text-secondary">Employee Free Parking</span>
+                            <span class="text-xs font-medium text-secondary"><?= esc($parkingType ?? 'Parking') ?></span>
                         </div>
                     </div>
                     <div
                         class="flex items-center justify-between py-2 border-b border-gray-100">
-                        <span class="text-sm text-gray-600">Expected Duration</span>
-                        <span class="text-sm font-medium text-gray-900">8 hours</span>
+                        <span class="text-sm text-gray-600">Entry Status</span>
+                        <span class="text-sm font-medium text-gray-900">Confirmed</span>
                     </div>
                     <div class="bg-blue-50 rounded-xl p-3 mt-3">
                         <div class="flex items-start gap-2">
@@ -333,14 +335,15 @@ $session = session();
                 </div>
             </div>
             <div class="space-y-3 mb-6">
-                <button
+                <a
+                    href="<?= esc(base_url('attendant')) ?>"
                     id="done-button"
                     class="w-full bg-primary text-white py-3.5 rounded-button font-semibold flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap shadow-lg shadow-primary/30">
                     <div class="w-5 h-5 flex items-center justify-center">
                         <i class="ri-check-double-line text-lg"></i>
                     </div>
                     <span>Complete</span>
-                </button>
+                </a>
                 <button
                     id="print-button"
                     class="w-full bg-white border-2 border-gray-200 text-gray-700 py-3.5 rounded-button font-medium flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap">
@@ -349,53 +352,6 @@ $session = session();
                     </div>
                     <span>Print Receipt</span>
                 </button>
-            </div>
-            <div
-                class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-5 slide-up"
-                style="animation-delay: 0.6s;">
-                <h3 class="text-sm font-semibold text-gray-900 mb-4">Quick Access</h3>
-                <div
-                    class="bg-white rounded-xl p-4 mb-3 flex items-center justify-center">
-                    <div class="text-center">
-                        <div
-                            class="w-32 h-32 bg-gray-900 rounded-xl mx-auto mb-3 flex items-center justify-center">
-                            <div
-                                class="w-28 h-28 bg-white rounded-lg flex items-center justify-center">
-                                <div class="grid grid-cols-3 gap-1">
-                                    <div class="w-2 h-2 bg-gray-900 rounded-sm"></div>
-                                    <div class="w-2 h-2 bg-white"></div>
-                                    <div class="w-2 h-2 bg-gray-900 rounded-sm"></div>
-                                    <div class="w-2 h-2 bg-white"></div>
-                                    <div class="w-2 h-2 bg-gray-900 rounded-sm"></div>
-                                    <div class="w-2 h-2 bg-white"></div>
-                                    <div class="w-2 h-2 bg-gray-900 rounded-sm"></div>
-                                    <div class="w-2 h-2 bg-white"></div>
-                                    <div class="w-2 h-2 bg-gray-900 rounded-sm"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-xs text-gray-600">
-                            Scan for quick exit verification
-                        </p>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div class="bg-white rounded-xl p-3 text-center cursor-pointer">
-                        <div
-                            class="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-lg mx-auto mb-2">
-                            <i class="ri-share-line text-lg text-primary"></i>
-                        </div>
-                        <p class="text-xs font-medium text-gray-900">Share</p>
-                    </div>
-                    <div class="bg-white rounded-xl p-3 text-center cursor-pointer">
-                        <div
-                            class="w-10 h-10 flex items-center justify-center bg-orange-50 rounded-lg mx-auto mb-2">
-                            <i
-                                class="ri-customer-service-2-line text-lg text-orange-600"></i>
-                        </div>
-                        <p class="text-xs font-medium text-gray-900">Support</p>
-                    </div>
-                </div>
             </div>
         </main>
     </div>
@@ -440,38 +396,7 @@ $session = session();
     </script>
     <script id="button-actions">
         document.addEventListener("DOMContentLoaded", function() {
-            const doneButton = document.getElementById("done-button");
             const printButton = document.getElementById("print-button");
-
-            function showToast(message, type) {
-                const toastContainer = document.getElementById("toast-container");
-                const toast = document.createElement("div");
-                toast.className = `px-6 py-3 rounded-xl shadow-lg ${type === "success" ? "bg-secondary" : "bg-primary"} text-white fade-in`;
-                toast.innerHTML = `
-      <div class="flex items-center gap-2">
-      <i class="ri-${type === "success" ? "check" : "information"}-circle-fill text-xl"></i>
-      <span class="font-medium">${message}</span>
-      </div>
-      `;
-                toastContainer.appendChild(toast);
-                setTimeout(() => {
-                    toast.remove();
-                }, 3000);
-            }
-            doneButton.addEventListener("click", function() {
-                const originalContent = this.innerHTML;
-                this.innerHTML =
-                    '<div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div><span>Processing...</span>';
-                this.disabled = true;
-                setTimeout(() => {
-                    showToast("Transaction completed successfully", "success");
-                    this.innerHTML = originalContent;
-                    this.disabled = false;
-                    setTimeout(() => {
-                        window.location.href = "parking-attendant-portal.html";
-                    }, 1500);
-                }, 1500);
-            });
             printButton.addEventListener("click", function() {
                 const originalContent = this.innerHTML;
                 this.innerHTML =

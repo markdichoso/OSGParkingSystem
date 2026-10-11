@@ -199,6 +199,7 @@ class Dashboard extends BaseController
             'pl_duration'  => null,
             'pl_due'       => null,
         ]);
+        $parkingLogId = (int) $db->insertID();
         $db->table('parking_tbl')
             ->where('p_id', $parkingId)
             ->where('p_status', '0')
@@ -212,12 +213,13 @@ class Dashboard extends BaseController
         }
 
         $session->set([
-            'selected_vehicle_id' => $vehicleId,
-            'selected_parking_id' => $parkingId,
+            'client_vehicleid' => $vehicleId,
+            'client_parkingid' => $parkingId,
+            'parking_confirmation_id' => $parkingLogId,
         ]);
 
         return $this->response->setJSON([
-            'redirect' => base_url('attendant'),
+            'redirect' => base_url('parking-entry-confirmed'),
         ]);
     }
 
@@ -565,17 +567,34 @@ class Dashboard extends BaseController
     public function parkingEntryConfirmation()
     {
         $session = session();
+        $employeeNumber = $session->get('client_empno');
+        $parkingLogId = (int) $session->get('parking_confirmation_id');
 
-        $empno = $session->get('client_empno');
-        $parkingId = $session->get('client_parkingid');
-        $vehicleId = $session->get('client_vehicleid');
+        if (!$employeeNumber || $parkingLogId < 1) {
+            return redirect()->to(base_url('attendant'));
+        }
 
-        $userInfo = $this->getCurrentUserInfo($empno);
+        $entry = \Config\Database::connect()
+            ->table('parklog_tbl pl')
+            ->select('pl.pl_id, pl.pl_checkin, pl.pl_category, pl.u_empno, up.up_fullname, up.up_division, v.v_make, v.v_model, v.v_plateno, p.p_slotno, p.p_level')
+            ->join('userprofile_tbl up', 'up.up_empno = pl.u_empno', 'left')
+            ->join('vehicle_tbl v', 'v.v_id = pl.v_id', 'left')
+            ->join('parking_tbl p', 'p.p_id = pl.p_id', 'left')
+            ->where('pl.pl_id', $parkingLogId)
+            ->where('pl.u_empno', $employeeNumber)
+            ->get()
+            ->getRowArray();
 
-        $data['fullname'] = $userInfo->fullname;
+        if (!$entry) {
+            return redirect()->to(base_url('attendant'));
+        }
 
-
-
+        $data = [
+            'entry' => $entry,
+            'referenceNumber' => 'PKG-' . str_pad((string) $entry['pl_id'], 8, '0', STR_PAD_LEFT),
+            'parkingType' => (string) $entry['pl_category'] === '1' ? 'Paid Parking' : 'Free Parking',
+        ];
+        $session->remove('parking_confirmation_id');
         return view('main/parking-entry-confirmed', $data);
     }
 }

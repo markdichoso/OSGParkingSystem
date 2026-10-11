@@ -180,7 +180,7 @@
                     <div class="mt-6 flex items-center">
                         <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
                         <span class="px-4 text-xs font-medium text-gray-400">
-                            <a href="./account-registration" class="text-sm font-semibold text-primary hover:text-blue-700 hover:underline transition-all">SIGN UP</a>
+                            <a href="./account-registration" class="text-sm font-semibold text-primary hover:text-blue-700 hover:underline transition-all">REGISTER</a>
                         </span>
                         <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
                     </div>
@@ -195,7 +195,7 @@
                 <span class="text-gray-300">•</span>
                 <a href="#" class="hover:text-primary transition-colors">Help & Support</a>
             </div>
-            <p class="text-xs text-gray-400 text-center font-medium">© 2026 Car Park Management System. All rights reserved.</p>
+            <p class="text-xs text-gray-400 text-center font-medium">© 2026 Car Park Management System. All rights reserved. </n> Office of the Solicitor General</p>
         </footer>
     </div>
 
