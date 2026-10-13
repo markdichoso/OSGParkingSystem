@@ -130,7 +130,7 @@
         <header class="fixed top-0 w-full max-w-[1080px] bg-white z-50 shadow-sm">
             <div class="flex items-center justify-between px-5 py-4 h-16">
                 <div class="font-['Pacifico'] text-2xl text-primary">
-                    <img src="http://localhost/osgparkingsystem/public/img/logo/OSG CAR PARK.png" style="height: 60px;">
+                    <img src="<?= base_url('public/img/logo/OSG CAR PARK.png') ?>" style="height: 60px;">
                 </div>
 
 

@@ -132,55 +132,21 @@ $clientProfile = $clientProfile ?? [];
 </head>
 
 <body class="bg-gray-50">
-    <div
-        class="w-full max-w-[1080px] mx-auto bg-white min-h-screen relative pb-24">
-        <header class="fixed top-0 w-full max-w-[1080px] bg-white z-50 shadow-sm">
-            <div class="flex items-center justify-between px-5 py-4 h-16">
-                <div class="flex items-center gap-3">
-                    <button
-                        id="back-button"
-                        class="w-10 h-10 flex items-center justify-center cursor-pointer">
-                        <i class="ri-arrow-left-line text-2xl text-gray-700"></i>
-                    </button>
-                    <h1 class="text-xl font-semibold text-gray-900">Edit Profile</h1>
-                </div>
-                <div class="flex items-center gap-4">
-                    <div
-                        class="w-10 h-10 flex items-center justify-center cursor-pointer">
-                        <i class="ri-notification-3-line text-2xl text-gray-700"></i>
-                    </div>
-                    <div
-                        class="w-10 h-10 flex items-center justify-center cursor-pointer"
-                        id="menu-button">
-                        <i class="ri-menu-line text-2xl text-gray-700"></i>
-                    </div>
-                </div>
-            </div>
-            <div
-                id="menu-dropdown"
-                class="absolute right-5 top-16 bg-white rounded-xl shadow-lg w-48 hidden overflow-hidden z-50">
-                <div class="py-2">
-                    <button
-                        class="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors cursor-pointer">
-                        <div
-                            class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-lg">
-                            <i class="ri-user-line text-lg text-primary"></i>
-                        </div>
-                        <span class="text-sm font-medium text-gray-900">Account</span>
-                    </button>
-                    <div class="border-t border-gray-100"></div>
-                    <button
-                        class="w-full px-4 py-3 flex items-center gap-3 hover:bg-red-50 transition-colors cursor-pointer">
-                        <div
-                            class="w-8 h-8 flex items-center justify-center bg-red-50 rounded-lg">
-                            <i class="ri-logout-box-r-line text-lg text-red-600"></i>
-                        </div>
-                        <span class="text-sm font-medium text-red-600">Log Out</span>
-                    </button>
-                </div>
-            </div>
-        </header>
+    <div class="w-full max-w-[1080px] mx-auto bg-white min-h-screen relative">
+
+
+        <!-- REQUIRE HEADER -->
+        <?php require __DIR__ . '/../template/header.php'; ?>
+
+
+
+
+
+        <!-- <div style="padding-top: 60px;"></div> -->
         <main class="pt-20 px-5">
+            <div class="gap-3 rounded-xl shadow-sm p-2 mb-2" style="text-align: center; border: 1px solid #8f723b;">
+                <h1 class="text-md font-bold text-gray-900" style="color: #8f723b; ">Update Account Profile</h1>
+            </div>
             <div class="bg-white rounded-2xl shadow-lg p-6 mb-6" style="background: #ffffff; background: linear-gradient(160deg,rgba(255, 255, 255, 1) 19%, rgba(255, 225, 161, 1) 100%);">
                 <div class="flex items-start justify-between mb-4">
                     <div class="flex items-center gap-4">
@@ -297,9 +263,9 @@ $clientProfile = $clientProfile ?? [];
 
             <div id="vehicles-content" class="tab-content hidden">
                 <div class="bg-white rounded-2xl shadow-md p-6 mb-6" style="background: #ffffff; background: linear-gradient(160deg,rgba(255, 255, 255, 1) 19%, rgba(191, 191, 191, 1) 100%);">
-                    <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center justify-between mb-4">
                         <div>
-                            <h3 class="text-base font-semibold text-gray-900">
+                            <h3 class=" text-base font-semibold text-gray-900">
                                 Registered Vehicles
                             </h3>
                             <p class="text-xs text-gray-600 mt-1">
@@ -395,7 +361,7 @@ $clientProfile = $clientProfile ?? [];
 
         </main>
         <div
-            class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-5 max-w-[375px] mx-auto z-40">
+            class=" bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-5 max-w-[375px] mx-auto z-40">
             <div class="flex gap-3">
                 <button
                     id="cancel-btn"

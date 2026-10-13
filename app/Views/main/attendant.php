@@ -171,61 +171,32 @@ $session = session();
 
 <body class="bg-gray-50">
     <div class="w-full max-w-[1080px] mx-auto bg-white min-h-screen relative">
-        <header class="fixed top-0 w-full max-w-[1080px] bg-white z-50 shadow-sm">
-            <div class="flex items-center justify-between px-5 py-4 h-16">
-                <div class="font-['Pacifico'] text-2xl text-primary">
-                    <img src="http://localhost/osgparkingsystem/public/img/logo/OSG CAR PARK.png" style="height: 60px;">
-                </div>
 
 
-                <div class="flex items-center gap-4">
-                    <div
-                        class="w-10 h-10 flex items-center justify-center cursor-pointer">
-                        <i class="ri-notification-3-line text-2xl text-gray-700"></i>
-                    </div>
-                    <div
-                        class="w-10 h-10 flex items-center justify-center cursor-pointer"
-                        id="menu-button">
-                        <i class="ri-menu-line text-2xl text-gray-700"></i>
-                    </div>
-                </div>
-            </div>
-            <div
-                id="menu-dropdown"
-                class="absolute right-5 top-16 bg-white rounded-xl shadow-lg w-48 hidden overflow-hidden z-50">
-                <div class="py-2">
-                    <button
-                        class="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors cursor-pointer">
-                        <div
-                            class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-lg">
-                            <i class="ri-user-line text-lg text-primary"></i>
-                        </div>
-                        <span class="text-sm font-medium text-gray-900">Account</span>
-                    </button>
-                    <div class="border-t border-gray-100"></div>
-                    <button
-                        class="w-full px-4 py-3 flex items-center gap-3 hover:bg-red-50 transition-colors cursor-pointer" onclick="window.location.href = '<?php echo base_url('signout'); ?>';">
-                        <div
-                            class="w-8 h-8 flex items-center justify-center bg-red-50 rounded-lg">
-                            <i class="ri-logout-box-r-line text-lg text-red-600"></i>
-                        </div>
-                        <span class="text-sm font-medium text-red-600">Log Out</span>
-                    </button>
-                </div>
-            </div>
+        <!-- REQUIRE HEADER -->
+        <?php require __DIR__ . '/../template/header.php'; ?>
 
 
 
 
-        </header>
+
         <main class="pt-20 pb-8 px-5">
-            <div class="mb-6">
+            <!-- <div class="mb-6">
                 <h1 class="text-2xl font-bold text-gray-900 mb-1">
                     Parking Attendant
                 </h1>
                 <p class="text-sm text-gray-600">
                     Manage vehicle entry and exit operations
                 </p>
+            </div> -->
+
+
+
+            <div class="gap-3 rounded-xl shadow-sm p-1 mb-2" style="text-align: center;">
+                <h1 class="text-md font-bold text-gray-900" style="color: #042a4e; ">Hi, <?php echo $session->get('user_fullname'); ?>!</h1>
+            </div>
+            <div class="gap-3 rounded-xl shadow-sm p-1 mb-2" style="text-align: center; border: 1px solid #156194; background-color: #175375; ">
+                <h1 class="text-md font-bold text-gray-900" style="color: #d4d4d4; ">Parking Attendant</h1>
             </div>
 
 
@@ -234,16 +205,16 @@ $session = session();
                 <div class="grid grid-cols-3 gap-3">
                     <div class="bg-white rounded-xl p-3 text-center">
                         <div
-                            class="w-10 h-10 flex items-center justify-center bg-secondary bg-opacity-10 rounded-lg mx-auto mb-2">
-                            <i class="ri-car-line text-xl text-secondary"></i>
+                            class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mx-auto mb-2">
+                            <i class="ri-car-fill text-xl text-primary"></i>
                         </div>
                         <p class="text-2xl font-bold text-gray-900"><?= \App\Controllers\Dashboard::getParkedCarCount(); ?></p>
                         <p class="text-xs text-gray-600 mt-1">Currently Parked Car/s</p>
                     </div>
                     <div class="bg-white rounded-xl p-3 text-center">
                         <div
-                            class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mx-auto mb-2">
-                            <i class="ri-parking-line text-xl text-primary"></i>
+                            class="w-10 h-10 flex items-center justify-center bg-green-500 bg-opacity-10 rounded-lg mx-auto mb-2">
+                            <i class="ri-parking-fill text-xl text-green-600"></i>
                         </div>
                         <p class="text-2xl font-bold text-gray-900"><?= \App\Controllers\Dashboard::getAvailableFreeParkingCount(); ?></p>
                         <p class="text-xs text-gray-600 mt-1">Parking Slot Available (Free)</p>
@@ -251,7 +222,7 @@ $session = session();
                     <div class="bg-white rounded-xl p-3 text-center">
                         <div
                             class="w-10 h-10 flex items-center justify-center bg-orange-500 bg-opacity-10 rounded-lg mx-auto mb-2">
-                            <i class="ri-arrow-left-right-line text-xl text-orange-600"></i>
+                            <i class="ri-parking-fill text-xl text-orange-600"></i>
                         </div>
                         <p class="text-2xl font-bold text-gray-900"><?= \App\Controllers\Dashboard::getAvailablePaidParkingCount(); ?></p>
                         <p class="text-xs text-gray-600 mt-1">Parking Slot Available (Paid)</p>

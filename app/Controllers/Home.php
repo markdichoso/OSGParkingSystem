@@ -192,7 +192,7 @@ class Home extends BaseController
             return redirect()->to(base_url());
         }
 
-        if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === '127.0.0.1') {
+        if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === '127.0.0.1' || str_contains($_SERVER['SERVER_NAME'], '192')) {
             $host = LOC_HOST;
             $database = LOC_DB;
             $databaseUser = LOC_USER;
@@ -367,5 +367,22 @@ class Home extends BaseController
             'success' => true,
             'message' => 'Password updated successfully.',
         ]);
+    }
+
+    public function adminDashboard()
+    {
+        $session = session();
+        if (!$session->get('user_id')) {
+            return redirect()->to(base_url());
+        } else {
+            $clientProfile = Dashboard::getClientProfile($session->get('user_id'));
+            $userRole = $clientProfile['up_role'] ?? null;
+            if ($userRole !== '0') {
+                $session->setFlashdata('error', 'You do not have permission to access this page.');
+                return redirect()->to(base_url('main'));
+            } else {
+                return view('main/admin-dashboard');
+            }
+        }
     }
 }

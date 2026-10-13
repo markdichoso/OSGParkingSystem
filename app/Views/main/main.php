@@ -124,7 +124,7 @@ if ($session->get('user_role') === 0) {
         <header class="fixed top-0 w-full max-w-[1080px] bg-white z-50 shadow-sm">
             <div class="flex items-center justify-between px-5 py-4 h-16">
                 <div class="font-['Pacifico'] text-2xl text-primary">
-                    <img src="http://localhost/osgparkingsystem/public/img/logo/OSG CAR PARK.png" style="height: 60px;">
+                    <img src="<?= base_url('public/img/logo/OSG CAR PARK.png') ?>" style="height: 60px;">
                 </div>
 
 
@@ -232,7 +232,7 @@ if ($session->get('user_role') === 0) {
                     class="flex flex-wrap items-center gap-4 mb-4 pb-4 border-b border-gray-100">
                     <img
                         id="employee-photo"
-                        src="http://localhost/osgparkingsystem/public/img/photo/<?php echo $session->get('user_id'); ?>.jpg"
+                        src="<?= base_url('public/img/photo/' . $session->get('user_id') . '.jpg') ?>"
                         alt="Employee"
                         class="w-20 h-20 rounded-full object-cover ring-2 ring-primary ring-opacity-20" />
                     <div class="min-w-0 flex-1">
@@ -370,7 +370,7 @@ if ($session->get('user_role') === 0) {
                     <div class="flex flex-col items-center">
                         <div class="relative mb-4">
                             <img
-                                src="http://localhost/osgparkingsystem/public/img/photo/<?php echo $session->get('user_id'); ?>.jpg"
+                                src="<?= base_url('public/img/photo/' . $session->get('user_id') . '.jpg') ?>"
                                 alt="Profile"
                                 class="w-32 h-32 rounded-full object-cover ring-4 ring-primary ring-opacity-20" />
                             <div
@@ -647,10 +647,22 @@ if ($session->get('user_role') === 0) {
                                                             <span class="rounded px-2 py-1 text-xs font-medium <?= $isPaidHistory ? 'bg-orange-50 text-orange-700' : 'bg-green-50 text-green-700' ?>"><?= $isPaidHistory ? 'Paid' : 'Free' ?></span>
                                                         </div>
                                                         <dl class="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-gray-100 pt-3 text-sm sm:grid-cols-4">
-                                                            <div><dt class="text-xs text-gray-500">Check-in</dt><dd class="mt-1 font-medium text-gray-800"><?= esc($checkinTime) ?></dd></div>
-                                                            <div><dt class="text-xs text-gray-500">Check-out</dt><dd class="mt-1 font-medium text-gray-800"><?= esc($checkoutTime) ?></dd></div>
-                                                            <div><dt class="text-xs text-gray-500">Duration</dt><dd class="mt-1 font-medium text-gray-800"><?= esc($duration) ?></dd></div>
-                                                            <div><dt class="text-xs text-gray-500">Charge</dt><dd class="mt-1 font-medium text-gray-800">Php <?= esc(number_format((float) ($historyItem['pl_due'] ?? 0), 2)) ?></dd></div>
+                                                            <div>
+                                                                <dt class="text-xs text-gray-500">Check-in</dt>
+                                                                <dd class="mt-1 font-medium text-gray-800"><?= esc($checkinTime) ?></dd>
+                                                            </div>
+                                                            <div>
+                                                                <dt class="text-xs text-gray-500">Check-out</dt>
+                                                                <dd class="mt-1 font-medium text-gray-800"><?= esc($checkoutTime) ?></dd>
+                                                            </div>
+                                                            <div>
+                                                                <dt class="text-xs text-gray-500">Duration</dt>
+                                                                <dd class="mt-1 font-medium text-gray-800"><?= esc($duration) ?></dd>
+                                                            </div>
+                                                            <div>
+                                                                <dt class="text-xs text-gray-500">Charge</dt>
+                                                                <dd class="mt-1 font-medium text-gray-800">Php <?= esc(number_format((float) ($historyItem['pl_due'] ?? 0), 2)) ?></dd>
+                                                            </div>
                                                         </dl>
                                                     </article>
                                                 <?php endforeach; ?>
