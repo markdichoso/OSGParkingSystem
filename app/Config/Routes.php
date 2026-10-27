@@ -45,3 +45,5 @@ $routes->get('/password-reset', 'Home::passwordReset');
 $routes->post('/password-reset-submit', 'Home::passwordResetSubmit');
 
 $routes->get('/admin-dashboard', 'Home::adminDashboard');
+
+$routes->get('/parking-rate-update', 'Home::parkingRateUpdate');

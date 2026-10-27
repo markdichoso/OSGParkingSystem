@@ -597,4 +597,50 @@ class Dashboard extends BaseController
         $session->remove('parking_confirmation_id');
         return view('main/parking-entry-confirmed', $data);
     }
+
+
+
+    public function getCurrentparkingRates()
+    {
+        $db = \Config\Database::connect();
+
+        return $db->table('parkingrates_tbl')
+            ->orderBy('pr_update_date', 'DESC')
+            ->limit(1)
+            ->get()
+            ->getRow();
+    }
+
+    public function saveParkingRates()
+    {
+        $session = session();
+        if (!$session->get('user_id')) {
+            return redirect()->to(base_url());
+        }
+
+        $userRole = $session->get('user_role');
+        if ($userRole !== '0') {
+            $session->setFlashdata('error', 'You do not have permission to access this page.');
+            return redirect()->to(base_url('main'));
+        }
+
+        $newRate = (float) $this->request->getPost('new_rate');
+        if ($newRate <= 0) {
+            return $this->response->setStatusCode(422)->setJSON([
+                'success' => false,
+                'message' => 'Enter a valid parking rate.',
+            ]);
+        }
+
+        $db = \Config\Database::connect();
+        $db->table('parkingrates_tbl')->insert([
+            'pr_rate' => $newRate,
+            'pr_update_date' => date('Y-m-d H:i:s'),
+        ]);
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Parking rate updated successfully.',
+        ]);
+    }
 }

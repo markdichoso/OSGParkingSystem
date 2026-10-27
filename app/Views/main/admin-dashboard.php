@@ -188,27 +188,31 @@
     <div
         class="w-full max-w-[1080px] mx-auto bg-gray-50 min-h-screen relative pb-6">
 
+
+
+        <!-- HEADER - LOGO AND MENU -->
         <?php require __DIR__ . '/../template/header.php'; ?>
 
 
-        <main class="pt-20 px-5">
-            <div class="mb-6">
-                <h1 class="text-2xl font-bold text-gray-900 mb-1">
-                    Administrator Dashboard
-                </h1>
-                <p class="text-sm text-gray-600">
-                    Welcome back, manage your parking system
-                </p>
-            </div>
 
-            <div class="grid grid-cols-2 gap-4 mb-6">
+
+        <main class="pt-20 px-5">
+            <div class="gap-3 rounded-xl shadow-sm p-2 mb-2" style="text-align: center; border: 1px solid #8f723b;">
+                <h1 class="text-lg font-bold text-gray-900" style="color: #8f723b; ">Administrator Dashboard</h1>
+            </div>
+            <p class="text-sm text-gray-600" style="text-align: center; margin-bottom: 30px;">
+                Welcome back, manage your parking system
+            </p>
+
+
+            <!-- <div class="grid grid-cols-2 gap-4 mb-6">
                 <div
                     class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-5 text-white shadow-md">
                     <div
                         class="w-12 h-12 flex items-center justify-center bg-white bg-opacity-20 rounded-full mb-3">
                         <i class="ri-user-line text-2xl"></i>
                     </div>
-                    <p class="text-3xl font-bold mb-1">1,247</p>
+                    <p class="text-3xl font-bold mb-1">12</p>
                     <p class="text-sm text-blue-100">Total Users</p>
                 </div>
                 <div
@@ -227,7 +231,7 @@
                         <i class="ri-parking-line text-2xl"></i>
                     </div>
                     <p class="text-3xl font-bold mb-1">156</p>
-                    <p class="text-sm text-orange-100">Available Slots</p>
+                    <p class="text-sm text-orange-100">Users Acc</p>
                 </div>
                 <div
                     class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-5 text-white shadow-md">
@@ -238,52 +242,11 @@
                     <p class="text-3xl font-bold mb-1">$2,845</p>
                     <p class="text-sm text-purple-100">Revenue Today</p>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="mb-6">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">
-                    Quick Actions
-                </h2>
-                <div class="grid grid-cols-4 gap-3">
-                    <div
-                        class="bg-white rounded-xl p-4 shadow-sm text-center cursor-pointer"
-                        id="add-slot-btn">
-                        <div
-                            class="w-12 h-12 flex items-center justify-center bg-blue-50 rounded-lg mx-auto mb-2">
-                            <i class="ri-add-circle-line text-2xl text-primary"></i>
-                        </div>
-                        <p class="text-xs text-gray-700 font-medium">Add Slot</p>
-                    </div>
-                    <div
-                        class="bg-white rounded-xl p-4 shadow-sm text-center cursor-pointer"
-                        id="reserve-slot-btn">
-                        <div
-                            class="w-12 h-12 flex items-center justify-center bg-purple-50 rounded-lg mx-auto mb-2">
-                            <i class="ri-bookmark-line text-2xl text-purple-600"></i>
-                        </div>
-                        <p class="text-xs text-gray-700 font-medium">Reserve</p>
-                    </div>
-                    <div
-                        class="bg-white rounded-xl p-4 shadow-sm text-center cursor-pointer"
-                        id="pricing-btn">
-                        <div
-                            class="w-12 h-12 flex items-center justify-center bg-orange-50 rounded-lg mx-auto mb-2">
-                            <i class="ri-price-tag-3-line text-2xl text-orange-600"></i>
-                        </div>
-                        <p class="text-xs text-gray-700 font-medium">Pricing</p>
-                    </div>
-                    <div
-                        class="bg-white rounded-xl p-4 shadow-sm text-center cursor-pointer"
-                        id="reports-btn">
-                        <div
-                            class="w-12 h-12 flex items-center justify-center bg-green-50 rounded-lg mx-auto mb-2">
-                            <i class="ri-file-chart-line text-2xl text-secondary"></i>
-                        </div>
-                        <p class="text-xs text-gray-700 font-medium">Reports</p>
-                    </div>
-                </div>
-            </div>
 
+
+            <!-- PARKING OVERVIEW -->
             <div class="bg-white rounded-2xl shadow-md p-5 mb-6">
                 <h3 class="text-base font-semibold text-gray-900 mb-4">
                     Parking Availability Overview
@@ -328,7 +291,159 @@
                 </div>
             </div>
 
+
+
+
+            <!-- QUICK ACTIONS -->
+            <div class="mb-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">
+                    Quick Actions
+                </h2>
+                <div class="grid grid-cols-4 gap-3">
+                    <div
+                        class="bg-white rounded-xl p-4 shadow-sm text-center cursor-pointer"
+                        id="add-slot-btn">
+                        <div
+                            class="w-12 h-12 flex items-center justify-center bg-blue-50 rounded-lg mx-auto mb-2">
+                            <i class="ri-parking-fill text-2xl text-primary"></i>
+                        </div>
+                        <p class="text-xs text-gray-700 font-medium">Parking Slots</p>
+                    </div>
+                    <button
+                        class="bg-white rounded-xl p-4 shadow-sm text-center cursor-pointer"
+                        id="pricing-btn" onclick="window.location.href='<?= base_url('/parking-rate-update'); ?>'">
+                        <div
+                            class="w-12 h-12 flex items-center justify-center bg-orange-50 rounded-lg mx-auto mb-2">
+                            <i class="ri-price-tag-3-line text-2xl text-orange-600"></i>
+                        </div>
+                        <p class="text-xs text-gray-700 font-medium">Parking Rates</p>
+                    </button>
+                    <div
+                        class="bg-white rounded-xl p-4 shadow-sm text-center cursor-pointer"
+                        id="reserve-slot-btn">
+                        <div
+                            class="w-12 h-12 flex items-center justify-center bg-purple-50 rounded-lg mx-auto mb-2">
+                            <i class="ri-account-circle-fill text-2xl text-purple-600"></i>
+                        </div>
+                        <p class="text-xs text-gray-700 font-medium">User Mg't</p>
+                    </div>
+                    <div
+                        class="bg-white rounded-xl p-4 shadow-sm text-center cursor-pointer"
+                        id="reports-btn">
+                        <div
+                            class="w-12 h-12 flex items-center justify-center bg-green-50 rounded-lg mx-auto mb-2">
+                            <i class="ri-file-chart-line text-2xl text-secondary"></i>
+                        </div>
+                        <p class="text-xs text-gray-700 font-medium">System Reports</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
             <div class="bg-white rounded-2xl shadow-md p-5 mb-6">
+                <h3 class="text-base font-semibold text-gray-900 mb-4">
+                    Recent Activity Feed
+                </h3>
+                <div class="space-y-3 max-h-80 overflow-y-auto">
+                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
+                        <div
+                            class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-lg flex-shrink-0">
+                            <i class="ri-user-add-line text-base text-primary"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-900 font-medium">
+                                New user registered
+                            </p>
+                            <p class="text-xs text-gray-600">
+                                Jennifer Williams joined the system
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">5 minutes ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
+                        <div
+                            class="w-8 h-8 flex items-center justify-center bg-green-50 rounded-lg flex-shrink-0">
+                            <i class="ri-parking-line text-base text-secondary"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-900 font-medium">
+                                Parking session started
+                            </p>
+                            <p class="text-xs text-gray-600">
+                                Robert Taylor checked in at Slot C-15
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">12 minutes ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
+                        <div
+                            class="w-8 h-8 flex items-center justify-center bg-orange-50 rounded-lg flex-shrink-0">
+                            <i class="ri-price-tag-3-line text-base text-orange-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-900 font-medium">Pricing updated</p>
+                            <p class="text-xs text-gray-600">
+                                Admin changed hourly rate to $2.50
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">1 hour ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
+                        <div
+                            class="w-8 h-8 flex items-center justify-center bg-purple-50 rounded-lg flex-shrink-0">
+                            <i class="ri-bookmark-line text-base text-purple-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-900 font-medium">Slot reserved</p>
+                            <p class="text-xs text-gray-600">
+                                Slot A-10 reserved for maintenance
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">2 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
+                        <div
+                            class="w-8 h-8 flex items-center justify-center bg-red-50 rounded-lg flex-shrink-0">
+                            <i class="ri-logout-box-r-line text-base text-red-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-900 font-medium">
+                                Parking session ended
+                            </p>
+                            <p class="text-xs text-gray-600">
+                                Lisa Anderson checked out from Slot B-22
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">3 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 pb-3">
+                        <div
+                            class="w-8 h-8 flex items-center justify-center bg-green-50 rounded-lg flex-shrink-0">
+                            <i class="ri-database-2-line text-base text-secondary"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-900 font-medium">
+                                System backup completed
+                            </p>
+                            <p class="text-xs text-gray-600">
+                                Daily backup successfully created
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">5 hours ago</p>
+                        </div>
+                    </div>
+                </div>
+                <button
+                    class="w-full mt-4 text-sm text-primary font-medium cursor-pointer">
+                    Load More
+                </button>
+            </div>
+
+
+            <!-- PARKING MANAGEMENT -->
+            <!-- <div class="bg-white rounded-2xl shadow-md p-5 mb-6">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-base font-semibold text-gray-900">
                         Manage Parking Slots
@@ -446,9 +561,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="bg-white rounded-2xl shadow-md p-5 mb-6">
+
+            <!-- PARKING PRICING SETTINGS -->
+            <!-- <div class="bg-white rounded-2xl shadow-md p-5 mb-6">
                 <h3 class="text-base font-semibold text-gray-900 mb-4">
                     Parking Pricing Settings
                 </h3>
@@ -506,9 +623,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="bg-white rounded-2xl shadow-md p-5 mb-6">
+            <!-- <div class="bg-white rounded-2xl shadow-md p-5 mb-6">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-base font-semibold text-gray-900">
                         User Management
@@ -603,9 +720,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="bg-white rounded-2xl shadow-md p-5 mb-6">
+            <!-- <div class="bg-white rounded-2xl shadow-md p-5 mb-6">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-base font-semibold text-gray-900">
                         Real-time Monitoring
@@ -650,9 +767,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="bg-white rounded-2xl shadow-md p-5 mb-6">
+            <!-- <div class="bg-white rounded-2xl shadow-md p-5 mb-6">
                 <h3 class="text-base font-semibold text-gray-900 mb-4">
                     Analytics Summary
                 </h3>
@@ -688,9 +805,9 @@
                         <p class="text-xs text-gray-600 mt-1">Peak Time</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="bg-white rounded-2xl shadow-md p-5 mb-6">
+            <!-- <div class="bg-white rounded-2xl shadow-md p-5 mb-6">
                 <h3 class="text-base font-semibold text-gray-900 mb-4">
                     Revenue Reports
                 </h3>
@@ -721,107 +838,9 @@
                     <i class="ri-download-line text-lg"></i>
                     <span>Export Report</span>
                 </button>
-            </div>
+            </div> -->
 
-            <div class="bg-white rounded-2xl shadow-md p-5 mb-6">
-                <h3 class="text-base font-semibold text-gray-900 mb-4">
-                    Recent Activity Feed
-                </h3>
-                <div class="space-y-3 max-h-80 overflow-y-auto">
-                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
-                        <div
-                            class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-lg flex-shrink-0">
-                            <i class="ri-user-add-line text-base text-primary"></i>
-                        </div>
-                        <div class="flex-1">
-                            <p class="text-sm text-gray-900 font-medium">
-                                New user registered
-                            </p>
-                            <p class="text-xs text-gray-600">
-                                Jennifer Williams joined the system
-                            </p>
-                            <p class="text-xs text-gray-500 mt-1">5 minutes ago</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
-                        <div
-                            class="w-8 h-8 flex items-center justify-center bg-green-50 rounded-lg flex-shrink-0">
-                            <i class="ri-parking-line text-base text-secondary"></i>
-                        </div>
-                        <div class="flex-1">
-                            <p class="text-sm text-gray-900 font-medium">
-                                Parking session started
-                            </p>
-                            <p class="text-xs text-gray-600">
-                                Robert Taylor checked in at Slot C-15
-                            </p>
-                            <p class="text-xs text-gray-500 mt-1">12 minutes ago</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
-                        <div
-                            class="w-8 h-8 flex items-center justify-center bg-orange-50 rounded-lg flex-shrink-0">
-                            <i class="ri-price-tag-3-line text-base text-orange-600"></i>
-                        </div>
-                        <div class="flex-1">
-                            <p class="text-sm text-gray-900 font-medium">Pricing updated</p>
-                            <p class="text-xs text-gray-600">
-                                Admin changed hourly rate to $2.50
-                            </p>
-                            <p class="text-xs text-gray-500 mt-1">1 hour ago</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
-                        <div
-                            class="w-8 h-8 flex items-center justify-center bg-purple-50 rounded-lg flex-shrink-0">
-                            <i class="ri-bookmark-line text-base text-purple-600"></i>
-                        </div>
-                        <div class="flex-1">
-                            <p class="text-sm text-gray-900 font-medium">Slot reserved</p>
-                            <p class="text-xs text-gray-600">
-                                Slot A-10 reserved for maintenance
-                            </p>
-                            <p class="text-xs text-gray-500 mt-1">2 hours ago</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
-                        <div
-                            class="w-8 h-8 flex items-center justify-center bg-red-50 rounded-lg flex-shrink-0">
-                            <i class="ri-logout-box-r-line text-base text-red-600"></i>
-                        </div>
-                        <div class="flex-1">
-                            <p class="text-sm text-gray-900 font-medium">
-                                Parking session ended
-                            </p>
-                            <p class="text-xs text-gray-600">
-                                Lisa Anderson checked out from Slot B-22
-                            </p>
-                            <p class="text-xs text-gray-500 mt-1">3 hours ago</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3 pb-3">
-                        <div
-                            class="w-8 h-8 flex items-center justify-center bg-green-50 rounded-lg flex-shrink-0">
-                            <i class="ri-database-2-line text-base text-secondary"></i>
-                        </div>
-                        <div class="flex-1">
-                            <p class="text-sm text-gray-900 font-medium">
-                                System backup completed
-                            </p>
-                            <p class="text-xs text-gray-600">
-                                Daily backup successfully created
-                            </p>
-                            <p class="text-xs text-gray-500 mt-1">5 hours ago</p>
-                        </div>
-                    </div>
-                </div>
-                <button
-                    class="w-full mt-4 text-sm text-primary font-medium cursor-pointer">
-                    Load More
-                </button>
-            </div>
-
-            <div class="grid grid-cols-3 gap-3 mb-6">
+            <!-- <div class="grid grid-cols-3 gap-3 mb-6">
                 <button
                     class="bg-white rounded-xl p-4 shadow-sm text-center cursor-pointer">
                     <div
@@ -846,7 +865,7 @@
                     </div>
                     <p class="text-xs text-gray-700 font-medium">Send Notifications</p>
                 </button>
-            </div>
+            </div> -->
         </main>
     </div>
 

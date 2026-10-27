@@ -500,7 +500,7 @@ if ($session->get('user_role') === 0) {
                                     <span class="text-lg font-medium">| Php <?= esc(number_format((float) ($paidParkingStats['amount'] ?? 0), 2)) ?></span>
                                 </p>
                                 <p class="text-xs text-blue-100 mt-1">
-                                    <?= esc((string) ($paidParkingStats['sessions'] ?? 0)) ?> paid parking sessions
+                                    <?= esc((string) ($paidParkingStats['sessions'] ?? 0)) ?> pay parking sessions
                                 </p>
                             </div>
                             <div

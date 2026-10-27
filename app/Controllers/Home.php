@@ -385,4 +385,24 @@ class Home extends BaseController
             }
         }
     }
+
+    public static function parkingRateUpdate()
+    {
+        $session = session();
+        if (!$session->get('user_id')) {
+            return redirect()->to(base_url());
+        } else {
+            $clientProfile = Dashboard::getClientProfile($session->get('user_id'));
+            $userRole = $clientProfile['up_role'] ?? null;
+            $dashboard = new Dashboard();
+            $parkingRates = $dashboard->getCurrentparkingRates();
+            $data['parkingRates'] = $parkingRates;
+            if ($userRole !== '0') {
+                $session->setFlashdata('error', 'You do not have permission to access this page.');
+                return redirect()->to(base_url('main'));
+            } else {
+                return view('main/parking-rates', $data);
+            }
+        }
+    }
 }
